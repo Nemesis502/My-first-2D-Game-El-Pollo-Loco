@@ -1,0 +1,11 @@
+/* Standard CSS was immer dabei ist */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+.hidden{
+  display: none;
+}
