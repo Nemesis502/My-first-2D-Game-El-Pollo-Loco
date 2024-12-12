@@ -1,11 +1,12 @@
-class MovableObject{
-    position_x;
-    position_y;
-    img;
+class MovableObject {
+  position_x = 120;
+  position_y = 400;
+  img;
 
-    constructor(){}
-    
-    moveRight(){
-        console.log("test");
-    }
+
+  moveRight() {
+  }
+
+  moveLeft() {
+  }
 }
