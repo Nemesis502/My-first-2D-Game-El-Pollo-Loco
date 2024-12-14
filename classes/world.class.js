@@ -1,6 +1,9 @@
 class World {
   character = new Character();
   enemies = [new Chicken(), new Chicken(), new Chicken()];
+  clouds = [new Cloud()];
+  // background = [new Background()];
+  background = new Background();
   canvas;
   ctx;
 
@@ -12,6 +15,7 @@ class World {
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.drawImage(this.background.img, 0, 0, this.canvas.width,this.canvas.height);
     this.ctx.drawImage(
       this.character.img,
       this.character.position_x,
@@ -28,6 +32,16 @@ class World {
         enemy.height
       );
     });
+    this.clouds.forEach((cloud) => {
+      this.ctx.drawImage(
+        cloud.img,
+        cloud.position_x,
+        cloud.position_y,
+        cloud.width,
+        cloud.height
+      );
+    });
+  
 
     let self = this;
     requestAnimationFrame(function () {
