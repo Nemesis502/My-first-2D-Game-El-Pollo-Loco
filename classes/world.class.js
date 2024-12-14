@@ -3,7 +3,8 @@ class World {
   enemies = [new Chicken(), new Chicken(), new Chicken()];
   clouds = [new Cloud()];
   background = [
-    new BackgroundObject("../adds/img/5_background/layers/1_first_layer/1.png", 0, 20),
+    new BackgroundObject("../adds/img/5_background/layers/1_first_layer/1.png", 0),
+    new BackgroundObject("../adds/img/5_background/layers/1_first_layer/2.png", 0),
   ];
   canvas;
   ctx;
@@ -17,18 +18,10 @@ class World {
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    this.addToMap(this.character);
     this.addObjectsToMap(this.background);
+    this.addToMap(this.character);
     this.addObjectsToMap(this.enemies);
     this.addObjectsToMap(this.clouds);
-
-    // this.enemies.forEach((enemy) => {
-    //   this.addToMap(enemy);
-    // });
-
-    // this.clouds.forEach((cloud) => {
-    //   this.addToMap(cloud);
-    // });
 
     let self = this;
     requestAnimationFrame(function () {
