@@ -7,22 +7,68 @@ function init() {
   world = new World(canvas);
 }
 
-window.addEventListener("keypress", (event) => {
-  console.log(event.key);
-  if ((event.key = "w")) {
-    up = true;
-    console.log(up);
-  } else if ((event.key = "a")) {
-    left = true;
-    console.log(left);
-  } else if ((event.key = "s")) {
-    down = true;
-    console.log(down);
-  } else if ((event.key = "d")) {
-    right = true;
-    console.log(right);
-  } else if ((event.key = " ")) {
-    space = true;
-    console.log(space);
+window.addEventListener("keydown", (event) => {
+  switch (event.keyCode) {
+    case 87:
+    case 38:
+      up = true;
+      console.log("Up:", up);
+      break;
+
+    case 65:
+    case 37:
+      left = true;
+      console.log("Left:", left);
+      break;
+
+    case 83:
+    case 40:
+      down = true;
+      console.log("Down:", down);
+      break;
+
+    case 68:
+    case 39:
+      right = true;
+      console.log("Right:", right);
+      break;
+
+    case 32:
+      space = true;
+      console.log("Space:", space);
+      break;
+  }
+});
+
+window.addEventListener("keyup", (event) => {
+  switch (event.keyCode) {
+    case 87:
+    case 38:
+      up = false;
+      console.log("Up:", up);
+      break;
+
+    case 65:
+    case 37:
+      left = false;
+      console.log("Left:", left);
+      break;
+
+    case 83:
+    case 40:
+      down = false;
+      console.log("Down:", down);
+      break;
+
+    case 68:
+    case 39:
+      right = false;
+      console.log("Right:", right);
+      break;
+
+    case 32:
+      space = false;
+      console.log("Space:", space);
+      break;
   }
 });
