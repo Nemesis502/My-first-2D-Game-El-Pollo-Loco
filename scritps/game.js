@@ -4,51 +4,41 @@ let keyboard = new Keyboard();
 
 function init() {
   canvas = document.getElementById("canvas");
-  world = new World(canvas);
+  world = new World(canvas, keyboard);
 }
 
 window.addEventListener("keydown", (event) => {
   if (event.keyCode === 87 || event.keyCode === 38) {
-    up = true;
-    console.log("Up:", up);
+    keyboard.UP = true;
   }
   if (event.keyCode === 65 || event.keyCode === 37) {
-    left = true;
-    console.log("Left:", left);
+    keyboard.LEFT = true;
   }
   if (event.keyCode === 83 || event.keyCode === 40) {
-    down = true;
-    console.log("Down:", down);
+    keyboard.DOWN = true;
   }
   if (event.keyCode === 68 || event.keyCode === 39) {
-    right = true;
-    console.log("Right:", right);
+    keyboard.RIGHT = true;
   }
   if (event.keyCode === 32) {
-    space = true;
-    console.log("Space:", space);
+    keyboard.SPACE = true;
   }
 });
 
 window.addEventListener("keyup", (event) => {
   if (event.keyCode === 87 || event.keyCode === 38) {
-    up = false;
-    console.log("Up:", up);
+    keyboard.UP = false;
   }
   if (event.keyCode === 65 || event.keyCode === 37) {
-    left = false;
-    console.log("Left:", left);
+    keyboard.LEFT = false;
   }
   if (event.keyCode === 83 || event.keyCode === 40) {
-    down = false;
-    console.log("Down:", down);
+    keyboard.DOWN = false;
   }
   if (event.keyCode === 68 || event.keyCode === 39) {
-    right = false;
-    console.log("Right:", right);
+    keyboard.RIGHT = false;
   }
   if (event.keyCode === 32) {
-    space = false;
-    console.log("Space:", space);
+    keyboard.SPACE = false;
   }
 });

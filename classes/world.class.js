@@ -4,17 +4,33 @@ class World {
   clouds = [new Cloud()];
   background = [
     new BackgroundObject("../adds/img/5_background/layers/air.png", 0),
-    new BackgroundObject("../adds/img/5_background/layers/3_third_layer/1.png", 0),
-    new BackgroundObject("../adds/img/5_background/layers/2_second_layer/1.png", 0),
-    new BackgroundObject("../adds/img/5_background/layers/1_first_layer/1.png", 0)
+    new BackgroundObject(
+      "../adds/img/5_background/layers/3_third_layer/1.png",
+      0
+    ),
+    new BackgroundObject(
+      "../adds/img/5_background/layers/2_second_layer/1.png",
+      0
+    ),
+    new BackgroundObject(
+      "../adds/img/5_background/layers/1_first_layer/1.png",
+      0
+    ),
   ];
   canvas;
   ctx;
+  keyboard;
 
-  constructor(canvas) {
+  constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
+    this.keyboard = keyboard;
     this.draw();
+    this.setWorld();
+  }
+
+  setWorld() {
+    this.character.world = this;
   }
 
   draw() {
@@ -32,12 +48,18 @@ class World {
   }
 
   addObjectsToMap(object) {
-    object.forEach(o => {
+    object.forEach((o) => {
       this.addToMap(o);
     });
   }
 
   addToMap(mo) {
+    if (mo.otherDirection) {
+      this.ctx.save();
+      this.ctx.translate(mo.width, 0);
+      this.ctx.scale(-1, 1);
+      mo.position_x = mo.position_x * -1;
+    }
     this.ctx.drawImage(
       mo.img,
       mo.position_x,
@@ -45,5 +67,9 @@ class World {
       mo.width,
       mo.height
     );
+    if (mo.otherDirection) {
+      mo.position_x = mo.position_x * -1;
+      this.ctx.restore();
+    }
   }
 }
