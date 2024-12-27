@@ -11,10 +11,4 @@ class Salsa extends MovableObject {
 
     this.position_x = 200 + Math.random() * 1500;
   }
-
-  animate() {
-    setInterval(() => {
-      this.playAnimation(this.imagesSalsa);
-    }, 1000 / 12);
-  }
 }

@@ -24,9 +24,10 @@ class World {
     this.ctx.translate(this.camara_x, 0);
 
     this.addObjectsToMap(this.level.background);
-    this.addToMap(this.character);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.salsa);
+    this.addObjectsToMap(this.level.coins);
+    this.addToMap(this.character);
     this.addObjectsToMap(this.level.clouds);
 
     this.ctx.translate(-this.camara_x, 0);
