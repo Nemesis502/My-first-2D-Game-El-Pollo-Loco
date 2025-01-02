@@ -41,13 +41,20 @@ class MovableObject {
 
   isColliding(obj) {
     return (
-      this.position_x + this.width >= obj.position_x &&
-      this.position_x <= obj.position_x + obj.width &&
-      this.position_y + this.offsetY + this.height >= obj.position_y &&
-      this.position_y + this.offsetY <= obj.position_y + obj.height &&
-      obj.onCollisionCourse
-    ); // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+      this.position_x + this.width > obj.position_x &&
+      this.position_y + this.height > obj.position_y &&
+      this.position_x < obj.position_x &&
+      this.position_y < obj.position_y + obj.height
+    );
   }
+
+  // isColliding (obj) {
+  //   return  (this.X + this.width) >= obj.X && this.X <= (obj.X + obj.width) &&
+  //           (this.Y + this.offsetY + this.height) >= obj.Y &&
+  //           (this.Y + this.offsetY) <= (obj.Y + obj.height) &&
+  //           obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+
+  // }
 
   drwaFrame(ctx) {
     ctx.beginPath();

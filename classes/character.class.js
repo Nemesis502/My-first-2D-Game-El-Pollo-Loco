@@ -43,6 +43,13 @@ class Character extends MovableObject {
     "../adds/img/2_character_pepe/3_jump/J-38.png",
     "../adds/img/2_character_pepe/3_jump/J-39.png",
   ];
+
+  offset = {
+    top: 120,
+    bottom: 30,
+    left: 40,
+    right: 30
+  }
   walking_sound = new Audio("audio/walking_sound.mp3");
   waiting_sound = new Audio("audio/waiting_sound.mp3");
   jump_sound = new Audio("audio/jumping_sound.mp3");

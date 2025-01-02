@@ -26,7 +26,7 @@ class World {
           console.log('Collison detectet with', enemy);
         }
       })
-    }, 1000);
+    }, 100);
   }
 
   draw() {
