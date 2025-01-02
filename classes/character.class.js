@@ -44,7 +44,10 @@ class Character extends MovableObject {
     "../adds/img/2_character_pepe/3_jump/J-39.png",
   ];
   walking_sound = new Audio("audio/walking_sound.mp3");
-  wating_sound = new Audio("audio/waiting_sound.mp3");
+  waiting_sound = new Audio("audio/waiting_sound.mp3");
+  jump_sound = new Audio("audio/jumping_sound.mp3");
+  background_sound = new Audio("audio/background_music_party.mp3");
+
 
   constructor() {
     super().loadImage(this.images_Idle[0]);
@@ -57,6 +60,8 @@ class Character extends MovableObject {
 
   animate() {
     setInterval(() => {
+      this.background_sound.volume = 0.5;
+      // this.background_sound.play(); später wieder aktivieren
       this.walking_sound.volume = 1.0;
       if (this.world.keyboard.RIGHT && this.position_x < this.world.level.level_end_x) {
         this.walking_sound.play();
@@ -66,6 +71,9 @@ class Character extends MovableObject {
         this.walking_sound.play();
         this.otherDirection = true;
         this.moveLeft();  
+      }
+      if(!this.world.keyboard.LEFT && !this.world.keyboard.RIGHT){
+        this.walking_sound.pause();
       }
 
       if (this.world.keyboard.UP || this.world.keyboard.SPACE && !this.isAboveGround()) {
@@ -78,11 +86,13 @@ class Character extends MovableObject {
       this.playAnimation(this.images_Idle);
       if (this.isAboveGround()) {
         this.playAnimation(this.imagesJumping);
+        this.walking_sound.pause();
+        this.jump_sound.play()
       } else {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
           this.playAnimation(this.imagesWalking);
         }
       }
-    }, 250);
+    }, 200);
   }
 }

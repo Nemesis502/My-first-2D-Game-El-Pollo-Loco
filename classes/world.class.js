@@ -4,7 +4,7 @@ class World {
   canvas;
   ctx;
   keyboard;
-  camara_x = 0
+  camara_x = 0;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -12,10 +12,21 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
+    this.checkCollision();
   }
 
   setWorld() {
     this.character.world = this;
+  }
+
+  checkCollision(){
+    setInterval(() => {
+      this.level.enemies.forEach((enemy) =>{
+        if (this.character.isColliding(enemy)) {
+          console.log('Collison detectet with', enemy);
+        }
+      })
+    }, 1000);
   }
 
   draw() {
@@ -46,21 +57,27 @@ class World {
 
   addToMap(mo) {
     if (mo.otherDirection) {
-      this.ctx.save();
-      this.ctx.translate(mo.width, 0);
-      this.ctx.scale(-1, 1);
-      mo.position_x = mo.position_x * -1;
+      this.spinImage(mo);
     }
-    this.ctx.drawImage(
-      mo.img,
-      mo.position_x,
-      mo.position_y,
-      mo.width,
-      mo.height
-    );
+
+    mo.draw(this.ctx);
+    mo.drwaFrame(this.ctx);
+
+    this.ctx.stroke();
     if (mo.otherDirection) {
-      mo.position_x = mo.position_x * -1;
-      this.ctx.restore();
+      this.flipImageBack(mo);
     }
+  }
+
+  spinImage(mo) {
+    this.ctx.save();
+    this.ctx.translate(mo.width, 0);
+    this.ctx.scale(-1, 1);
+    mo.position_x = mo.position_x * -1;
+  }
+
+  flipImageBack(mo){
+    mo.position_x = mo.position_x * -1;
+    this.ctx.restore();
   }
 }
