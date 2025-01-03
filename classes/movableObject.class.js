@@ -10,6 +10,7 @@ class MovableObject {
   speedY = 0;
   curentJump = false;
   acceleration = 2.0;
+  energy = 100;
 
   applyGravity() {
     setInterval(() => {
@@ -39,28 +40,41 @@ class MovableObject {
     );
   }
 
-  isColliding(obj) {
+  isColliding(mo) {
     return (
-      this.position_x + this.width > obj.position_x &&
-      this.position_y + this.height > obj.position_y &&
-      this.position_x < obj.position_x &&
-      this.position_y < obj.position_y + obj.height
+      this.position_x + this.width > mo.position_x &&
+      this.position_y + this.height > mo.position_y &&
+      this.position_x < mo.position_x &&
+      this.position_y < mo.position_y + mo.height
     );
   }
 
-  // isColliding (obj) {
-  //   return  (this.X + this.width) >= obj.X && this.X <= (obj.X + obj.width) &&
-  //           (this.Y + this.offsetY + this.height) >= obj.Y &&
-  //           (this.Y + this.offsetY) <= (obj.Y + obj.height) &&
-  //           obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+  //  isColliding (obj) {
+  //    return  (this.X + this.width) >= obj.X && this.X <= (obj.X + obj.width) &&
+  //            (this.Y + this.offsetY + this.height) >= obj.Y &&
+  //            (this.Y + this.offsetY) <= (obj.Y + obj.height) &&
+  //            obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
 
-  // }
+  //  }
+
+  hit() {
+    this.energy -= 1;
+    if (this.energy < 0) {
+      this.energy = 0;
+    }
+  }
+
+  isDead(){
+    return this.energy == 0;
+  }
 
   drwaFrame(ctx) {
-    ctx.beginPath();
-    ctx.lineWidth = "5";
-    ctx.strokeStyle = "blue";
-    ctx.rect(this.position_x, this.position_y, this.width, this.height);
+    if (this instanceof Character || this instanceof Chicken) {
+      ctx.beginPath();
+      ctx.lineWidth = "5";
+      ctx.strokeStyle = "blue";
+      ctx.rect(this.position_x, this.position_y, this.width, this.height);
+    }
   }
 
   loadImages(arr) {
