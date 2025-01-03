@@ -1,5 +1,11 @@
 const level1 = new Level(
   [
+    new Statusbar_Health(),
+  ],
+  [
+    new Statusbar_Coins(),
+  ],
+  [
     new Chicken(), 
     new Chicken(),
     new Chicken(),

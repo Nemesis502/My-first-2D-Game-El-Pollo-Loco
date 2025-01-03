@@ -24,7 +24,7 @@ class Character extends MovableObject {
     "../adds/img/2_character_pepe/1_idle/idle/I-19.png",
     "../adds/img/2_character_pepe/1_idle/idle/I-20.png",
   ];
-  imagesWalking = [
+  images_Walking = [
     "../adds/img/2_character_pepe/2_walk/W-26.png",
     "../adds/img/2_character_pepe/2_walk/W-22.png",
     "../adds/img/2_character_pepe/2_walk/W-23.png",
@@ -32,7 +32,7 @@ class Character extends MovableObject {
     "../adds/img/2_character_pepe/2_walk/W-25.png",
     "../adds/img/2_character_pepe/2_walk/W-26.png",
   ];
-  imagesJumping = [
+  images_Jumping = [
     "../adds/img/2_character_pepe/3_jump/J-31.png",
     "../adds/img/2_character_pepe/3_jump/J-32.png",
     "../adds/img/2_character_pepe/3_jump/J-33.png",
@@ -43,12 +43,12 @@ class Character extends MovableObject {
     "../adds/img/2_character_pepe/3_jump/J-38.png",
     "../adds/img/2_character_pepe/3_jump/J-39.png",
   ];
-  imagesHurt = [
+  images_Hurt = [
     "adds/img/2_character_pepe/4_hurt/H-41.png",
     "adds/img/2_character_pepe/4_hurt/H-42.png",
     "adds/img/2_character_pepe/4_hurt/H-43.png",
   ];
-  imagesDead = [
+  images_Dead = [
     "adds/img/2_character_pepe/5_dead/D-51.png",
     "adds/img/2_character_pepe/5_dead/D-52.png",
     "adds/img/2_character_pepe/5_dead/D-53.png",
@@ -71,11 +71,11 @@ class Character extends MovableObject {
 
   constructor() {
     super().loadImage(this.images_Idle[0]);
-    this.loadImages(this.imagesWalking);
-    this.loadImages(this.imagesJumping);
+    this.loadImages(this.images_Walking);
+    this.loadImages(this.images_Jumping);
     this.loadImages(this.images_Idle);
-    this.loadImages(this.imagesHurt);
-    this.loadImages(this.imagesDead);
+    this.loadImages(this.images_Hurt);
+    this.loadImages(this.images_Dead);
     this.applyGravity();
     this.animate();
   }
@@ -112,21 +112,19 @@ class Character extends MovableObject {
 
     setInterval(() => {
       this.playAnimation(this.images_Idle);
-      console.log(this.energy)
-       if (this.world.checkCollision()) {
-         this.playAnimation(this.imagesHurt);
-         console.log("Test hit");
-       }
+      // console.log(this.energy);
 
       if (this.isDead()) {
-        this.playAnimation(this.imagesDead);
+        this.playAnimation(this.images_Dead);
+      } else if (this.isHurt()) {
+        this.playAnimation(this.images_Hurt);
       } else if (this.isAboveGround()) {
-        this.playAnimation(this.imagesJumping);
+        this.playAnimation(this.images_Jumping);
         this.walking_sound.pause();
         this.jump_sound.play();
       } else {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-          this.playAnimation(this.imagesWalking);
+          this.playAnimation(this.images_Walking);
         }
       }
     }, 200);

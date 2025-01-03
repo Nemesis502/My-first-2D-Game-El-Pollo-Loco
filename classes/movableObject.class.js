@@ -11,6 +11,7 @@ class MovableObject {
   curentJump = false;
   acceleration = 2.0;
   energy = 100;
+  lastHit = 0;
 
   applyGravity() {
     setInterval(() => {
@@ -61,7 +62,15 @@ class MovableObject {
     this.energy -= 1;
     if (this.energy < 0) {
       this.energy = 0;
+    } else {
+      this.lastHit = new Date().getTime();
     }
+  }
+
+  isHurt(){
+    let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
+    timepassed = timepassed / 1000; // Difference in s
+    return timepassed < 1;
   }
 
   isDead(){
