@@ -1,5 +1,9 @@
 class World {
   character = new Character();
+  statusBarHealth = new StatusbarHealth();
+  statusBarBottle = new StatusbarBottle();
+  statusbarEndBoss = new StatusbarEndBoss();
+  statusbarCoins = new StatusbarCoins();
   level = level1;
   canvas;
   ctx;
@@ -24,6 +28,7 @@ class World {
       this.level.enemies.forEach((enemy) =>{
         if (this.character.isColliding(enemy)) {
           this.character.hit();
+          this.statusBarHealth.setPercentage(this.character.energy);
           // console.log('Collison detectet with', enemy, 'lost Energy and current =', this.character.energy);
         }
       })
@@ -34,15 +39,23 @@ class World {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.ctx.translate(this.camara_x, 0);
-
     this.addObjectsToMap(this.level.background);
-    this.addObjectsToMap(this.level.statusbar_health);
-    this.addObjectsToMap(this.level.statusbar_coins);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.salsa);
     this.addObjectsToMap(this.level.coins);
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.clouds);
+
+
+    // ------- Space for fixed obkects -------
+    this.ctx.translate(-this.camara_x, 0);
+    this.addToMap(this.statusBarHealth);
+    this.addToMap(this.statusBarBottle);
+    this.addToMap(this.statusbarEndBoss);
+    this.addToMap(this.statusbarCoins);
+    this.ctx.translate(this.camara_x, 0);
+
+   
 
     this.ctx.translate(-this.camara_x, 0);
 
@@ -66,7 +79,6 @@ class World {
     mo.draw(this.ctx);
     mo.drwaFrame(this.ctx);
 
-    this.ctx.stroke();
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
