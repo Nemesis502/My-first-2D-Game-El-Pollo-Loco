@@ -9,6 +9,9 @@ class World {
   ctx;
   keyboard;
   camara_x = 0;
+  isGameOver = false;
+  animationId = null;
+  
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -29,11 +32,27 @@ class World {
         if (this.character.isColliding(enemy)) {
           this.character.hit();
           this.statusBarHealth.setPercentage(this.character.energy);
-          // console.log('Collison detectet with', enemy, 'lost Energy and current =', this.character.energy);
+          this.checkGameOver();
         }
       })
     }, 100);
   }
+
+  checkGameOver() {
+    if (this.character.energy <= 0) {
+      this.isGameOver = true;
+      this.stopGame();
+    }
+  }
+
+  stopGame() {
+    if (this.isGameOver) {
+      setTimeout(() => {
+        cancelAnimationFrame(this.animationId);
+      }, 1000);
+    }}
+
+  
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -60,7 +79,7 @@ class World {
     this.ctx.translate(-this.camara_x, 0);
 
     let self = this;
-    requestAnimationFrame(function () {
+    this.animationId = requestAnimationFrame(function () {
       self.draw();
     });
   }

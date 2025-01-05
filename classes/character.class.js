@@ -102,9 +102,9 @@ class Character extends MovableObject {
       }
 
       if (
-        this.world.keyboard.UP ||
         (this.world.keyboard.SPACE && !this.isAboveGround())
       ) {
+        console.log(this.world.keyboard.SPACE);
         this.jump();
       }
       this.world.camara_x = -this.position_x + 100;
@@ -112,8 +112,6 @@ class Character extends MovableObject {
 
     setInterval(() => {
       this.playAnimation(this.images_Idle);
-      // console.log(this.energy);
-
       if (this.isDead()) {
         this.playAnimation(this.images_Dead);
       } else if (this.isHurt()) {

@@ -8,37 +8,43 @@ function init() {
 }
 
 window.addEventListener("keydown", (event) => {
-  if (event.keyCode === 87 || event.keyCode === 38) {
+  if (event.keyCode === 87) {
     keyboard.UP = true;
   }
-  if (event.keyCode === 65 || event.keyCode === 37) {
+  if (event.keyCode === 65) {
     keyboard.LEFT = true;
   }
   if (event.keyCode === 83 || event.keyCode === 40) {
     keyboard.DOWN = true;
   }
-  if (event.keyCode === 68 || event.keyCode === 39) {
+  if (event.keyCode === 68) {
     keyboard.RIGHT = true;
   }
   if (event.keyCode === 32) {
     keyboard.SPACE = true;
   }
+  if (event.keyCode === 39) {
+    keyboard.D = true;
+  }
 });
 
 window.addEventListener("keyup", (event) => {
-  if (event.keyCode === 87 || event.keyCode === 38) {
+  if (event.keyCode === 87) {
     keyboard.UP = false;
   }
-  if (event.keyCode === 65 || event.keyCode === 37) {
+  if (event.keyCode === 65) {
     keyboard.LEFT = false;
   }
   if (event.keyCode === 83 || event.keyCode === 40) {
     keyboard.DOWN = false;
   }
-  if (event.keyCode === 68 || event.keyCode === 39) {
+  if (event.keyCode === 68) {
     keyboard.RIGHT = false;
   }
   if (event.keyCode === 32) {
     keyboard.SPACE = false;
+  }
+  if (event.keyCode === 39) {
+    keyboard.D = false;
   }
 });
