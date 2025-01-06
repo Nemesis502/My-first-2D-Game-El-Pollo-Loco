@@ -17,7 +17,11 @@ class MovableObject extends DrawableObject {
   }
 
   isAboveGround() {
-    return this.position_y < 160;
+    if (this instanceof ThrowableObject) { // Throwable object should always fall
+      return true;
+    } else {
+      return this.position_y < 160;
+    }
   }
 
   isColliding(mo) {
@@ -56,7 +60,7 @@ class MovableObject extends DrawableObject {
   isDead() {
     return this.energy == 0;
   }
-  
+
   moveRight() {
     this.position_x += this.speed;
     this.otherDirection = false;

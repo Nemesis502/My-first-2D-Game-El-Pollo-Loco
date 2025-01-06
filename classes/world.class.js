@@ -4,6 +4,7 @@ class World {
   statusBarBottle = new StatusbarBottle();
   statusbarEndBoss = new StatusbarEndBoss();
   statusbarCoins = new StatusbarCoins();
+  throwableObject = [];
   level = level1;
   canvas;
   ctx;
@@ -11,7 +12,6 @@ class World {
   camara_x = 0;
   isGameOver = false;
   animationId = null;
-  
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -19,23 +19,35 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
-    this.checkCollision();
+    this.run();
   }
 
   setWorld() {
     this.character.world = this;
   }
 
-  checkCollision(){
+  run() {
     setInterval(() => {
-      this.level.enemies.forEach((enemy) =>{
-        if (this.character.isColliding(enemy)) {
-          this.character.hit();
-          this.statusBarHealth.setPercentage(this.character.energy);
-          this.checkGameOver();
-        }
-      })
+      this.checkCollision();
+      this.checkThrowableObject();
     }, 100);
+  }
+
+  checkCollision() {
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy)) {
+        this.character.hit();
+        this.statusBarHealth.setPercentage(this.character.energy);
+        this.checkGameOver();
+      }
+    });
+  }
+
+  checkThrowableObject(){
+    if(this.keyboard.G){
+      let bottle = new ThrowableObject(this.character.position_x + 100, this.character.position_y + 100);
+      this.throwableObject.push(bottle);
+    }
   }
 
   checkGameOver() {
@@ -50,9 +62,8 @@ class World {
       setTimeout(() => {
         cancelAnimationFrame(this.animationId);
       }, 1000);
-    }}
-
-  
+    }
+  }
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -62,9 +73,9 @@ class World {
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.salsa);
     this.addObjectsToMap(this.level.coins);
+    this.addObjectsToMap(this.throwableObject);
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.clouds);
-
 
     // ------- Space for fixed obkects -------
     this.ctx.translate(-this.camara_x, 0);
@@ -73,8 +84,6 @@ class World {
     this.addToMap(this.statusbarEndBoss);
     this.addToMap(this.statusbarCoins);
     this.ctx.translate(this.camara_x, 0);
-
-   
 
     this.ctx.translate(-this.camara_x, 0);
 
@@ -110,7 +119,7 @@ class World {
     mo.position_x = mo.position_x * -1;
   }
 
-  flipImageBack(mo){
+  flipImageBack(mo) {
     mo.position_x = mo.position_x * -1;
     this.ctx.restore();
   }

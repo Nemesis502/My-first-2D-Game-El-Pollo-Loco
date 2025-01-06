@@ -81,6 +81,8 @@ class Character extends MovableObject {
   }
 
   animate() {
+    
+    
     setInterval(() => {
       this.background_sound.volume = 0.5;
       // this.background_sound.play(); später wieder aktivieren
@@ -91,6 +93,7 @@ class Character extends MovableObject {
       ) {
         this.walking_sound.play();
         this.moveRight();
+        
       }
       if (this.world.keyboard.LEFT && this.position_x > 0) {
         this.walking_sound.play();
@@ -104,7 +107,6 @@ class Character extends MovableObject {
       if (
         (this.world.keyboard.SPACE && !this.isAboveGround())
       ) {
-        console.log(this.world.keyboard.SPACE);
         this.jump();
       }
       this.world.camara_x = -this.position_x + 100;
