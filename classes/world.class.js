@@ -35,7 +35,7 @@ class World {
 
   checkCollision() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
+      if (this.character.isColliding(enemy) && !enemy.currentHit) {
         this.character.hit();
         this.statusBarHealth.setPercentage(this.character.energy);
         this.checkGameOver();
