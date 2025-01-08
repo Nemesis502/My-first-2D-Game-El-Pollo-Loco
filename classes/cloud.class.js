@@ -5,7 +5,7 @@ class Cloud extends MovableObject {
 
   constructor() {
     super().loadImage("../adds/img/5_background/layers/4_clouds/1.png");
-    this.position_x = 0 + Math.random() * 500;
+    this.position_x = 0 + Math.random() * 1700;
 
     this.animate();
   }

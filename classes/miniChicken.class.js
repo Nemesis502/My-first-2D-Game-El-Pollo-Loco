@@ -1,14 +1,14 @@
-class Chicken extends MovableObject {
-  position_y = 330;
-  height = 100;
-  width = 100;
+class MiniChicken extends MovableObject {
+  position_y = 370;
+  height = 60;
+  width = 60;
   currentHit = false;
   images_Walking = [
-    "adds/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
-    "adds/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png",
-    "adds/img/3_enemies_chicken/chicken_normal/1_walk/3_w.png",
+    "adds/img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
+    "adds/img/3_enemies_chicken/chicken_small/1_walk/2_w.png",
+    "adds/img/3_enemies_chicken/chicken_small/1_walk/3_w.png",
   ];
-  images_Dead = ["adds/img/3_enemies_chicken/chicken_normal/2_dead/dead.png"];
+  images_Dead = ["adds/img/3_enemies_chicken/chicken_small/2_dead/dead.png"];
 
   offset = {
     top: 120,
@@ -22,20 +22,18 @@ class Chicken extends MovableObject {
     this.loadImages(this.images_Walking);
     this.loadImages(this.images_Dead);
 
-    this.position_x = 200 + Math.random() * 1200;
+    this.position_x = 200 + Math.random() * 900;
     this.speed = 0.15 + Math.random() * 0.25;
 
     this.animate();
   }
 
   animate() {
-
     this.movementInterval = setInterval(() => {
       if (!this.currentHit) {
         this.moveLeft();
       }
     }, 1000 / 60);
-
 
     this.animationInterval = setInterval(() => {
       if (this.currentHit) {
@@ -48,7 +46,7 @@ class Chicken extends MovableObject {
 
     this.checkHitInterval = setInterval(() => {
       if (this.isHurt() && !this.currentHit) {
-        console.log("Chicken getroffen!");
+        console.log("Test its Hurt, mini Chicken");
         this.currentHit = true;
       }
     }, 200);
@@ -59,8 +57,6 @@ class Chicken extends MovableObject {
     clearInterval(this.animationInterval);
     clearInterval(this.checkHitInterval);
   }
+
   eat() {}
 }
-
-  
-

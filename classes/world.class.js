@@ -39,6 +39,9 @@ class World {
         this.character.hit();
         this.statusBarHealth.setPercentage(this.character.energy);
         this.checkGameOver();
+      } else if (enemy.isColliding(this.character)){
+        console.log(enemy.currentHit);
+        enemy.hit();
       }
     });
   }

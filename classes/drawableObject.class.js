@@ -23,7 +23,7 @@ class DrawableObject {
   }
 
   drwaFrame(ctx) {
-    if (this instanceof Character || this instanceof Chicken) {
+    if (this instanceof Character || this instanceof Chicken || this instanceof MiniChicken) {
       ctx.beginPath();
       ctx.lineWidth = "5";
       ctx.strokeStyle = "blue";
@@ -33,10 +33,6 @@ class DrawableObject {
   }
 
   loadImages(arr) {
-    // console.log(arr);
-    // console.log(this.imageCache);
-    
-    
     arr.forEach((path) => {
       let img = new Image();
       img.src = path;
