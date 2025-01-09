@@ -41,6 +41,7 @@ class Chicken extends MovableObject {
       if (this.currentHit) {
         this.loadImage(this.images_Dead[0]);
         this.speed = 0;
+        
       } else {
         this.playAnimation(this.images_Walking);
       }

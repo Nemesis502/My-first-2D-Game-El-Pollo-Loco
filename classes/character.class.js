@@ -2,6 +2,9 @@ class Character extends MovableObject {
   world;
   speed = 10;
   position_y = 160;
+  idleTimer = 0; // Zeit, die der Charakter inaktiv ist (in Millisekunden)
+  isLongIdle = false; // Zustand, ob die LongIdle-Animation läuft
+  idleInterval = null; // Referenz zum Inaktivitätsintervall
   images_Idle = [
     "../adds/img/2_character_pepe/1_idle/idle/I-1.png",
     "../adds/img/2_character_pepe/1_idle/idle/I-2.png",
@@ -14,15 +17,16 @@ class Character extends MovableObject {
     "../adds/img/2_character_pepe/1_idle/idle/I-10.png",
   ];
   images_LongIdle = [
-    "../adds/img/2_character_pepe/1_idle/idle/I-11.png",
-    "../adds/img/2_character_pepe/1_idle/idle/I-12.png",
-    "../adds/img/2_character_pepe/1_idle/idle/I-13.png",
-    "../adds/img/2_character_pepe/1_idle/idle/I-14.png",
-    "../adds/img/2_character_pepe/1_idle/idle/I-15.png",
-    "../adds/img/2_character_pepe/1_idle/idle/I-16.png",
-    "../adds/img/2_character_pepe/1_idle/idle/I-18.png",
-    "../adds/img/2_character_pepe/1_idle/idle/I-19.png",
-    "../adds/img/2_character_pepe/1_idle/idle/I-20.png",
+    "adds/img/2_character_pepe/1_idle/long_idle/I-11.png",
+    "adds/img/2_character_pepe/1_idle/long_idle/I-12.png",
+    "adds/img/2_character_pepe/1_idle/long_idle/I-13.png",
+    "adds/img/2_character_pepe/1_idle/long_idle/I-14.png",
+    "adds/img/2_character_pepe/1_idle/long_idle/I-15.png",
+    "adds/img/2_character_pepe/1_idle/long_idle/I-16.png",
+    "adds/img/2_character_pepe/1_idle/long_idle/I-17.png",
+    "adds/img/2_character_pepe/1_idle/long_idle/I-18.png",
+    "adds/img/2_character_pepe/1_idle/long_idle/I-19.png",
+    "adds/img/2_character_pepe/1_idle/long_idle/I-20.png",
   ];
   images_Walking = [
     "../adds/img/2_character_pepe/2_walk/W-26.png",
@@ -74,15 +78,15 @@ class Character extends MovableObject {
     this.loadImages(this.images_Walking);
     this.loadImages(this.images_Jumping);
     this.loadImages(this.images_Idle);
+    this.loadImages(this.images_LongIdle);
     this.loadImages(this.images_Hurt);
     this.loadImages(this.images_Dead);
     this.applyGravity();
     this.animate();
+    this.startIdleTimer();
   }
 
   animate() {
-    
-    
     setInterval(() => {
       this.background_sound.volume = 0.5;
       // this.background_sound.play(); später wieder aktivieren
@@ -93,7 +97,6 @@ class Character extends MovableObject {
       ) {
         this.walking_sound.play();
         this.moveRight();
-        
       }
       if (this.world.keyboard.LEFT && this.position_x > 0) {
         this.walking_sound.play();
@@ -104,29 +107,50 @@ class Character extends MovableObject {
         this.walking_sound.pause();
       }
 
-      if (
-        (this.world.keyboard.SPACE && !this.isAboveGround())
-      ) {
+      if (this.world.keyboard.SPACE && !this.isAboveGround()) {
         this.jump();
       }
       this.world.camara_x = -this.position_x + 100;
     }, 1000 / 60);
 
     setInterval(() => {
-      this.playAnimation(this.images_Idle);
-      if (this.isDead()) {
+      if (this.isLongIdle) {
+        this.playAnimation(this.images_LongIdle);
+      } else if (this.isDead()) {
         this.playAnimation(this.images_Dead);
       } else if (this.isHurt()) {
         this.playAnimation(this.images_Hurt);
       } else if (this.isAboveGround()) {
         this.playAnimation(this.images_Jumping);
-        this.walking_sound.pause();
-        this.jump_sound.play();
       } else {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
           this.playAnimation(this.images_Walking);
+        } else {
+          this.playAnimation(this.images_Idle);
         }
       }
     }, 200);
+  }
+
+  startIdleTimer() {
+  
+    setInterval(() => {
+      if (
+        this.world.keyboard.LEFT ||
+        this.world.keyboard.RIGHT ||
+        this.world.keyboard.SPACE ||
+        this.world.keyboard.UP ||
+        this.world.keyboard.DOWN ||
+        this.world.keyboard.G
+      ) {
+        this.idleTimer = 0;
+        this.isLongIdle = false;
+      } else {
+        this.idleTimer += 1;
+        if (this.idleTimer >= 6) {
+          this.isLongIdle = true;
+        }
+      }
+    }, 1000);
   }
 }
