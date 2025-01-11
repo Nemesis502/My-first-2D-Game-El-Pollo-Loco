@@ -34,21 +34,49 @@ class World {
   }
 
   checkCollision() {
+    this.checkCharacter();
+    this.checkSalsa();
+    this.checkCoins();
+  }
+
+  checkCharacter() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy) && !enemy.currentHit) {
         this.character.hit();
         this.statusBarHealth.setPercentage(this.character.energy);
         this.checkGameOver();
-      } else if (enemy.isColliding(this.character)){
-        console.log(enemy.currentHit);
+      } else if (enemy.isColliding(this.character)) {
         enemy.hit();
       }
     });
   }
 
-  checkThrowableObject(){
-    if(this.keyboard.G){
-      let bottle = new ThrowableObject(this.character.position_x + 100, this.character.position_y + 100);
+  checkSalsa() {
+    this.level.salsa = this.level.salsa.filter((salsa) => {
+      if (this.character.isColliding(salsa)) {
+        this.statusBarBottle.setPercentage(20);
+        return false;
+      }
+      return true;
+    });
+  }
+
+  checkCoins() {
+    this.level.coins = this.level.coins.filter((coins) => {
+      if (this.character.isColliding(coins)) {
+        this.statusbarCoins.setPercentage(20);
+        return false;
+      }
+      return true;
+    });
+  }
+
+  checkThrowableObject() {
+    if (this.keyboard.G) {
+      let bottle = new ThrowableObject(
+        this.character.position_x + 100,
+        this.character.position_y + 100
+      );
       this.throwableObject.push(bottle);
     }
   }

@@ -23,7 +23,7 @@ class DrawableObject {
   }
 
   drwaFrame(ctx) {
-    if (this instanceof Character || this instanceof Chicken || this instanceof MiniChicken) {
+    if (this instanceof Salsa || this instanceof Coins || this instanceof Character) {
       ctx.beginPath();
       ctx.lineWidth = "5";
       ctx.strokeStyle = "blue";

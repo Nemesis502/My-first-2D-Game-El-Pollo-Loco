@@ -2,9 +2,9 @@ class Character extends MovableObject {
   world;
   speed = 10;
   position_y = 160;
-  idleTimer = 0; // Zeit, die der Charakter inaktiv ist (in Millisekunden)
-  isLongIdle = false; // Zustand, ob die LongIdle-Animation läuft
-  idleInterval = null; // Referenz zum Inaktivitätsintervall
+  idleTimer = 0;
+  isLongIdle = false;
+  idleInterval = null;
   images_Idle = [
     "../adds/img/2_character_pepe/1_idle/idle/I-1.png",
     "../adds/img/2_character_pepe/1_idle/idle/I-2.png",
@@ -141,7 +141,8 @@ class Character extends MovableObject {
         this.world.keyboard.SPACE ||
         this.world.keyboard.UP ||
         this.world.keyboard.DOWN ||
-        this.world.keyboard.G
+        this.world.keyboard.G ||
+        this.isHurt()
       ) {
         this.idleTimer = 0;
         this.isLongIdle = false;
