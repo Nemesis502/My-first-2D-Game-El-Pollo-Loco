@@ -21,8 +21,8 @@ class StatusbarCoins extends DrawableObject {
   }
 
   setPercentage(percentage) {
-    if (this.percentage == 100) {
-      this.percentage == 100
+    if (this.percentage == 120 && percentage > 0) {
+      this.percentage == 120;
     } else{
       this.percentage += percentage;
     }

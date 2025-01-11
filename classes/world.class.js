@@ -53,7 +53,7 @@ class World {
 
   checkSalsa() {
     this.level.salsa = this.level.salsa.filter((salsa) => {
-      if (this.character.isColliding(salsa)) {
+      if (this.character.isColliding(salsa) && this.statusBarBottle.percentage < 100) {
         this.statusBarBottle.setPercentage(20);
         return false;
       }
@@ -65,6 +65,10 @@ class World {
     this.level.coins = this.level.coins.filter((coins) => {
       if (this.character.isColliding(coins)) {
         this.statusbarCoins.setPercentage(20);
+        if(this.statusbarCoins.percentage == 120){
+          this.statusBarHealth.setPercentage(100)
+          this.statusbarCoins.setPercentage(-120)
+        }
         return false;
       }
       return true;
@@ -72,12 +76,16 @@ class World {
   }
 
   checkThrowableObject() {
-    if (this.keyboard.G) {
+    if (this.keyboard.G && this.statusBarBottle.percentage >= 20) {
       let bottle = new ThrowableObject(
         this.character.position_x + 100,
         this.character.position_y + 100
       );
       this.throwableObject.push(bottle);
+      console.log(this.statusBarBottle.percentage, "Before");
+      this.statusBarBottle.setPercentage(-20);
+      console.log(this.statusBarBottle.percentage, "After");
+      
     }
   }
 
