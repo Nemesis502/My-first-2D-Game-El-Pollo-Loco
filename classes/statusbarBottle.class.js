@@ -1,5 +1,5 @@
 class StatusbarBottle extends DrawableObject {
-  percentage = 0;
+  percentage = 100;
   imagesBottle = [
     "adds/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/0.png",
     "adds/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/20.png",

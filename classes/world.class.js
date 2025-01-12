@@ -6,6 +6,7 @@ class World {
   statusbarCoins = new StatusbarCoins();
   throwableObject = [];
   level = level1;
+  currentEnemy;
   canvas;
   ctx;
   keyboard;
@@ -37,6 +38,7 @@ class World {
     this.checkCharacter();
     this.checkSalsa();
     this.checkCoins();
+    this.checkBottle();
   }
 
   checkCharacter() {
@@ -53,7 +55,10 @@ class World {
 
   checkSalsa() {
     this.level.salsa = this.level.salsa.filter((salsa) => {
-      if (this.character.isColliding(salsa) && this.statusBarBottle.percentage < 100) {
+      if (
+        this.character.isColliding(salsa) &&
+        this.statusBarBottle.percentage < 100
+      ) {
         this.statusBarBottle.setPercentage(20);
         return false;
       }
@@ -65,14 +70,35 @@ class World {
     this.level.coins = this.level.coins.filter((coins) => {
       if (this.character.isColliding(coins)) {
         this.statusbarCoins.setPercentage(20);
-        if(this.statusbarCoins.percentage == 120){
-          this.statusBarHealth.setPercentage(100)
-          this.statusbarCoins.setPercentage(-120)
+        if (this.statusbarCoins.percentage == 120) {
+          this.statusBarHealth.setPercentage(100);
+          this.statusbarCoins.setPercentage(-120);
         }
         return false;
       }
       return true;
     });
+  }
+
+  checkBottle() {
+    this.level.enemies.forEach((enemy) => {
+      this.throwableObject.forEach((bottle) => {
+        if (enemy.isColliding(bottle)) {
+          console.log("Getroffen");
+          console.log(this.throwableObject);
+          enemy.hit();
+          this.throwableObject.animateSplash();
+        } 
+      });
+    });
+  }
+
+  placeholder(){
+    if (condition) {
+      
+    } else if (!this.isAboveGround()) {
+      this.throwableObject.animateSplash();
+    }
   }
 
   checkThrowableObject() {
@@ -85,7 +111,6 @@ class World {
       console.log(this.statusBarBottle.percentage, "Before");
       this.statusBarBottle.setPercentage(-20);
       console.log(this.statusBarBottle.percentage, "After");
-      
     }
   }
 

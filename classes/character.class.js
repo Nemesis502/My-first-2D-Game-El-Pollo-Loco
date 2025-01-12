@@ -106,7 +106,6 @@ class Character extends MovableObject {
       if (!this.world.keyboard.LEFT && !this.world.keyboard.RIGHT) {
         this.walking_sound.pause();
       }
-
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
         this.jump();
       }
@@ -133,7 +132,6 @@ class Character extends MovableObject {
   }
 
   startIdleTimer() {
-  
     setInterval(() => {
       if (
         this.world.keyboard.LEFT ||
@@ -147,11 +145,11 @@ class Character extends MovableObject {
         this.idleTimer = 0;
         this.isLongIdle = false;
       } else {
-        this.idleTimer += 1;
+        this.idleTimer += 0.2;
         if (this.idleTimer >= 6) {
           this.isLongIdle = true;
         }
       }
-    }, 1000);
+    }, 200);
   }
 }
