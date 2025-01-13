@@ -46,7 +46,6 @@ class MiniChicken extends MovableObject {
 
     this.checkHitInterval = setInterval(() => {
       if (this.isHurt() && !this.currentHit) {
-        console.log("Test its Hurt, mini Chicken");
         this.currentHit = true;
       }
     }, 200);
@@ -57,6 +56,4 @@ class MiniChicken extends MovableObject {
     clearInterval(this.animationInterval);
     clearInterval(this.checkHitInterval);
   }
-
-  eat() {}
 }

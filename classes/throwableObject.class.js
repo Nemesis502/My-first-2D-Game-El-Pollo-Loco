@@ -18,6 +18,7 @@ class ThrowableObject extends MovableObject {
     super();
     this.loadImage("adds/img/6_salsa_bottle/salsa_bottle.png");
     this.loadImages(this.imagesBottle_Rotation);
+    this.loadImages(this.imagesBottle_Splash);
     this.position_y = y;
     this.position_x = x;
     this.width = 100;
@@ -41,8 +42,16 @@ class ThrowableObject extends MovableObject {
   }
 
   animateSplash() {
-    setInterval(() => {
+    this.speedY = 0;
+    this.speed = 0;
+  
+    let animationInterval = setInterval(() => {
       this.playAnimation(this.imagesBottle_Splash);
     }, 200);
+  
+    // Stoppe die Animation nach 1 Sekunde
+    setTimeout(() => {
+      clearInterval(animationInterval);
+    }, 1000);
   }
 }

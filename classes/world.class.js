@@ -5,6 +5,7 @@ class World {
   statusbarEndBoss = new StatusbarEndBoss();
   statusbarCoins = new StatusbarCoins();
   throwableObject = [];
+  splashAnimations = [];
   level = level1;
   currentEnemy;
   canvas;
@@ -82,23 +83,22 @@ class World {
 
   checkBottle() {
     this.level.enemies.forEach((enemy) => {
-      this.throwableObject.forEach((bottle) => {
+      this.throwableObject = this.throwableObject.filter((bottle) => {
         if (enemy.isColliding(bottle)) {
           console.log("Getroffen");
-          console.log(this.throwableObject);
           enemy.hit();
-          this.throwableObject.animateSplash();
-        } 
+          bottle.animateSplash();
+          this.splashAnimations.push(bottle); // Verschiebe in Animationsliste
+          return false; // Entferne Flasche aus der Hauptliste
+        } else if (!bottle.isAboveGround()) {
+          console.log("Flasche hat den Boden erreicht");
+          bottle.animateSplash();
+          this.splashAnimations.push(bottle); // Verschiebe in Animationsliste
+          return false; // Entferne Flasche aus der Hauptliste
+        }
+        return true; // Flasche bleibt in der Liste
       });
     });
-  }
-
-  placeholder(){
-    if (condition) {
-      
-    } else if (!this.isAboveGround()) {
-      this.throwableObject.animateSplash();
-    }
   }
 
   checkThrowableObject() {
@@ -138,6 +138,7 @@ class World {
     this.addObjectsToMap(this.level.salsa);
     this.addObjectsToMap(this.level.coins);
     this.addObjectsToMap(this.throwableObject);
+    this.addObjectsToMap(this.splashAnimations);
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.clouds);
 
