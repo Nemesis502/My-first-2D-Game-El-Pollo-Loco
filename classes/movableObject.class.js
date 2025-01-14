@@ -8,7 +8,7 @@ class MovableObject extends DrawableObject {
   lastHit = 0;
 
   applyGravity() {
-    setInterval(() => {
+    this.gravityInterval = setInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
         this.position_y -= this.speedY;
         this.speedY -= this.acceleration;
@@ -16,8 +16,16 @@ class MovableObject extends DrawableObject {
     }, 1000 / 25);
   }
 
+  stopGravity() {
+    if (this.gravityInterval) {
+      clearInterval(this.gravityInterval);
+      this.gravityInterval = null;
+    }
+  }
+
   isAboveGround() {
-    if (this instanceof ThrowableObject) { // Throwable object should always fall
+    if (this instanceof ThrowableObject) {
+      // Throwable object should always fall
       return true;
     } else {
       return this.position_y < 160;

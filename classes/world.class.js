@@ -87,16 +87,18 @@ class World {
         if (enemy.isColliding(bottle)) {
           console.log("Getroffen");
           enemy.hit();
-          bottle.animateSplash();
-          this.splashAnimations.push(bottle); // Verschiebe in Animationsliste
-          return false; // Entferne Flasche aus der Hauptliste
-        } else if (!bottle.isAboveGround()) {
-          console.log("Flasche hat den Boden erreicht");
-          bottle.animateSplash();
-          this.splashAnimations.push(bottle); // Verschiebe in Animationsliste
-          return false; // Entferne Flasche aus der Hauptliste
+          bottle.animateSplash(); // Splash-Animation starten
+          this.splashAnimations.push(bottle); // Flasche in die Animationsliste verschieben
+
+          // Entferne Flasche aus throwableObject, aber nicht aus splashAnimations
+          setTimeout(() => {
+            this.splashAnimations = this.splashAnimations.filter(
+              (obj) => obj !== bottle
+            );
+          }, 1000); // Entferne Flasche nach der Splash-Animation (z. B. 1 Sekunde)
+          return false; // Flasche aus throwableObject entfernen
         }
-        return true; // Flasche bleibt in der Liste
+        return true; // Flasche bleibt im Array
       });
     });
   }
@@ -108,9 +110,7 @@ class World {
         this.character.position_y + 100
       );
       this.throwableObject.push(bottle);
-      console.log(this.statusBarBottle.percentage, "Before");
       this.statusBarBottle.setPercentage(-20);
-      console.log(this.statusBarBottle.percentage, "After");
     }
   }
 

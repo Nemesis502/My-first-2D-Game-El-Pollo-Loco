@@ -29,29 +29,39 @@ class ThrowableObject extends MovableObject {
   trow() {
     this.speedY = 30;
     this.applyGravity();
-    setInterval(() => {
+    this.movmentForward = setInterval(() => {
       this.position_x += 10;
     }, 25);
     this.animate();
   }
 
   animate() {
-    setInterval(() => {
+    this.rotaionIntervall = setInterval(() => {
+      console.log("Rotaion");
+
       this.playAnimation(this.imagesBottle_Rotation);
     }, 200);
   }
 
   animateSplash() {
-    this.speedY = 0;
-    this.speed = 0;
-  
+    this.speedY = 0; // Vertikale Bewegung stoppen
+    this.speed = 0; // Horizontale Bewegung stoppen
+    this.stopGravity();
+    this.cancelAnimationForward();
+
+    // Starte die Splash-Animation
     let animationInterval = setInterval(() => {
       this.playAnimation(this.imagesBottle_Splash);
-    }, 200);
-  
-    // Stoppe die Animation nach 1 Sekunde
+    }, 1000 / 9);
+
+    // Beende die Animation nach 1 Sekunde
     setTimeout(() => {
       clearInterval(animationInterval);
     }, 1000);
+  }
+
+  cancelAnimationForward() {
+    clearInterval(this.movmentForward);
+    clearInterval(this.rotaionIntervall);
   }
 }
