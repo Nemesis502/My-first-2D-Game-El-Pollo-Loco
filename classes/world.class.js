@@ -85,22 +85,32 @@ class World {
     this.level.enemies.forEach((enemy) => {
       this.throwableObject = this.throwableObject.filter((bottle) => {
         if (enemy.isColliding(bottle)) {
-          console.log("Getroffen");
-          enemy.hit();
-          bottle.animateSplash(); // Splash-Animation starten
-          this.splashAnimations.push(bottle); // Flasche in die Animationsliste verschieben
-
-          // Entferne Flasche aus throwableObject, aber nicht aus splashAnimations
-          setTimeout(() => {
-            this.splashAnimations = this.splashAnimations.filter(
-              (obj) => obj !== bottle
-            );
-          }, 1000); // Entferne Flasche nach der Splash-Animation (z. B. 1 Sekunde)
-          return false; // Flasche aus throwableObject entfernen
+          return this.splashAction(enemy, bottle);
         }
-        return true; // Flasche bleibt im Array
+        return true;
       });
     });
+  }
+  
+  splashAction(enemy, bottle) {
+    console.log("Getroffen");
+    console.log(enemy.name);
+    enemy.hit();
+    this.checkHitEndboss(enemy);
+    bottle.animateSplash();
+    this.splashAnimations.push(bottle);
+    setTimeout(() => {
+      this.splashAnimations = this.splashAnimations.filter(
+        (obj) => obj !== bottle
+      );
+    }, 1000);
+    return false;
+  }
+
+  checkHitEndboss(enemy) {
+    if ((enemy.name = "EndBoss")) {
+      this.statusbarEndBoss.setPercentage(-20);
+    }
   }
 
   checkThrowableObject() {

@@ -3,6 +3,7 @@ class Chicken extends MovableObject {
   height = 100;
   width = 100;
   currentHit = false;
+  name = "Chicken";
   images_Walking = [
     "adds/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
     "adds/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png",
@@ -49,7 +50,6 @@ class Chicken extends MovableObject {
 
     this.checkHitInterval = setInterval(() => {
       if (this.isHurt() && !this.currentHit) {
-        console.log("Chicken getroffen!");
         this.currentHit = true;
       }
     }, 200);
