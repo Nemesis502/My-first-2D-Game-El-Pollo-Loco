@@ -3,6 +3,7 @@ class Endboss extends MovableObject {
   height = 400;
   width = 400;
   name = "EndBoss";
+  currentHit = false;
   images_Walking = [
     "adds/img/4_enemie_boss_chicken/1_walk/G1.png",
     "adds/img/4_enemie_boss_chicken/1_walk/G2.png",
@@ -53,8 +54,24 @@ class Endboss extends MovableObject {
 
   animate() {
     // this.moveLeft();
+
     setInterval(() => {
-      this.playAnimation(this.images_Walking);
-    }, 1000 / 12);
+      if (this.currentHit) {
+        this.playAnimation(this.images_Hurt);
+      } else if (this.isDead()) {
+        this.playAnimation(this.images_Dead);
+      } else {
+        this.playAnimation(this.images_Walking);
+      }
+    }, 1000 / 7.5);
+  }
+
+  setCurrentHit(i) {
+    if ((i = 1)) {
+      this.currentHit = true;
+    }
+    setTimeout(() => {
+      this.currentHit = false;
+    }, 3000);
   }
 }

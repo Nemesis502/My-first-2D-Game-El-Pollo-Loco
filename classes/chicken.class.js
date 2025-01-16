@@ -30,13 +30,11 @@ class Chicken extends MovableObject {
   }
 
   animate() {
-
     this.movementInterval = setInterval(() => {
       if (!this.currentHit) {
         this.moveLeft();
       }
     }, 1000 / 60);
-
 
     this.animationInterval = setInterval(() => {
       if (this.currentHit) {

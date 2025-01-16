@@ -45,11 +45,11 @@ class World {
   checkCharacter() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy) && !enemy.currentHit) {
-        this.character.hit();
+        this.character.hit(3);
         this.statusBarHealth.setPercentage(this.character.energy);
         this.checkGameOver();
       } else if (enemy.isColliding(this.character)) {
-        enemy.hit();
+        enemy.hit(20);
       }
     });
   }
@@ -91,11 +91,9 @@ class World {
       });
     });
   }
-  
+
   splashAction(enemy, bottle) {
-    console.log("Getroffen");
-    console.log(enemy.name);
-    enemy.hit();
+    enemy.hit(20);
     this.checkHitEndboss(enemy);
     bottle.animateSplash();
     this.splashAnimations.push(bottle);
@@ -108,8 +106,13 @@ class World {
   }
 
   checkHitEndboss(enemy) {
-    if ((enemy.name = "EndBoss")) {
+    console.log(enemy);
+    if (enemy.name == "EndBoss") {
       this.statusbarEndBoss.setPercentage(-20);
+      enemy.setCurrentHit(1);
+      console.log(enemy);
+
+      this.checkGameOver();
     }
   }
 
