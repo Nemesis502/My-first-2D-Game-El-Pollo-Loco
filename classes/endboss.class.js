@@ -4,6 +4,8 @@ class Endboss extends MovableObject {
   width = 400;
   name = "EndBoss";
   currentHit = false;
+  playersNearby = false;
+  playerAttackRange = false;
   images_Walking = [
     "adds/img/4_enemie_boss_chicken/1_walk/G1.png",
     "adds/img/4_enemie_boss_chicken/1_walk/G2.png",
@@ -56,14 +58,35 @@ class Endboss extends MovableObject {
     // this.moveLeft();
 
     setInterval(() => {
-      if (this.currentHit) {
-        this.playAnimation(this.images_Hurt);
-      } else if (this.isDead()) {
+      console.log(this.playerAttackRange, "CQC");
+
+      if (this.isDead()) {
         this.playAnimation(this.images_Dead);
+      } else if (this.playerAttackRange) {
+        this.playAnimation(this.images_Attack);
+      } else if (this.playersNearby) {
+        this.playAnimation(this.images_Alert);
+      } else if (this.currentHit) {
+        this.playAnimation(this.images_Hurt);
       } else {
         this.playAnimation(this.images_Walking);
       }
     }, 1000 / 7.5);
+  }
+
+  setPlayerNearby(i) {
+    if ((i = 1)) {
+      this.playersNearby = true;
+    }
+  }
+
+  setPlayerCloseRange(i) {
+    if ((i = 1)) {
+      this.playerAttackRange = true;
+    }
+    setTimeout(() => {
+      this.currentHit = false;
+    }, 2000);
   }
 
   setCurrentHit(i) {

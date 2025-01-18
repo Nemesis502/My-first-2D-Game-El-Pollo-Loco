@@ -1,5 +1,6 @@
 class World {
   character = new Character();
+  endBossChicken;
   statusBarHealth = new StatusbarHealth();
   statusBarBottle = new StatusbarBottle();
   statusbarEndBoss = new StatusbarEndBoss();
@@ -32,6 +33,7 @@ class World {
     setInterval(() => {
       this.checkCollision();
       this.checkThrowableObject();
+      this.checkApproachEndBoss();
     }, 100);
   }
 
@@ -44,14 +46,24 @@ class World {
 
   checkCharacter() {
     this.level.enemies.forEach((enemy) => {
+      if (enemy.name == "EndBoss") {
+        this.endBossChicken = enemy;
+      }
       if (this.character.isColliding(enemy) && !enemy.currentHit) {
         this.character.hit(3);
         this.statusBarHealth.setPercentage(this.character.energy);
+        this.checkCollisionWithEndBoss(enemy);
         this.checkGameOver();
       } else if (enemy.isColliding(this.character)) {
         enemy.hit(20);
       }
     });
+  }
+
+  checkCollisionWithEndBoss(enemy) {
+    if (enemy.name == "EndBoss") {
+      this.endBossChicken.setPlayerCloseRange(1);
+    }
   }
 
   checkSalsa() {
@@ -94,7 +106,9 @@ class World {
 
   splashAction(enemy, bottle) {
     enemy.hit(20);
-    this.checkHitEndboss(enemy);
+    if (enemy.name == "EndBoss") {
+      this.checkHitEndboss(enemy);
+    }
     bottle.animateSplash();
     this.splashAnimations.push(bottle);
     setTimeout(() => {
@@ -106,13 +120,14 @@ class World {
   }
 
   checkHitEndboss(enemy) {
-    console.log(enemy);
-    if (enemy.name == "EndBoss") {
-      this.statusbarEndBoss.setPercentage(-20);
-      enemy.setCurrentHit(1);
-      console.log(enemy);
+    this.statusbarEndBoss.setPercentage(-20);
+    enemy.setCurrentHit(1);
+    this.checkGameOver();
+  }
 
-      this.checkGameOver();
+  checkApproachEndBoss() {
+    if (this.character.position_x >= 719 * 2) {
+      this.endBossChicken.setPlayerNearby(1);
     }
   }
 
@@ -128,7 +143,7 @@ class World {
   }
 
   checkGameOver() {
-    if (this.character.energy <= 0) {
+    if (this.character.energy <= 0 || this.endBossChicken.energy <= 0) {
       this.isGameOver = true;
       this.stopGame();
     }

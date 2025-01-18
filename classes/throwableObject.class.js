@@ -42,17 +42,15 @@ class ThrowableObject extends MovableObject {
   }
 
   animateSplash() {
-    this.speedY = 0; // Vertikale Bewegung stoppen
-    this.speed = 0; // Horizontale Bewegung stoppen
+    this.speedY = 0;
+    this.speed = 0;
     this.stopGravity();
     this.cancelAnimationForward();
 
-    // Starte die Splash-Animation
     let animationInterval = setInterval(() => {
       this.playAnimation(this.imagesBottle_Splash);
     }, 1000 / 9);
 
-    // Beende die Animation nach 1 Sekunde
     setTimeout(() => {
       clearInterval(animationInterval);
     }, 1000);
