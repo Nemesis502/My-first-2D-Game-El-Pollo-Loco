@@ -9,5 +9,6 @@ class Coins extends MovableObject {
     this.loadImages(this.imagesCoins);
 
     this.position_x = 200 + Math.random() * 1500;
+    this.position_y = 200 + Math.random() * 100;
   }
 }

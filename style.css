@@ -1,9 +1,32 @@
+@font-face {
+    font-family: "myCostumFont";
+    src: url(adds/fonts/Ribeye-Regular.ttf);
+}
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  font-family: "myCostumFont", serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url("adds/img/10_other/desert.png");
+  background-color: #f1a44e;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  min-height: 100vh;
+  margin: 0;
 }
 
-canvas{
-    background-color: black;
+.hidden{
+  display: none;
+}
+
+h1{
+    font-weight: bold;
+    font-size: 48px;
+    text-shadow: 4px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+canvas {
+  background-color: black;
 }

@@ -3,6 +3,7 @@ class MiniChicken extends MovableObject {
   height = 60;
   width = 60;
   currentHit = false;
+  hitSoundPlayed = false;
   name = "MiniChicken";
   images_Walking = [
     "adds/img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
@@ -10,6 +11,7 @@ class MiniChicken extends MovableObject {
     "adds/img/3_enemies_chicken/chicken_small/1_walk/3_w.png",
   ];
   images_Dead = ["adds/img/3_enemies_chicken/chicken_small/2_dead/dead.png"];
+  hit_Sound = new Audio("audio/chicken_hit.mp3");
 
   offset = {
     top: 120,
@@ -22,10 +24,8 @@ class MiniChicken extends MovableObject {
     super().loadImage(this.images_Walking[0]);
     this.loadImages(this.images_Walking);
     this.loadImages(this.images_Dead);
-
     this.position_x = 200 + Math.random() * 900;
-    this.speed = 0.15 + Math.random() * 0.25;
-
+    this.speed = 0.30 + Math.random() * 0.25;
     this.animate();
   }
 
@@ -40,6 +40,11 @@ class MiniChicken extends MovableObject {
       if (this.currentHit) {
         this.loadImage(this.images_Dead[0]);
         this.speed = 0;
+
+        if (!this.hitSoundPlayed) {
+          this.hit_Sound.play();
+          this.hitSoundPlayed = true;
+        }
       } else {
         this.playAnimation(this.images_Walking);
       }

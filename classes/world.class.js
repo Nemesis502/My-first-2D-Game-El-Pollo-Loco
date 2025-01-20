@@ -126,8 +126,10 @@ class World {
   }
 
   checkApproachEndBoss() {
-    if (this.character.position_x >= 719 * 2) {
+    if (this.endBossChicken.position_x - this.character.position_x <= 350) {
       this.endBossChicken.setPlayerNearby(1);
+    } else {
+      this.endBossChicken.setPlayerNearby(0);
     }
   }
 
@@ -153,6 +155,7 @@ class World {
     if (this.isGameOver) {
       setTimeout(() => {
         cancelAnimationFrame(this.animationId);
+        this.endBossChicken.stopAllSounds();
       }, 1000);
     }
   }

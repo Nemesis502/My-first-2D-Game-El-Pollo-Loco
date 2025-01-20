@@ -42,6 +42,8 @@ class Endboss extends MovableObject {
     "adds/img/4_enemie_boss_chicken/5_dead/G25.png",
     "adds/img/4_enemie_boss_chicken/5_dead/G26.png",
   ];
+  alert_Sound = new Audio("audio/chicken_alert.mp3");
+  attack_Sound = new Audio("audio/chicken_attack.mp3");
 
   constructor() {
     super().loadImage(this.images_Walking[0]);
@@ -51,32 +53,45 @@ class Endboss extends MovableObject {
     this.loadImages(this.images_Attack);
     this.loadImages(this.images_Dead);
     this.position_x = 2000;
+    this.speed = 0.15 + Math.random() * 0.25;
     this.animate();
   }
 
   animate() {
-    // this.moveLeft();
+    let currentSpeed = this.speed;
+    setInterval(() => {
+      if (!this.currentHit || !this.playerAttackRange || !this.playersNearby) {
+        this.moveLeft();
+      }
+    }, 1000 / 60);
 
     setInterval(() => {
-      console.log(this.playerAttackRange, "CQC");
-
       if (this.isDead()) {
         this.playAnimation(this.images_Dead);
+        this.speed = 0;
       } else if (this.playerAttackRange) {
+        this.speed = 0;
         this.playAnimation(this.images_Attack);
+        this.playAttackSound();
       } else if (this.playersNearby) {
+        this.speed = 0;
         this.playAnimation(this.images_Alert);
+        this.playAlertSound();
       } else if (this.currentHit) {
+        this.speed = 0;
         this.playAnimation(this.images_Hurt);
       } else {
         this.playAnimation(this.images_Walking);
+        this.speed = currentSpeed;
       }
-    }, 1000 / 7.5);
+    }, 1000 / 6);
   }
 
   setPlayerNearby(i) {
-    if ((i = 1)) {
+    if (i == 1) {
       this.playersNearby = true;
+    } else if (i == 0) {
+      this.playersNearby = false;
     }
   }
 
@@ -85,7 +100,7 @@ class Endboss extends MovableObject {
       this.playerAttackRange = true;
     }
     setTimeout(() => {
-      this.currentHit = false;
+      this.playerAttackRange = false;
     }, 2000);
   }
 
@@ -96,5 +111,26 @@ class Endboss extends MovableObject {
     setTimeout(() => {
       this.currentHit = false;
     }, 3000);
+  }
+
+  playAttackSound() {
+    this.alert_Sound.pause();
+    this.alert_Sound.currentTime = 0;
+    this.attack_Sound.play();
+  }
+
+  playAlertSound() {
+    this.attack_Sound.pause();
+    this.attack_Sound.currentTime = 0;
+    this.alert_Sound.play();
+  }
+
+  stopAllSounds() {
+    this.alert_Sound.pause();
+    this.alert_Sound.currentTime = 0;
+    this.alert_Sound.volume = 0.0;
+    this.attack_Sound.pause();
+    this.attack_Sound.currentTime = 0;
+    this.attack_Sound.volume = 0.0;
   }
 }
