@@ -1,6 +1,6 @@
 @font-face {
-    font-family: "myCostumFont";
-    src: url(adds/fonts/Ribeye-Regular.ttf);
+  font-family: "myCostumFont";
+  src: url(adds/fonts/Ribeye-Regular.ttf);
 }
 body {
   font-family: "myCostumFont", serif;
@@ -17,16 +17,124 @@ body {
   margin: 0;
 }
 
-.hidden{
+.dimensions {
+  height: 480px;
+  width: 720px;
+}
+
+.dimensions-legal-notice {
+  width: 720px;
+  height: 820px;
+}
+
+.hidden {
   display: none;
 }
 
-h1{
-    font-weight: bold;
-    font-size: 48px;
-    text-shadow: 4px 2px 8px rgba(0, 0, 0, 0.5);
+h1 {
+  font-weight: bold;
+  font-size: 48px;
+  text-shadow: 4px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 canvas {
   background-color: black;
+}
+
+.global-div {
+  background-image: url("adds/img/9_intro_outro_screens/start/startscreen_1.png");
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navi-div {
+  padding-bottom: 18px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.setting-div {
+  align-items: unset;
+  background-image: url("adds/img/5_background/first_half_background.png");
+  background-size: 100% 100%;
+}
+
+.setting {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-color: rgba(222, 215, 215, 0.5);
+}
+
+.settingKinds {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.setting p {
+  font-size: 22px;
+}
+
+.audio-language input,
+img {
+  cursor: pointer;
+}
+
+.audio-language img:hover {
+  background-color: rgba(237, 231, 231, 0.5);
+}
+
+.switch-language {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.story-div {
+  align-items: unset;
+  background-image: url("adds/img/5_background/second_half_background.png");
+  background-size: 100% 100%;
+}
+
+.story {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-color: rgba(222, 215, 215, 0.5);
+}
+
+.story p,
+.legal-notice p {
+  font-size: 17px;
+  margin: 0;
+  width: 600px;
+}
+
+.legal-notice-div {
+  align-items: unset;
+  background-image: url("adds/img/5_background/first_half_background.png");
+  background-size: 100% 100%;
+}
+
+.legal-notice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: rgba(222, 215, 215, 0.5);
+}
+
+.legal-notice p {
+  margin: 8px;
+  word-break: break-all;
 }
