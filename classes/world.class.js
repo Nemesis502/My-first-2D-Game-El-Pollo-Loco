@@ -5,6 +5,7 @@ class World {
   statusBarBottle = new StatusbarBottle();
   statusbarEndBoss = new StatusbarEndBoss();
   statusbarCoins = new StatusbarCoins();
+  background_Sound = new Audio("audio/background_music_party_V2.mp3");
   throwableObject = [];
   splashAnimations = [];
   level = level1;
@@ -20,6 +21,7 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
+    this.setupAudio();
     this.draw();
     this.setWorld();
     this.run();
@@ -27,6 +29,19 @@ class World {
 
   setWorld() {
     this.character.world = this;
+  }
+
+  setupAudio() {
+    this.background_Sound.volume = 0.7;
+    this.background_Sound.loop = true;
+
+    this.background_Sound.addEventListener("canplaythrough", () => {
+      this.background_Sound.play().catch(() => {
+        window.addEventListener("click", () => {
+          this.background_Sound.play();
+        });
+      });
+    });
   }
 
   run() {
@@ -145,19 +160,47 @@ class World {
   }
 
   checkGameOver() {
-    if (this.character.energy <= 0 || this.endBossChicken.energy <= 0) {
+    if (this.character.energy <= 0) {
       this.isGameOver = true;
-      this.stopGame();
+      this.stopGameEnemyWin();
+    } else if (this.endBossChicken.energy <= 0) {
+      this.isGameOver = true;
+      this.stopGamePlayerWin();
     }
   }
 
-  stopGame() {
+  stopGamePlayerWin() {
     if (this.isGameOver) {
       setTimeout(() => {
         cancelAnimationFrame(this.animationId);
         this.endBossChicken.stopAllSounds();
+        this.showPlayerEndScreenWin();
       }, 1000);
     }
+  }
+
+  showPlayerEndScreenWin() {
+    document.getElementById("endScreen").classList.remove("hidden");
+    document.getElementById("startDiv").classList.add("hidden");
+    document.getElementById("canvas").classList.add("hidden");
+    document.getElementById("endScreen").classList.add("end-div-win");
+  }
+
+  stopGameEnemyWin() {
+    if (this.isGameOver) {
+      setTimeout(() => {
+        cancelAnimationFrame(this.animationId);
+        this.endBossChicken.stopAllSounds();
+        this.showPlayerEndScreenLost();
+      }, 1500);
+    }
+  }
+
+  showPlayerEndScreenLost() {
+    document.getElementById("endScreen").classList.remove("hidden");
+    document.getElementById("startDiv").classList.add("hidden");
+    document.getElementById("canvas").classList.add("hidden");
+    document.getElementById("endScreen").classList.add("end-div-lost");
   }
 
   draw() {

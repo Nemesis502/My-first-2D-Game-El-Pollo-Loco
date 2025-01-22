@@ -36,6 +36,7 @@ function switchStoryLegalNotice() {
 function switchLanguageToGer() {
   changeMenuNamesToGer();
   changeSettingsToGer();
+  changeBelowControllToGer();
   changeStoryToGer();
   changeLegalNoticeToGer();
   flag.removeEventListener("click", switchLanguageToGer);
@@ -45,7 +46,6 @@ function switchLanguageToGer() {
 function changeFlagToEng() {
   if (flag && flag.src.includes("icons8-deutschland-48.png")) {
     flag.src = "adds/img/10_other/union-jack-1027898_640.jpg";
-    console.log("Changing flag to Union Jack");
   }
 }
 
@@ -55,7 +55,6 @@ function changeFlagToGer() {
     flag.src.includes("adds/img/10_other/union-jack-1027898_640.jpg")
   ) {
     flag.src = "adds/img/10_other/icons8-deutschland-48.png";
-    console.log("Changing flag to German");
   }
 }
 
@@ -74,10 +73,18 @@ function changeSettingsToGer() {
     "Soundeffekte stummschalten:";
   document.getElementById("audioMusic").innerHTML = "Musik stummschalten:";
   document.getElementById("switchLanguage").innerHTML = "Sprache wechseln zu:";
-  document.getElementById("audioControl").innerHTML =
-    "Zeige dauerhaft Audio Steuerung:";
   document.getElementById("settingControl").innerHTML = "Einstellung";
   document.getElementById("legalNoticeSetting").innerHTML = "Impressum";
+}
+
+function changeBelowControllToGer() {
+  document.getElementById("moveRight-below").innerHTML = "Laufen Rechts: D";
+  document.getElementById("moveLeft-below").innerHTML = "Laufen Links: A";
+  document.getElementById("jump-below").innerHTML = "Springen: Leertaste";
+  document.getElementById("throw-below").innerHTML = "Flasche werfen: G";
+  document.getElementById("audioSoundBelow").innerHTML =
+    "Soundeffekte stummschalten:";
+  document.getElementById("audioMusicBelow").innerHTML = "Musik stummschalten:";
 }
 
 function changeStoryToGer() {
@@ -137,5 +144,100 @@ function changeLegalNoticeToGer() {
 }
 
 function switchLanguageToEng() {
+  changeMenuNamesToEng();
+  changeSettingsToEng();
+  changeBelowControllToEng();
+  changeStoryToEng();
+  changeLegalNoticeToEng();
+  flag.removeEventListener("click", switchLanguageToEng);
+  flag.addEventListener("click", switchLanguageToGer);
   changeFlagToGer();
+}
+
+function changeMenuNamesToEng() {
+  document.getElementById("settingStart").innerHTML = "Setting";
+  document.getElementById("legalNoticeStart").innerHTML = "Legal Notice";
+}
+
+function changeSettingsToEng() {
+  document.getElementById("returnSetting").innerHTML = "Return to Start";
+  document.getElementById("moveRight").innerHTML = "Move Right: D";
+  document.getElementById("moveLeft").innerHTML = "Move Left: A";
+  document.getElementById("jump").innerHTML = "Jump: Space";
+  document.getElementById("throw").innerHTML = "Throw Bottle: G";
+  document.getElementById("audioSound").innerHTML = "Mute Soundeffects:";
+  document.getElementById("audioMusic").innerHTML = "Mute Music:";
+  document.getElementById("switchLanguage").innerHTML = "Switch Language to:";
+  document.getElementById("settingControl").innerHTML = "Setting";
+  document.getElementById("legalNoticeSetting").innerHTML = "Legal Notice";
+}
+
+function changeBelowControllToEng() {
+  document.getElementById("moveRight-below").innerHTML = "Move Right: D";
+  document.getElementById("moveLeft-below").innerHTML = "Move Left: A";
+  document.getElementById("jump-below").innerHTML = "Jump: Space";
+  document.getElementById("throw-below").innerHTML = "Throw Bottle: G";
+  document.getElementById("audioSoundBelow").innerHTML = "Mute Soundeffects:";
+  document.getElementById("audioMusicBelow").innerHTML = "Mute Music:";
+}
+
+function changeStoryToEng() {
+  document.getElementById("backStart").innerHTML = "Return to Start";
+  document.getElementById("story").innerHTML = `
+  Once upon a time, there was a brave hero named Pepe, a taco vendor
+  with a secret superpower: the ability to throw salsa bottles with
+  incredible precision. But one fateful day, a gang of crazy chickens
+  stole his secret guacamole recipe! Determined to reclaim his honor
+  and his recipe, Pepe grabbed his stash of salsa and set out on a
+  daring quest. He leapt over angry chicks, dodged the pecking beaks
+  of dangerous chickens, and caused chaos with his spicy salsa shots.
+  But then, the gang’s boss appeared: El Pollo Supremo, the largest of
+  all feathered beasts! With a daring leap into the air, Pepe hurled
+  an extra-spicy salsa straight into its feathers. El Pollo Supremo
+  surrendered, and Pepe saved the guacamole. He returned as the hero
+  of the taco world – ready for the next fiesta!
+  `;
+  document.getElementById("settingStory").innerHTML = "Setting";
+  document.getElementById("legalNoticeStory").innerHTML = "Legal Notice";
+}
+
+function changeLegalNoticeToEng() {
+  document.getElementById("returnLegalNotice").innerHTML = "Return to Start";
+  document.getElementById("settingLegalNotice").innerHTML = "Setting";
+  document.getElementById("legalNoticeControl").innerHTML = "Legal Notice";
+  document.getElementById("legalNoticeText").innerHTML = `
+  <p>Imprint Information pursuant to § 5 TMG and Art. 13 GDPR</p>
+  <p>Provider: Bastian Klawes Stadtweg, 26 38176, Bortfeld Germany</p>
+  <p>Contact: Phone: 01747945251 Email: bastianklawes@gmail.com</p>
+  <p>
+    Website:
+    https://bastian-klawes.developerakademie.net/meine_seite_2/El_Pollo_Loco_Project/
+  </p>
+  <p>
+    VAT ID: VAT identification number pursuant to § 27a of the German
+    Value Added Tax Act: not available
+  </p>
+  <p>
+    Responsible for content according to § 55 Abs. 2 RStV: Bastian Klawes
+    Stadtweg, 26 38176, Bortfeld Germany
+  </p>
+  <p>
+    Note on EU Dispute Resolution: The European Commission provides a
+    platform for online dispute resolution (ODR):
+    https://ec.europa.eu/consumers/odr. Our email address can be found
+    above in the imprint.
+  </p>
+  <p>
+    Disclaimer: The contents of this website have been created with the
+    greatest care. However, we cannot guarantee the accuracy,
+    completeness, or timeliness of the contents.
+  </p>
+  <p>
+    Copyright: The contents and works created by the provider on this
+    website are subject to German copyright law. Contributions by third
+    parties are marked as such. The duplication, processing, distribution,
+    and any kind of exploitation outside the limits of copyright require
+    the written consent of the respective author or creator.
+  </p>
+  `;
 }

@@ -78,6 +78,7 @@ canvas {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
 }
 
 .setting p {
@@ -137,4 +138,39 @@ img {
 .legal-notice p {
   margin: 8px;
   word-break: break-all;
+}
+
+.end-div-lost {
+  align-items: unset;
+  justify-content: flex-end;
+  background-image: url("adds/img/9_intro_outro_screens/game_over/oh no you lost!.png");
+  background-color: rgba(0, 0, 0, 0.5);
+  background-size: 100% 100%;
+}
+
+.end-div-win {
+  align-items: unset;
+  justify-content: flex-end;
+  background-image: url("adds/img/9_intro_outro_screens/win/win_2.png");
+  background-color: #422d0f;
+  background-size: 100% 100%;
+}
+
+.end-screen-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 18px;
+  padding-bottom: 18px;
+}
+
+.below-control {
+  width: 720px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
+
+.below-control p {
+  font-size: 20px;
 }

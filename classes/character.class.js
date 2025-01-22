@@ -71,7 +71,6 @@ class Character extends MovableObject {
   walking_Sound = new Audio("audio/walking_Sound.mp3");
   waiting_Sound = new Audio("audio/waiting_Sound.mp3");
   jump_Sound = new Audio("audio/jumping_sound.mp3");
-  background_Sound = new Audio("audio/background_music_party.mp3");
   hit_Sound = new Audio("audio/character_hit_not_loud.mp3");
   snoring_sound = new Audio("audio/snoring.mp3");
 
@@ -90,8 +89,7 @@ class Character extends MovableObject {
 
   animate() {
     setInterval(() => {
-      this.background_Sound.volume = 0.5;
-      // this.background_Sound.play(); später wieder aktivieren
+
       this.walking_Sound.volume = 1.0;
       if (
         this.world.keyboard.RIGHT &&

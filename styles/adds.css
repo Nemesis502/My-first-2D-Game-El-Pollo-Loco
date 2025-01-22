@@ -2,7 +2,8 @@
   font-family: "myCostumFont", serif;
   background-color: #ffd400;
   height: 38px;
-  width: 88px;
+  width: 180px;
+  font-size: 20px;
   border-style: none;
   border-radius: 20px;
   transition-duration: 0.4s;
@@ -27,7 +28,8 @@
   font-family: "myCostumFont", serif;
   background-color: #ffd400;
   height: 38px;
-  width: 88px;
+  width: 180px;
+  font-size: 20px;
   border-style: none;
   border-radius: 20px;
   transition-duration: 0.4s;
@@ -44,4 +46,8 @@
 
 .start-button {
   padding-top: 18px;
+}
+
+.bigger-button{
+  height: 55px;
 }

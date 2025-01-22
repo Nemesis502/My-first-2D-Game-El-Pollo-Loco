@@ -17,7 +17,7 @@
     <h1 class="headline">El Pollo Loco</h1>
     <section id="startDiv" class="global-div dimensions">
       <div class="start-button">
-        <button class="button">Start</button>
+        <button onclick="initLevel()" class="button">Start</button>
       </div>
 
       <nav class="navi-div">
@@ -60,11 +60,21 @@
         <div class="audio-language">
           <div class="settingKinds">
             <p id="audioSound">Mute Soundeffects:</p>
-            <input type="checkbox" name="" id="" />
+            <input
+              onclick="muteSoundeffects()"
+              type="checkbox"
+              name=""
+              id="audioSoundCheckBox"
+            />
           </div>
           <div class="settingKinds">
             <p id="audioMusic">Mute Music:</p>
-            <input type="checkbox" name="" id="" />
+            <input
+              onclick="muteMusic()"
+              type="checkbox"
+              name=""
+              id="audioMusicCheckBox"
+            />
           </div>
           <div class="settingKinds">
             <p id="switchLanguage" class="switch-language">
@@ -76,10 +86,6 @@
               src="adds/img/10_other/icons8-deutschland-48.png"
               alt=""
             />
-          </div>
-          <div class="settingKinds">
-            <p id="audioControl">Show permanent Audio Control:</p>
-            <input type="checkbox" name="" id="" />
           </div>
         </div>
       </article>
@@ -206,7 +212,40 @@
         </button>
       </nav>
     </section>
+    <section id="endScreen" class="global-div dimensions hidden">
+      <div class="end-screen-container">
+        <button onclick="returnToMainMenu()" class="button bigger-button">Return to Main Menu</button>
+        <button onclick="restartGame()" class="button bigger-button">Restart</button>
+      </div>
+    </section>
+
     <canvas class="hidden" id="canvas" width="720px" height="480px"></canvas>
+    <div id="belowControl" class="below-control">
+      <p id="moveRight-below">Move Right: D</p>
+      <p id="moveLeft-below">Move Left: A</p>
+      <p id="jump-below">Jump: Space</p>
+      <p id="throw-below">Throw Bottle: G</p>
+    </div>
+    <div class="below-control">
+      <div class="settingKinds">
+        <p id="audioSoundBelow">Mute Soundeffects:</p>
+        <input
+          onclick="muteSoundeffectsBelow()"
+          type="checkbox"
+          name=""
+          id="audioSoundBelowCheckBox"
+        />
+      </div>
+      <div class="settingKinds">
+        <p id="audioMusicBelow">Mute Music:</p>
+        <input
+          onclick="muteMusicBelow()"
+          type="checkbox"
+          name=""
+          id="audioMusicBelowCheckBox"
+        />
+      </div>
+    </div>
   </body>
   <script src="./classes/drawableObject.class.js"></script>
   <script src="./classes/statusbarHealth.class.js"></script>
