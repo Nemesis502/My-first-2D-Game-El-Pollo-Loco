@@ -84,6 +84,8 @@ function changeBelowControllToGer() {
   document.getElementById("throw-below").innerHTML = "Flasche werfen: G";
   document.getElementById("audioSoundBelow").innerHTML =
     "Soundeffekte stummschalten:";
+  document.getElementById("returnButtonEnd").innerHTML = "Zurück zum Start";
+  document.getElementById("newStartButtonEnd").innerHTML = "Neustart";
   document.getElementById("audioMusicBelow").innerHTML = "Musik stummschalten:";
 }
 
@@ -179,6 +181,8 @@ function changeBelowControllToEng() {
   document.getElementById("throw-below").innerHTML = "Throw Bottle: G";
   document.getElementById("audioSoundBelow").innerHTML = "Mute Soundeffects:";
   document.getElementById("audioMusicBelow").innerHTML = "Mute Music:";
+  document.getElementById("returnButtonEnd").innerHTML = "Return to Main Menu";
+  document.getElementById("newStartButtonEnd").innerHTML = "Restart";
 }
 
 function changeStoryToEng() {

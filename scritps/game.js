@@ -4,12 +4,13 @@ let keyboard = new Keyboard();
 
 function init() {
   canvas = document.getElementById("canvas");
-  // world = new World(canvas, keyboard);
 }
 
 function initLevel() {
   initLevel1();
   world = new World(canvas, keyboard);
+  console.log(world);
+
   document.getElementById("startDiv").classList.add("hidden");
   document.getElementById("canvas").classList.remove("hidden");
 }
@@ -61,10 +62,11 @@ function muteMusic() {
 
 function setSoundeffectsVolumeOff() {
   world.character.snoring_sound.volume = 0.0;
-  world.character.hit_Sound.volume = 0.0;
+  world.character.player_Hit_Sound.volume = 0.0;
   world.character.jump_Sound.volume = 0.0;
   world.character.waiting_Sound.volume = 0.0;
   world.character.walking_Sound.volume = 0.0;
+  console.log(world.level.enemies);
   world.endBossChicken.attack_Sound.volume = 0.0;
   world.endBossChicken.alert_Sound.volume = 0.0;
 }
@@ -101,12 +103,16 @@ function returnToMainMenu() {
 }
 
 function restartGame() {
-  document.getElementById("endScreen").classList.add("hidden");
-  document.getElementById("startDiv").classList.remove("hidden");
-  isGameOver = false;
+  if (world) {
+    cancelAnimationFrame(world.animationId);
+    clearInterval(world.intervalId);
+  }
   world = null;
   level1 = null;
-  init();
+  document.getElementById("endScreen").classList.add("hidden");
+  document
+    .getElementById("endScreen")
+    .classList.remove("end-div-win", "end-div-lost");
   initLevel();
 }
 

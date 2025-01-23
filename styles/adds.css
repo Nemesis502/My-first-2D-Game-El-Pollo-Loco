@@ -1,6 +1,7 @@
 .button {
   font-family: "myCostumFont", serif;
   background-color: #ffd400;
+  color: black !important;
   height: 38px;
   width: 180px;
   font-size: 20px;

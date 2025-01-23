@@ -4,8 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="./styles/adds.css" />
-    <link rel="stylesheet" href="style.css" />
     <link
       rel="shortcut icon"
       href="adds/img/10_other/icons8-sombrero-32.png"
@@ -112,7 +110,7 @@
       </div>
 
       <article class="story">
-        <div>
+        <div class="story-container">
           <p id="story">
             Once upon a time, there was a brave hero named Pepe, a taco vendor
             with a secret superpower: the ability to throw salsa bottles with
@@ -214,12 +212,22 @@
     </section>
     <section id="endScreen" class="global-div dimensions hidden">
       <div class="end-screen-container">
-        <button onclick="returnToMainMenu()" class="button bigger-button">Return to Main Menu</button>
-        <button onclick="restartGame()" class="button bigger-button">Restart</button>
+        <button id="returnButtonEnd" onclick="returnToMainMenu()" class="button bigger-button">
+          Return to Main Menu
+        </button>
+        <button id="newStartButtonEnd" onclick="restartGame()" class="button bigger-button">
+          Restart
+        </button>
       </div>
     </section>
 
+    <section class="wrong-dimensions">
+      <span>Please rotate your device to play!</span>
+      <img src="adds/img/10_other/icons8-rotate-phone-100_white.png" alt="" />
+    </section>
+
     <canvas class="hidden" id="canvas" width="720px" height="480px"></canvas>
+
     <div id="belowControl" class="below-control">
       <p id="moveRight-below">Move Right: D</p>
       <p id="moveLeft-below">Move Left: A</p>
@@ -247,6 +255,9 @@
       </div>
     </div>
   </body>
+  <link rel="stylesheet" href="./styles/responsive.css" />
+  <link rel="stylesheet" href="./styles/adds.css" />
+  <link rel="stylesheet" href="style.css" />
   <script src="./classes/drawableObject.class.js"></script>
   <script src="./classes/statusbarHealth.class.js"></script>
   <script src="./classes/statusbarBottle.class.js"></script>

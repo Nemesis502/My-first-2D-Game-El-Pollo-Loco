@@ -14,13 +14,14 @@ class World {
   ctx;
   keyboard;
   camara_x = 0;
-  isGameOver = false;
   animationId = null;
+  intervalId = null;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
+    this.resetGameState();
     this.setupAudio();
     this.draw();
     this.setWorld();
@@ -34,7 +35,6 @@ class World {
   setupAudio() {
     this.background_Sound.volume = 0.7;
     this.background_Sound.loop = true;
-
     this.background_Sound.addEventListener("canplaythrough", () => {
       this.background_Sound.play().catch(() => {
         window.addEventListener("click", () => {
@@ -45,11 +45,18 @@ class World {
   }
 
   run() {
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.checkCollision();
       this.checkThrowableObject();
       this.checkApproachEndBoss();
     }, 100);
+  }
+
+  resetGameState() {
+    this.isGameOver = false;
+    this.animationId = null;
+    this.throwableObject = [];
+    this.splashAnimations = [];
   }
 
   checkCollision() {
@@ -173,6 +180,7 @@ class World {
     if (this.isGameOver) {
       setTimeout(() => {
         cancelAnimationFrame(this.animationId);
+        clearInterval(this.intervalId);
         this.endBossChicken.stopAllSounds();
         this.showPlayerEndScreenWin();
       }, 1000);
@@ -190,9 +198,10 @@ class World {
     if (this.isGameOver) {
       setTimeout(() => {
         cancelAnimationFrame(this.animationId);
+        clearInterval(this.intervalId);
         this.endBossChicken.stopAllSounds();
         this.showPlayerEndScreenLost();
-      }, 1500);
+      }, 1000);
     }
   }
 

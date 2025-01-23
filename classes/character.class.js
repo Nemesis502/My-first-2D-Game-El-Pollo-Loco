@@ -6,15 +6,15 @@ class Character extends MovableObject {
   isLongIdle = false;
   idleInterval = null;
   images_Idle = [
-    "../adds/img/2_character_pepe/1_idle/idle/I-1.png",
-    "../adds/img/2_character_pepe/1_idle/idle/I-2.png",
-    "../adds/img/2_character_pepe/1_idle/idle/I-3.png",
-    "../adds/img/2_character_pepe/1_idle/idle/I-4.png",
-    "../adds/img/2_character_pepe/1_idle/idle/I-5.png",
-    "../adds/img/2_character_pepe/1_idle/idle/I-6.png",
-    "../adds/img/2_character_pepe/1_idle/idle/I-8.png",
-    "../adds/img/2_character_pepe/1_idle/idle/I-9.png",
-    "../adds/img/2_character_pepe/1_idle/idle/I-10.png",
+    "adds/img/2_character_pepe/1_idle/idle/I-1.png",
+    "adds/img/2_character_pepe/1_idle/idle/I-2.png",
+    "adds/img/2_character_pepe/1_idle/idle/I-3.png",
+    "adds/img/2_character_pepe/1_idle/idle/I-4.png",
+    "adds/img/2_character_pepe/1_idle/idle/I-5.png",
+    "adds/img/2_character_pepe/1_idle/idle/I-6.png",
+    "adds/img/2_character_pepe/1_idle/idle/I-8.png",
+    "adds/img/2_character_pepe/1_idle/idle/I-9.png",
+    "adds/img/2_character_pepe/1_idle/idle/I-10.png",
   ];
   images_LongIdle = [
     "adds/img/2_character_pepe/1_idle/long_idle/I-11.png",
@@ -29,23 +29,23 @@ class Character extends MovableObject {
     "adds/img/2_character_pepe/1_idle/long_idle/I-20.png",
   ];
   images_Walking = [
-    "../adds/img/2_character_pepe/2_walk/W-26.png",
-    "../adds/img/2_character_pepe/2_walk/W-22.png",
-    "../adds/img/2_character_pepe/2_walk/W-23.png",
-    "../adds/img/2_character_pepe/2_walk/W-24.png",
-    "../adds/img/2_character_pepe/2_walk/W-25.png",
-    "../adds/img/2_character_pepe/2_walk/W-26.png",
+    "adds/img/2_character_pepe/2_walk/W-26.png",
+    "adds/img/2_character_pepe/2_walk/W-22.png",
+    "adds/img/2_character_pepe/2_walk/W-23.png",
+    "adds/img/2_character_pepe/2_walk/W-24.png",
+    "adds/img/2_character_pepe/2_walk/W-25.png",
+    "adds/img/2_character_pepe/2_walk/W-26.png",
   ];
   images_Jumping = [
-    "../adds/img/2_character_pepe/3_jump/J-31.png",
-    "../adds/img/2_character_pepe/3_jump/J-32.png",
-    "../adds/img/2_character_pepe/3_jump/J-33.png",
-    "../adds/img/2_character_pepe/3_jump/J-34.png",
-    "../adds/img/2_character_pepe/3_jump/J-35.png",
-    "../adds/img/2_character_pepe/3_jump/J-36.png",
-    "../adds/img/2_character_pepe/3_jump/J-37.png",
-    "../adds/img/2_character_pepe/3_jump/J-38.png",
-    "../adds/img/2_character_pepe/3_jump/J-39.png",
+    "adds/img/2_character_pepe/3_jump/J-31.png",
+    "adds/img/2_character_pepe/3_jump/J-32.png",
+    "adds/img/2_character_pepe/3_jump/J-33.png",
+    "adds/img/2_character_pepe/3_jump/J-34.png",
+    "adds/img/2_character_pepe/3_jump/J-35.png",
+    "adds/img/2_character_pepe/3_jump/J-36.png",
+    "adds/img/2_character_pepe/3_jump/J-37.png",
+    "adds/img/2_character_pepe/3_jump/J-38.png",
+    "adds/img/2_character_pepe/3_jump/J-39.png",
   ];
   images_Hurt = [
     "adds/img/2_character_pepe/4_hurt/H-41.png",
@@ -68,10 +68,10 @@ class Character extends MovableObject {
     left: 40,
     right: 30,
   };
-  walking_Sound = new Audio("audio/walking_Sound.mp3");
-  waiting_Sound = new Audio("audio/waiting_Sound.mp3");
+  walking_Sound = new Audio("audio/walking_sound.mp3");
+  waiting_Sound = new Audio("audio/waiting_sound.mp3");
   jump_Sound = new Audio("audio/jumping_sound.mp3");
-  hit_Sound = new Audio("audio/character_hit_not_loud.mp3");
+  player_Hit_Sound = new Audio("audio/character_hit_not_loud.mp3");
   snoring_sound = new Audio("audio/snoring.mp3");
 
   constructor() {
@@ -89,7 +89,6 @@ class Character extends MovableObject {
 
   animate() {
     setInterval(() => {
-
       this.walking_Sound.volume = 1.0;
       if (
         this.world.keyboard.RIGHT &&
@@ -141,7 +140,7 @@ class Character extends MovableObject {
 
   playHurt() {
     this.playAnimation(this.images_Hurt);
-    this.hit_Sound.play();
+    this.player_Hit_Sound.play();
   }
 
   playJump() {
