@@ -57,24 +57,6 @@
         </div>
         <div class="audio-language">
           <div class="settingKinds">
-            <p id="audioSound">Mute Soundeffects:</p>
-            <input
-              onclick="muteSoundeffects()"
-              type="checkbox"
-              name=""
-              id="audioSoundCheckBox"
-            />
-          </div>
-          <div class="settingKinds">
-            <p id="audioMusic">Mute Music:</p>
-            <input
-              onclick="muteMusic()"
-              type="checkbox"
-              name=""
-              id="audioMusicCheckBox"
-            />
-          </div>
-          <div class="settingKinds">
             <p id="switchLanguage" class="switch-language">
               Switch Language to:
             </p>
@@ -212,10 +194,18 @@
     </section>
     <section id="endScreen" class="global-div dimensions hidden">
       <div class="end-screen-container">
-        <button id="returnButtonEnd" onclick="returnToMainMenu()" class="button bigger-button">
+        <button
+          id="returnButtonEnd"
+          onclick="returnToMainMenu()"
+          class="button bigger-button"
+        >
           Return to Main Menu
         </button>
-        <button id="newStartButtonEnd" onclick="restartGame()" class="button bigger-button">
+        <button
+          id="newStartButtonEnd"
+          onclick="restartGame()"
+          class="button bigger-button"
+        >
           Restart
         </button>
       </div>
@@ -227,14 +217,29 @@
     </section>
 
     <canvas class="hidden" id="canvas" width="720px" height="480px"></canvas>
+    <section class="mobile-buttons-container dimensions-mobile-buttons">
+      <div class="mobile-buttons-left">
+        <button class="mobile-buttons">&larr;</button>
+        <button class="mobile-buttons">&rarr;</button>
+      </div>
+      <div class="mobile-buttons-right">
+        <button class="mobile-buttons">&uarr;</button>
+        <button class="mobile-buttons">
+          <img
+            src="adds/img/6_salsa_bottle/2_salsa_bottle_on_ground.png"
+            alt=""
+          />
+        </button>
+      </div>
+    </section>
 
-    <div id="belowControl" class="below-control">
+    <div id="belowControl" class="below-control keyboard-controll hidden">
       <p id="moveRight-below">Move Right: D</p>
       <p id="moveLeft-below">Move Left: A</p>
       <p id="jump-below">Jump: Space</p>
       <p id="throw-below">Throw Bottle: G</p>
     </div>
-    <div class="below-control">
+    <div id="belowControlAudio" class="below-control-audio hidden">
       <div class="settingKinds">
         <p id="audioSoundBelow">Mute Soundeffects:</p>
         <input

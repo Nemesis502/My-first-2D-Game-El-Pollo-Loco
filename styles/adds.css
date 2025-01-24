@@ -49,6 +49,41 @@
   padding-top: 18px;
 }
 
-.bigger-button{
+.bigger-button {
   height: 55px;
+}
+
+.mobile-buttons {
+  background-color: #ffd400;
+  color: black !important;
+  height: 38px;
+  width: 180px;
+  font-size: 20px;
+  border-style: none;
+  border-radius: 20px;
+  transition-duration: 0.4s;
+}
+
+.mobile-buttons:hover {
+  cursor: pointer;
+  background-color: #ddbb15;
+  box-shadow: 0.5px 2px 2.2px rgba(0, 0, 0, 0.02),
+    1px 4.3px 5.3px rgba(0, 0, 0, 0.028), 1.8px 7.8px 10px rgba(0, 0, 0, 0.035),
+    3.3px 14px 17.9px rgba(0, 0, 0, 0.042),
+    6.3px 27px 33.4px rgba(0, 0, 0, 0.05), 13px 56px 80px rgba(0, 0, 0, 0.07);
+}
+
+.mobile-buttons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 8px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2;
+}
+
+.mobile-buttons-right img {
+  width: 90px;
 }

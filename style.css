@@ -40,6 +40,8 @@ h1 {
 canvas {
   background-color: black;
   display: block;
+  position: relative;
+  z-index: 1;
 }
 
 .global-div {
@@ -89,6 +91,15 @@ canvas {
 .audio-language input,
 .audio-language img {
   cursor: pointer;
+}
+
+.audio-language img {
+  width: 60px;
+  height: 60px;
+}
+
+.german-size {
+  font-size: 17px;
 }
 
 .audio-language img:hover {
@@ -170,7 +181,24 @@ canvas {
   padding-bottom: 18px;
 }
 
-.below-control {
+.dimensions-mobile-buttons {
+  width: 720px;
+}
+
+.mobile-buttons {
+  width: 100px;
+  height: 100px;
+}
+
+.mobile-buttons-right,
+.mobile-buttons-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.below-control,
+.below-control-audio {
   width: 720px;
   display: flex;
   justify-content: space-around;

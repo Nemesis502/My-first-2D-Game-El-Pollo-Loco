@@ -13,49 +13,30 @@ function initLevel() {
 
   document.getElementById("startDiv").classList.add("hidden");
   document.getElementById("canvas").classList.remove("hidden");
-}
-
-function muteSoundeffects() {
-  let audioSoundBelowCheckBox = document.getElementById(
-    "audioSoundBelowCheckBox"
-  );
-  let audioSoundCheckBox = document.getElementById("audioSoundCheckBox");
-
-  if (audioSoundCheckBox.checked) {
-    audioSoundBelowCheckBox.checked = true;
-    setSoundeffectsVolumeOff();
-  } else if (!audioSoundCheckBox.checked) {
-    audioSoundBelowCheckBox.checked = false;
-    setSoundeffectsVolumeOn();
-  }
+  document.getElementById("belowControl").classList.remove("hidden");
+  document.getElementById("belowControlAudio").classList.remove("hidden");
 }
 
 function muteSoundeffectsBelow() {
   let audioSoundBelowCheckBox = document.getElementById(
     "audioSoundBelowCheckBox"
   );
-  let audioSoundCheckBox = document.getElementById("audioSoundCheckBox");
 
   if (audioSoundBelowCheckBox.checked) {
-    audioSoundCheckBox.checked = true;
     setSoundeffectsVolumeOff();
   } else if (!audioSoundBelowCheckBox.checked) {
-    audioSoundCheckBox.checked = false;
     setSoundeffectsVolumeOn();
   }
 }
 
-function muteMusic() {
+function muteMusicBelow() {
   let audioMusicBelowCheckBox = document.getElementById(
     "audioMusicBelowCheckBox"
   );
-  let audioMusicCheckBox = document.getElementById("audioMusicCheckBox");
 
-  if (audioMusicCheckBox.checked) {
-    audioMusicBelowCheckBox.checked = true;
+  if (audioMusicBelowCheckBox.checked) {
     world.background_Sound.volume = 0.0;
-  } else if (!audioMusicCheckBox.checked) {
-    audioMusicBelowCheckBox.checked = false;
+  } else if (!audioMusicBelowCheckBox.checked) {
     world.background_Sound.volume = 0.7;
   }
 }
@@ -79,21 +60,6 @@ function setSoundeffectsVolumeOn() {
   world.character.walking_Sound.volume = 1.0;
   world.endBossChicken.attack_Sound.volume = 1.0;
   world.endBossChicken.alert_Sound.volume = 1.0;
-}
-
-function muteMusicBelow() {
-  let audioMusicBelowCheckBox = document.getElementById(
-    "audioMusicBelowCheckBox"
-  );
-  let audioMusicCheckBox = document.getElementById("audioMusicCheckBox");
-
-  if (audioMusicBelowCheckBox.checked) {
-    audioMusicCheckBox.checked = true;
-    world.background_Sound.volume = 0.0;
-  } else if (!audioMusicBelowCheckBox.checked) {
-    audioMusicCheckBox.checked = false;
-    world.background_Sound.volume = 0.7;
-  }
 }
 
 function returnToMainMenu() {

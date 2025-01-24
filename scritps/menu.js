@@ -45,14 +45,14 @@ function switchLanguageToGer() {
 }
 function changeFlagToEng() {
   if (flag && flag.src.includes("icons8-deutschland-48.png")) {
-    flag.src = "adds/img/10_other/union-jack-1027898_640.jpg";
+    flag.src = "adds/img/10_other/icons8-uk-48.png";
   }
 }
 
 function changeFlagToGer() {
   if (
     flag &&
-    flag.src.includes("adds/img/10_other/union-jack-1027898_640.jpg")
+    flag.src.includes("icons8-uk-48.png")
   ) {
     flag.src = "adds/img/10_other/icons8-deutschland-48.png";
   }
@@ -65,13 +65,11 @@ function changeMenuNamesToGer() {
 
 function changeSettingsToGer() {
   document.getElementById("returnSetting").innerHTML = "Zurück zum Start";
+  document.getElementById("returnSetting").classList.add("german-size");
   document.getElementById("moveRight").innerHTML = "Laufen Rechts: D";
   document.getElementById("moveLeft").innerHTML = "Laufen Links: A";
   document.getElementById("jump").innerHTML = "Springen: Leertaste";
   document.getElementById("throw").innerHTML = "Flasche werfen: G";
-  document.getElementById("audioSound").innerHTML =
-    "Soundeffekte stummschalten:";
-  document.getElementById("audioMusic").innerHTML = "Musik stummschalten:";
   document.getElementById("switchLanguage").innerHTML = "Sprache wechseln zu:";
   document.getElementById("settingControl").innerHTML = "Einstellung";
   document.getElementById("legalNoticeSetting").innerHTML = "Impressum";
@@ -163,12 +161,11 @@ function changeMenuNamesToEng() {
 
 function changeSettingsToEng() {
   document.getElementById("returnSetting").innerHTML = "Return to Start";
+  document.getElementById("returnSetting").classList.remove("german-size");
   document.getElementById("moveRight").innerHTML = "Move Right: D";
   document.getElementById("moveLeft").innerHTML = "Move Left: A";
   document.getElementById("jump").innerHTML = "Jump: Space";
   document.getElementById("throw").innerHTML = "Throw Bottle: G";
-  document.getElementById("audioSound").innerHTML = "Mute Soundeffects:";
-  document.getElementById("audioMusic").innerHTML = "Mute Music:";
   document.getElementById("switchLanguage").innerHTML = "Switch Language to:";
   document.getElementById("settingControl").innerHTML = "Setting";
   document.getElementById("legalNoticeSetting").innerHTML = "Legal Notice";
