@@ -4,7 +4,7 @@
   color: black !important;
   height: 38px;
   width: 180px;
-  font-size: 20px;
+  font-size: 17px;
   border-style: none;
   border-radius: 20px;
   transition-duration: 0.4s;
@@ -58,7 +58,7 @@
   flex-direction: row;
   justify-content: space-around;
   position: absolute;
-  top: 90%;
+  top: 92%;
   left: 50%;
   transform: translate(-50%, -150%);
   z-index: 2;
@@ -67,8 +67,8 @@
 .mobile-buttons {
   background-color: #ffd400;
   color: black !important;
-  height: 40px;
-  width: 80px;
+  height: 44px;
+  width: 110px;
   font-size: 20px;
   border-style: none;
   border-radius: 20px;

@@ -49,7 +49,7 @@
       </div>
 
       <article class="setting">
-        <div class="bindings">
+        <div id="keyboardSetting" class="bindings">
           <p id="moveRight">Move Right: D</p>
           <p id="moveLeft">Move Left: A</p>
           <p id="jump">Jump: Space</p>
@@ -217,7 +217,7 @@
     </section>
 
     <canvas class="hidden" id="canvas" width="720px" height="480px"></canvas>
-    <section class="mobile-buttons-container dimensions-mobile-buttons">
+    <section id="mobileButtons" class="mobile-buttons-container dimensions-mobile-buttons hidden">
       <div class="mobile-buttons-left">
         <button id="buttonLeft" class="mobile-buttons">&larr;</button>
         <button id="buttonRight" class="mobile-buttons">&rarr;</button>
@@ -243,6 +243,7 @@
       <div class="settingKinds">
         <p id="audioSoundBelow">Mute Soundeffects:</p>
         <input
+          class="checkbox-audio"
           onclick="muteSoundeffectsBelow()"
           type="checkbox"
           name=""
@@ -252,6 +253,7 @@
       <div class="settingKinds">
         <p id="audioMusicBelow">Mute Music:</p>
         <input
+          class="checkbox-audio"
           onclick="muteMusicBelow()"
           type="checkbox"
           name=""

@@ -13,10 +13,9 @@ function isTouchDevice() {
 }
 
 if (isTouchDevice()) {
-  console.log("Device supports touch input.");
   isMobileDevice = true;
+  document.getElementById("keyboardSetting").classList.add("hidden");
 } else {
-  console.log("Device does not support touch input.");
   isMobileDevice = false;
 }
 
@@ -32,6 +31,9 @@ function initLevel() {
 function checkMobileDevice() {
   if (!isMobileDevice) {
     document.getElementById("belowControl").classList.remove("hidden");
+  } else if (isMobileDevice) {
+    document.getElementById("mobileButtons").classList.remove("hidden");
+    
   }
 }
 
@@ -98,8 +100,4 @@ function restartGame() {
     .getElementById("endScreen")
     .classList.remove("end-div-win", "end-div-lost");
   initLevel();
-}
-
-function clickleft() {
-  console.log("Test");
 }

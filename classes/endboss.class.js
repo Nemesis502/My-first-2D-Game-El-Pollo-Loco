@@ -45,6 +45,13 @@ class Endboss extends MovableObject {
   alert_Sound = new Audio("audio/chicken_alert.mp3");
   attack_Sound = new Audio("audio/chicken_attack.mp3");
 
+  offset = {
+    top: 50,
+    bottom: 20,
+    left: 40,
+    right: 50,
+  };
+
   constructor() {
     super().loadImage(this.images_Walking[0]);
     this.loadImages(this.images_Walking);

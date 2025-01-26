@@ -63,10 +63,10 @@ class Character extends MovableObject {
   ];
 
   offset = {
-    top: 120,
-    bottom: 30,
-    left: 40,
-    right: 30,
+    top: 100,
+    bottom: 20,
+    left: 50,
+    right: 40,
   };
   walking_Sound = new Audio("audio/walking_sound.mp3");
   waiting_Sound = new Audio("audio/waiting_sound.mp3");

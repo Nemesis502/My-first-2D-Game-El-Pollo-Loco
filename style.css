@@ -74,7 +74,7 @@ canvas {
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  background-color: rgba(222, 215, 215, 0.5);
+  background-color: rgba(222, 215, 215, 0.83);
 }
 
 .settingKinds {
@@ -124,7 +124,7 @@ canvas {
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  background-color: rgba(222, 215, 215, 0.5);
+  background-color: rgba(222, 215, 215, 0.83);
 }
 
 .story-container {
@@ -150,7 +150,7 @@ canvas {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  background-color: rgba(222, 215, 215, 0.5);
+  background-color: rgba(222, 215, 215, 0.83);
 }
 
 .legal-notice p {
@@ -164,6 +164,7 @@ canvas {
   background-image: url("adds/img/9_intro_outro_screens/game_over/oh no you lost!.png");
   background-color: rgba(0, 0, 0, 0.5);
   background-size: 100% 100%;
+  flex-direction: column-reverse;
 }
 
 .end-div-win {
@@ -172,6 +173,7 @@ canvas {
   background-image: url("adds/img/9_intro_outro_screens/win/win_2.png");
   background-color: #422d0f;
   background-size: 100% 100%;
+  flex-direction: column-reverse;
 }
 
 .end-screen-container {
@@ -179,10 +181,8 @@ canvas {
   flex-direction: row;
   justify-content: center;
   gap: 18px;
-  padding-bottom: 18px;
+  padding-top: 18px;
 }
-
-
 
 .below-control,
 .below-control-audio {
@@ -190,6 +190,15 @@ canvas {
   display: flex;
   justify-content: space-around;
   flex-direction: row;
+}
+
+.below-control-audio p {
+  font-size: 20px;
+}
+
+.checkbox-audio {
+  height: 16px;
+  width: 16px;
 }
 
 .below-control p {

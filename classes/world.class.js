@@ -71,14 +71,17 @@ class World {
       if (enemy.name == "EndBoss") {
         this.endBossChicken = enemy;
       }
-      if (this.character.isColliding(enemy) && !enemy.currentHit) {
-        this.character.hit(3);
-        this.statusBarHealth.setPercentage(this.character.energy);
-        this.checkCollisionWithEndBoss(enemy);
-        this.checkGameOver();
-      } else if (enemy.isColliding(this.character)) {
-        enemy.hit(20);
-      }
+      if (this.character.isColliding(enemy)) {
+        if (!enemy.currentHit && !this.character.isAboveGround()) {
+          this.character.hit(3);
+          this.statusBarHealth.setPercentage(this.character.energy);
+          this.checkCollisionWithEndBoss(enemy);
+          this.checkGameOver();
+        } else if (this.character.speedY < 0 && enemy.isColliding(this.character) && this.character.isAboveGround()) {
+          enemy.hit(20);
+        }
+      } 
+
     });
   }
 

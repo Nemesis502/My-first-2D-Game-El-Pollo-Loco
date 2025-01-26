@@ -14,10 +14,10 @@ class MiniChicken extends MovableObject {
   hit_Sound = new Audio("audio/chicken_hit.mp3");
 
   offset = {
-    top: 120,
-    bottom: 30,
-    left: 40,
-    right: 30,
+    top: 0,
+    bottom: 10,
+    left: 0,
+    right: 0,
   };
 
   constructor() {

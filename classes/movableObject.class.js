@@ -6,6 +6,12 @@ class MovableObject extends DrawableObject {
   acceleration = 2.0;
   energy = 100;
   lastHit = 0;
+  offset = {
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  };
 
   applyGravity() {
     this.gravityInterval = setInterval(() => {
@@ -25,7 +31,6 @@ class MovableObject extends DrawableObject {
 
   isAboveGround() {
     if (this instanceof ThrowableObject) {
-      // Throwable object should always fall
       return true;
     } else {
       return this.position_y < 160;
@@ -34,20 +39,16 @@ class MovableObject extends DrawableObject {
 
   isColliding(mo) {
     return (
-      this.position_x + this.width > mo.position_x &&
-      this.position_y + this.height > mo.position_y &&
-      this.position_x < mo.position_x &&
-      this.position_y < mo.position_y + mo.height
+      this.position_x + this.width - this.offset.right >
+        mo.position_x + mo.offset.left &&
+      this.position_y + this.height - this.offset.bottom >
+        mo.position_y + mo.offset.top &&
+      this.position_x + this.offset.left <
+        mo.position_x + mo.width - mo.offset.right &&
+      this.position_y + this.offset.top <
+        mo.position_y + mo.height - mo.offset.bottom
     );
   }
-
-  //  isColliding (obj) {
-  //    return  (this.X + this.width) >= obj.X && this.X <= (obj.X + obj.width) &&
-  //            (this.Y + this.offsetY + this.height) >= obj.Y &&
-  //            (this.Y + this.offsetY) <= (obj.Y + obj.height) &&
-  //            obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
-
-  //  }
 
   hit(damage) {
     this.energy -= damage;
@@ -60,8 +61,8 @@ class MovableObject extends DrawableObject {
   }
 
   isHurt() {
-    let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
-    timepassed = timepassed / 1000; // Difference in s
+    let timepassed = new Date().getTime() - this.lastHit;
+    timepassed = timepassed / 1000;
     return timepassed < 1;
   }
 
@@ -83,7 +84,7 @@ class MovableObject extends DrawableObject {
   }
 
   playAnimation(images) {
-    let i = this.currentImage % images.length; // let i = 0 % 6; => 0, Rest 6
+    let i = this.currentImage % images.length;
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentImage++;

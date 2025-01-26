@@ -17,9 +17,6 @@
   .dimensions-mobile-buttons{
     width: 100% !important;
   }
-  .bindings {
-    display: none;
-  }
   .story-container {
     text-align: center;
     display: flex !important;
