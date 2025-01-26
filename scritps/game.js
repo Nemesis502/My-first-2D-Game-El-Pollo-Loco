@@ -1,20 +1,38 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let isMobileDevice = false;
 
 function init() {
   canvas = document.getElementById("canvas");
+  isTouchDevice();
+}
+
+function isTouchDevice() {
+  return window.matchMedia("(pointer: coarse)").matches;
+}
+
+if (isTouchDevice()) {
+  console.log("Device supports touch input.");
+  isMobileDevice = true;
+} else {
+  console.log("Device does not support touch input.");
+  isMobileDevice = false;
 }
 
 function initLevel() {
   initLevel1();
   world = new World(canvas, keyboard);
-  console.log(world);
-
   document.getElementById("startDiv").classList.add("hidden");
   document.getElementById("canvas").classList.remove("hidden");
-  document.getElementById("belowControl").classList.remove("hidden");
+  checkMobileDevice();
   document.getElementById("belowControlAudio").classList.remove("hidden");
+}
+
+function checkMobileDevice() {
+  if (!isMobileDevice) {
+    document.getElementById("belowControl").classList.remove("hidden");
+  }
 }
 
 function muteSoundeffectsBelow() {
@@ -82,44 +100,6 @@ function restartGame() {
   initLevel();
 }
 
-window.addEventListener("keydown", (event) => {
-  if (event.keyCode === 87) {
-    keyboard.UP = true;
-  }
-  if (event.keyCode === 65) {
-    keyboard.LEFT = true;
-  }
-  if (event.keyCode === 83 || event.keyCode === 40) {
-    keyboard.DOWN = true;
-  }
-  if (event.keyCode === 68) {
-    keyboard.RIGHT = true;
-  }
-  if (event.keyCode === 32) {
-    keyboard.SPACE = true;
-  }
-  if (event.keyCode === 71) {
-    keyboard.G = true;
-  }
-});
-
-window.addEventListener("keyup", (event) => {
-  if (event.keyCode === 87) {
-    keyboard.UP = false;
-  }
-  if (event.keyCode === 65) {
-    keyboard.LEFT = false;
-  }
-  if (event.keyCode === 83 || event.keyCode === 40) {
-    keyboard.DOWN = false;
-  }
-  if (event.keyCode === 68) {
-    keyboard.RIGHT = false;
-  }
-  if (event.keyCode === 32) {
-    keyboard.SPACE = false;
-  }
-  if (event.keyCode === 71) {
-    keyboard.G = false;
-  }
-});
+function clickleft() {
+  console.log("Test");
+}

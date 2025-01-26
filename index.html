@@ -219,14 +219,14 @@
     <canvas class="hidden" id="canvas" width="720px" height="480px"></canvas>
     <section class="mobile-buttons-container dimensions-mobile-buttons">
       <div class="mobile-buttons-left">
-        <button class="mobile-buttons">&larr;</button>
-        <button class="mobile-buttons">&rarr;</button>
+        <button id="buttonLeft" class="mobile-buttons">&larr;</button>
+        <button id="buttonRight" class="mobile-buttons">&rarr;</button>
       </div>
       <div class="mobile-buttons-right">
-        <button class="mobile-buttons">&uarr;</button>
-        <button class="mobile-buttons">
+        <button id="buttonUp" class="mobile-buttons">&uarr;</button>
+        <button id="buttonThrow" class="mobile-buttons">
           <img
-            src="adds/img/6_salsa_bottle/2_salsa_bottle_on_ground.png"
+            src="adds/img/6_salsa_bottle/1_salsa_bottle_on_ground.png"
             alt=""
           />
         </button>
@@ -260,9 +260,10 @@
       </div>
     </div>
   </body>
+
+  <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="./styles/responsive.css" />
   <link rel="stylesheet" href="./styles/adds.css" />
-  <link rel="stylesheet" href="style.css" />
   <script src="./classes/drawableObject.class.js"></script>
   <script src="./classes/statusbarHealth.class.js"></script>
   <script src="./classes/statusbarBottle.class.js"></script>

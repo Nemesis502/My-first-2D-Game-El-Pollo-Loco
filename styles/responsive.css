@@ -11,6 +11,12 @@
   .below-control {
     display: none !important;
   }
+  .below-control-audio{
+    width: 100% !important;
+  }
+  .dimensions-mobile-buttons{
+    width: 100% !important;
+  }
   .bindings {
     display: none;
   }
