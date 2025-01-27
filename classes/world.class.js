@@ -300,6 +300,31 @@ class World {
     this.checkGameOver();
   }
 
+/**
+ * Checks if the player has pressed the "G" key and has enough bottles available to throw.
+ * If the conditions are met, a new throwable object (salsa bottle) is created and added to the game.
+ * The status bar for bottles is updated accordingly.
+ */
+checkThrowableObject() {
+  if (this.keyboard.G && this.statusBarBottle.percentage >= 20) {
+    /**
+     * Creates a new throwable object (salsa bottle) at the character's position.
+     * The horizontal position is offset by 100 pixels, and the vertical position is offset by 100 pixels.
+     * @type {ThrowableObject}
+     */
+    let bottle = new ThrowableObject(
+      this.character.position_x + 100,
+      this.character.position_y + 100
+    );
+
+    // Adds the created throwable object to the game's throwable object array.
+    this.throwableObject.push(bottle);
+
+    // Reduces the bottle percentage in the status bar by 20% after throwing.
+    this.statusBarBottle.setPercentage(-20);
+  }
+}
+
   /**
    * Checks if the player or the end boss has won and ends the game accordingly.
    */
