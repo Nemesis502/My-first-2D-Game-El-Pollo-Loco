@@ -6,6 +6,8 @@ class World {
   statusbarEndBoss = new StatusbarEndBoss();
   statusbarCoins = new StatusbarCoins();
   background_Sound = new Audio("audio/background_music_party_V2.mp3");
+  winning_Sound = new Audio("audio/winning_sound.mp3");
+  losing_Sound = new Audio("audio/losing_sound.mp3");
   throwableObject = [];
   splashAnimations = [];
   level = level1;
@@ -48,7 +50,6 @@ class World {
     this.intervalId = setInterval(() => {
       this.checkCollision();
       this.checkThrowableObject();
-      this.checkApproachEndBoss();
     }, 100);
   }
 
@@ -77,11 +78,14 @@ class World {
           this.statusBarHealth.setPercentage(this.character.energy);
           this.checkCollisionWithEndBoss(enemy);
           this.checkGameOver();
-        } else if (this.character.speedY < 0 && enemy.isColliding(this.character) && this.character.isAboveGround()) {
+        } else if (
+          this.character.speedY < 0 &&
+          enemy.isColliding(this.character) &&
+          this.character.isAboveGround()
+        ) {
           enemy.hit(20);
         }
-      } 
-
+      }
     });
   }
 
@@ -153,8 +157,9 @@ class World {
   checkApproachEndBoss() {
     if (this.endBossChicken.position_x - this.character.position_x <= 350) {
       this.endBossChicken.setPlayerNearby(1);
-    } else {
-      this.endBossChicken.setPlayerNearby(0);
+      setTimeout(() => {
+        this.endBossChicken.setPlayerNearby(0);
+      }, 3000);
     }
   }
 
@@ -184,7 +189,9 @@ class World {
       setTimeout(() => {
         cancelAnimationFrame(this.animationId);
         clearInterval(this.intervalId);
+        this.background_Sound.pause();
         this.endBossChicken.stopAllSounds();
+        this.character.stopAllSounds();
         this.showPlayerEndScreenWin();
       }, 1000);
     }
@@ -195,6 +202,7 @@ class World {
     document.getElementById("startDiv").classList.add("hidden");
     document.getElementById("canvas").classList.add("hidden");
     document.getElementById("endScreen").classList.add("end-div-win");
+    this.winning_Sound.play();
   }
 
   stopGameEnemyWin() {
@@ -202,7 +210,9 @@ class World {
       setTimeout(() => {
         cancelAnimationFrame(this.animationId);
         clearInterval(this.intervalId);
+        this.background_Sound.pause();
         this.endBossChicken.stopAllSounds();
+        this.character.stopAllSounds();
         this.showPlayerEndScreenLost();
       }, 1000);
     }
@@ -213,6 +223,7 @@ class World {
     document.getElementById("startDiv").classList.add("hidden");
     document.getElementById("canvas").classList.add("hidden");
     document.getElementById("endScreen").classList.add("end-div-lost");
+    this.losing_Sound.play();
   }
 
   draw() {
@@ -256,7 +267,7 @@ class World {
     }
 
     mo.draw(this.ctx);
-    mo.drwaFrame(this.ctx);
+    // mo.drwaFrame(this.ctx);
 
     if (mo.otherDirection) {
       this.flipImageBack(mo);

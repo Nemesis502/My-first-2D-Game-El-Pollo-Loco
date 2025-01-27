@@ -69,7 +69,6 @@ class Character extends MovableObject {
     right: 40,
   };
   walking_Sound = new Audio("audio/walking_sound.mp3");
-  waiting_Sound = new Audio("audio/waiting_sound.mp3");
   jump_Sound = new Audio("audio/jumping_sound.mp3");
   player_Hit_Sound = new Audio("audio/character_hit_not_loud.mp3");
   snoring_sound = new Audio("audio/snoring.mp3");
@@ -89,7 +88,6 @@ class Character extends MovableObject {
 
   animate() {
     setInterval(() => {
-      this.walking_Sound.volume = 1.0;
       if (
         this.world.keyboard.RIGHT &&
         this.position_x < this.world.level.level_end_x
@@ -180,5 +178,31 @@ class Character extends MovableObject {
         }
       }
     }, 200);
+  }
+  stopAllSounds() {
+    this.stopWalkingSound();
+    this.stopJumpSound();
+    this.stopHitSound();
+    this.stopSnoringSound();
+  }
+  stopWalkingSound() {
+    this.walking_Sound.pause();
+    this.walking_Sound.currentTime = 0;
+    this.walking_Sound.volume = 0.0;
+  }
+  stopJumpSound() {
+    this.jump_Sound.pause();
+    this.jump_Sound.currentTime = 0;
+    this.jump_Sound.volume = 0.0;
+  }
+  stopHitSound() {
+    this.player_Hit_Sound.pause();
+    this.player_Hit_Sound.currentTime = 0;
+    this.player_Hit_Sound.volume = 0.0;
+  }
+  stopSnoringSound() {
+    this.snoring_sound.pause();
+    this.snoring_sound.currentTime = 0;
+    this.snoring_sound.volume = 0.0;
   }
 }

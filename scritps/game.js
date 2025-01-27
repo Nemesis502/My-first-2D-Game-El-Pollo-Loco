@@ -33,7 +33,6 @@ function checkMobileDevice() {
     document.getElementById("belowControl").classList.remove("hidden");
   } else if (isMobileDevice) {
     document.getElementById("mobileButtons").classList.remove("hidden");
-    
   }
 }
 
@@ -67,19 +66,32 @@ function setSoundeffectsVolumeOff() {
   world.character.jump_Sound.volume = 0.0;
   world.character.waiting_Sound.volume = 0.0;
   world.character.walking_Sound.volume = 0.0;
-  console.log(world.level.enemies);
   world.endBossChicken.attack_Sound.volume = 0.0;
   world.endBossChicken.alert_Sound.volume = 0.0;
+  muteAllMinionEnemies();
+}
+
+function muteAllMinionEnemies() {
+  world.level.enemies.forEach((enemies) => {
+    enemies.hit_Sound.volume = 0.0;
+  });
 }
 
 function setSoundeffectsVolumeOn() {
   world.character.snoring_sound.volume = 1.0;
-  world.character.hit_Sound.volume = 1.0;
+  world.character.player_Hit_Sound.volume = 1.0;
   world.character.jump_Sound.volume = 1.0;
   world.character.waiting_Sound.volume = 1.0;
   world.character.walking_Sound.volume = 1.0;
   world.endBossChicken.attack_Sound.volume = 1.0;
   world.endBossChicken.alert_Sound.volume = 1.0;
+  entmuteAllMinionEnemies();
+}
+
+function entmuteAllMinionEnemies() {
+  world.level.enemies.forEach((enemies) => {
+    enemies.hit_Sound.volume = 1.0;
+  });
 }
 
 function returnToMainMenu() {

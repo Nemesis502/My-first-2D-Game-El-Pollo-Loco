@@ -4,8 +4,10 @@ class Endboss extends MovableObject {
   width = 400;
   name = "EndBoss";
   currentHit = false;
-  playersNearby = false;
+  firstContact = false;
   playerAttackRange = false;
+  attackMode = false;
+  speed = 0.5;
   images_Walking = [
     "adds/img/4_enemie_boss_chicken/1_walk/G1.png",
     "adds/img/4_enemie_boss_chicken/1_walk/G2.png",
@@ -44,11 +46,12 @@ class Endboss extends MovableObject {
   ];
   alert_Sound = new Audio("audio/chicken_alert.mp3");
   attack_Sound = new Audio("audio/chicken_attack.mp3");
+  hit_Sound = new Audio("audio/chicken_attack.mp3");
 
   offset = {
     top: 50,
     bottom: 20,
-    left: 40,
+    left: 20,
     right: 50,
   };
 
@@ -60,50 +63,116 @@ class Endboss extends MovableObject {
     this.loadImages(this.images_Attack);
     this.loadImages(this.images_Dead);
     this.position_x = 2000;
-    this.speed = 0.15 + Math.random() * 0.25;
     this.animate();
   }
 
   animate() {
-    let currentSpeed = this.speed;
+    let i = 0;
     setInterval(() => {
-      if (!this.currentHit || !this.playerAttackRange || !this.playersNearby) {
+      if (i > 10) {
         this.moveLeft();
       }
     }, 1000 / 60);
-
     setInterval(() => {
+      if (world.character.position_x < 1450 && !this.firstContact) {
+        i = 0;
+      } else if (world.character.position_x > 1450 && !this.firstContact) {
+        this.firstContact = true;
+        this.alert_Sound.play();
+        setTimeout(() => {
+          this.alert_Sound.pause();
+        }, 2000);
+      }
       if (this.isDead()) {
         this.playAnimation(this.images_Dead);
         this.speed = 0;
-      } else if (this.playerAttackRange) {
-        this.speed = 0;
-        this.playAnimation(this.images_Attack);
-        this.playAttackSound();
-      } else if (this.playersNearby) {
-        this.speed = 0;
-        this.playAnimation(this.images_Alert);
-        this.playAlertSound();
       } else if (this.currentHit) {
-        this.speed = 0;
-        this.playAnimation(this.images_Hurt);
+        this.playEndBossHurt();
+        setTimeout(() => {
+          this.playEndBossAttack();
+        }, 2000);
+      } else if (this.playerAttackRange) {
+        this.playAttackRange();
+      } else if (i < 10) {
+        this.playAnimation(this.images_Alert);
       } else {
         this.playAnimation(this.images_Walking);
-        this.speed = currentSpeed;
       }
-    }, 1000 / 6);
+      i++;
+    }, 200);
   }
 
-  setPlayerNearby(i) {
-    if (i == 1) {
-      this.playersNearby = true;
-    } else if (i == 0) {
+  playDead() {
+    setInterval(() => {
+      this.playAnimation(this.images_Dead);
+      this.speed = 0;
+    }, 1000 / 7);
+  }
+
+  playEndBossHurt() {
+    if (this.isHurtActive) return;
+    this.isHurtActive = true;
+    let hurtInterval = setInterval(() => {
+      this.speed = 0;
+      this.playAnimation(this.images_Hurt);
+      this.hit_Sound.play();
+    }, 1000 / 3);
+
+    setTimeout(() => {
+      this.currentHit = false;
+      this.attackMode = false;
+      clearInterval(hurtInterval);
+      this.isHurtActive = false;
+      this.speed = 0.5;
+    }, 1500);
+  }
+
+  playEndBossAttack() {
+    if (this.isAttackActive) return;
+    this.isAttackActive = true;
+    let attackInterval = setInterval(() => {
+      this.speed = 1.5;
+      this.attack_Sound.play();
+      this.playAnimation(this.images_Attack);
+    }, 1000 / 3);
+
+    setTimeout(() => {
+      this.speed = 0.5;
+      this.attack_Sound.pause();
+      clearInterval(attackInterval);
+      this.currentHit = false;
+      this.isAttackActive = false;
+    }, 1500);
+  }
+
+  playAttackRange() {
+    setInterval(() => {
+      this.speed = 0;
+      this.playAnimation(this.images_Attack);
+      this.playAttackSound();
+    }, 2000);
+  }
+
+  playAlert() {
+    setInterval(() => {
+      this.speed = 0;
+      this.playAnimation(this.images_Alert);
+      this.playAlertSound();
       this.playersNearby = false;
-    }
+      this.firstContact = false;
+    }, 1500);
+  }
+
+  playWalk(i) {
+    setInterval(() => {
+      if (i > 10) {
+        this.moveLeft();
+      }
+    }, 1000 / 5);
   }
 
   setPlayerCloseRange(i) {
-    if ((i = 1)) {
+    if (i === 1) {
       this.playerAttackRange = true;
     }
     setTimeout(() => {
@@ -112,12 +181,10 @@ class Endboss extends MovableObject {
   }
 
   setCurrentHit(i) {
-    if ((i = 1)) {
+    if (i === 1) {
       this.currentHit = true;
+      this.attackMode = true;
     }
-    setTimeout(() => {
-      this.currentHit = false;
-    }, 3000);
   }
 
   playAttackSound() {
@@ -133,11 +200,24 @@ class Endboss extends MovableObject {
   }
 
   stopAllSounds() {
+    this.stopAlertSound();
+    this.stopAttackSound();
+    this.stopHitSound();
+  }
+
+  stopAlertSound() {
     this.alert_Sound.pause();
     this.alert_Sound.currentTime = 0;
     this.alert_Sound.volume = 0.0;
+  }
+  stopAttackSound() {
     this.attack_Sound.pause();
     this.attack_Sound.currentTime = 0;
     this.attack_Sound.volume = 0.0;
+  }
+  stopHitSound() {
+    this.hit_Sound.pause();
+    this.hit_Sound.currentTime = 0;
+    this.hit_Sound.volume = 0.0;
   }
 }
