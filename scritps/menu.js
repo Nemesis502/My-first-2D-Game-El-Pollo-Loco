@@ -1,38 +1,85 @@
+/**
+ * The starting screen element.
+ * @type {HTMLElement}
+ */
 let startDiv = document.getElementById("startDiv");
+
+/**
+ * The settings screen element.
+ * @type {HTMLElement}
+ */
 let settingDiv = document.getElementById("settingDiv");
+
+/**
+ * The legal notice screen element.
+ * @type {HTMLElement}
+ */
 let legalNotice = document.getElementById("legalNotice");
+
+/**
+ * The flag element used to switch languages.
+ * @type {HTMLElement}
+ */
 let flag = document.getElementById("flag");
 
+/**
+ * Toggles visibility between the start screen and the settings screen.
+ * Shows or hides the respective elements.
+ */
 function switchStartSettings() {
   settingDiv.classList.toggle("hidden");
   startDiv.classList.toggle("hidden");
 }
 
+/**
+ * Toggles visibility between the start screen and the story screen.
+ * Shows or hides the respective elements.
+ */
 function switchStartStory() {
   startDiv.classList.toggle("hidden");
   storyDiv.classList.toggle("hidden");
 }
 
+/**
+ * Toggles visibility between the start screen and the legal notice screen.
+ * Shows or hides the respective elements.
+ */
 function switchStartLegalNotice() {
   startDiv.classList.toggle("hidden");
   legalNotice.classList.toggle("hidden");
 }
 
+/**
+ * Toggles visibility between the settings screen and the story screen.
+ * Shows or hides the respective elements.
+ */
 function switchSettingsStory() {
   settingDiv.classList.toggle("hidden");
   storyDiv.classList.toggle("hidden");
 }
 
+/**
+ * Toggles visibility between the settings screen and the legal notice screen.
+ * Shows or hides the respective elements.
+ */
 function switchSettingLegalNotice() {
   settingDiv.classList.toggle("hidden");
   legalNotice.classList.toggle("hidden");
 }
 
+/**
+ * Toggles visibility between the story screen and the legal notice screen.
+ * Shows or hides the respective elements.
+ */
 function switchStoryLegalNotice() {
   storyDiv.classList.toggle("hidden");
   legalNotice.classList.toggle("hidden");
 }
 
+/**
+ * Switches the language to German and updates all relevant UI elements.
+ * Updates text and images for menus, settings, story, and legal notice screens.
+ */
 function switchLanguageToGer() {
   changeMenuNamesToGer();
   changeSettingsToGer();
@@ -43,26 +90,40 @@ function switchLanguageToGer() {
   flag.addEventListener("click", switchLanguageToEng);
   changeFlagToEng();
 }
+
+/**
+ * Updates the flag image to the English version.
+ * Changes the flag icon to indicate English as the selected language.
+ */
 function changeFlagToEng() {
   if (flag && flag.src.includes("icons8-deutschland-48.png")) {
     flag.src = "adds/img/10_other/icons8-uk-48.png";
   }
 }
 
+/**
+ * Updates the flag image to the German version.
+ * Changes the flag icon to indicate German as the selected language.
+ */
 function changeFlagToGer() {
-  if (
-    flag &&
-    flag.src.includes("icons8-uk-48.png")
-  ) {
+  if (flag && flag.src.includes("icons8-uk-48.png")) {
     flag.src = "adds/img/10_other/icons8-deutschland-48.png";
   }
 }
 
+/**
+ * Updates menu names to German.
+ * Changes the text for menu buttons on the start screen.
+ */
 function changeMenuNamesToGer() {
   document.getElementById("settingStart").innerHTML = "Einstellung";
   document.getElementById("legalNoticeStart").innerHTML = "Impressum";
 }
 
+/**
+ * Updates the settings screen to German.
+ * Changes the text for settings options and controls.
+ */
 function changeSettingsToGer() {
   document.getElementById("returnSetting").innerHTML = "Zurück zum Start";
   document.getElementById("returnSetting").classList.add("german-size");
@@ -75,6 +136,10 @@ function changeSettingsToGer() {
   document.getElementById("legalNoticeSetting").innerHTML = "Impressum";
 }
 
+/**
+ * Updates the below-control screen to German.
+ * Changes the text for in-game control instructions and settings options.
+ */
 function changeBelowControllToGer() {
   document.getElementById("moveRight-below").innerHTML = "Laufen Rechts: D";
   document.getElementById("moveLeft-below").innerHTML = "Laufen Links: A";
@@ -86,6 +151,11 @@ function changeBelowControllToGer() {
   document.getElementById("newStartButtonEnd").innerHTML = "Neustart";
   document.getElementById("audioMusicBelow").innerHTML = "Musik stummschalten:";
 }
+
+/**
+ * Updates the story screen to German.
+ * Changes the text for the story content and related buttons.
+ */
 
 function changeStoryToGer() {
   document.getElementById("backStart").innerHTML = "Zurück zum Start";
@@ -108,6 +178,10 @@ function changeStoryToGer() {
   document.getElementById("legalNoticeStory").innerHTML = "Impressum";
 }
 
+/**
+ * Updates the legal notice screen to German.
+ * Changes the text for the legal notice and related buttons.
+ */
 function changeLegalNoticeToGer() {
   document.getElementById("returnLegalNotice").innerHTML = "Zurück zum Start";
   document.getElementById("settingLegalNotice").innerHTML = "Einstellung";
@@ -143,6 +217,11 @@ function changeLegalNoticeToGer() {
   `;
 }
 
+/**
+ * Switches the language to English and updates all relevant UI elements.
+ * Updates text and images for menus, settings, story, and legal notice screens.
+ */
+
 function switchLanguageToEng() {
   changeMenuNamesToEng();
   changeSettingsToEng();
@@ -154,11 +233,19 @@ function switchLanguageToEng() {
   changeFlagToGer();
 }
 
+/**
+ * Updates menu names to English.
+ * Changes the text for menu buttons on the start screen.
+ */
 function changeMenuNamesToEng() {
   document.getElementById("settingStart").innerHTML = "Setting";
   document.getElementById("legalNoticeStart").innerHTML = "Legal Notice";
 }
 
+/**
+ * Updates the settings screen to English.
+ * Changes the text for settings options and controls.
+ */
 function changeSettingsToEng() {
   document.getElementById("returnSetting").innerHTML = "Return to Start";
   document.getElementById("returnSetting").classList.remove("german-size");
@@ -171,6 +258,10 @@ function changeSettingsToEng() {
   document.getElementById("legalNoticeSetting").innerHTML = "Legal Notice";
 }
 
+/**
+ * Updates the below-control screen to English.
+ * Changes the text for in-game control instructions and settings options.
+ */
 function changeBelowControllToEng() {
   document.getElementById("moveRight-below").innerHTML = "Move Right: D";
   document.getElementById("moveLeft-below").innerHTML = "Move Left: A";
@@ -182,6 +273,10 @@ function changeBelowControllToEng() {
   document.getElementById("newStartButtonEnd").innerHTML = "Restart";
 }
 
+/**
+ * Updates the story screen to English.
+ * Changes the text for the story content and related buttons.
+ */
 function changeStoryToEng() {
   document.getElementById("backStart").innerHTML = "Return to Start";
   document.getElementById("story").innerHTML = `
@@ -202,6 +297,10 @@ function changeStoryToEng() {
   document.getElementById("legalNoticeStory").innerHTML = "Legal Notice";
 }
 
+/**
+ * Updates the legal notice screen to English.
+ * Changes the text for the legal notice and related buttons.
+ */
 function changeLegalNoticeToEng() {
   document.getElementById("returnLegalNotice").innerHTML = "Return to Start";
   document.getElementById("settingLegalNotice").innerHTML = "Setting";

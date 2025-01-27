@@ -1,24 +1,129 @@
+/**
+ * Represents the game world.
+ * Manages all game elements such as the character, enemies, level objects, status bars, and interactions.
+ */
 class World {
+  /**
+   * The main character in the game.
+   * @type {Character}
+   */
   character = new Character();
+
+  /**
+   * The end boss enemy in the game.
+   * @type {EndBoss|undefined}
+   */
   endBossChicken;
+
+  /**
+   * The status bar for the character's health.
+   * @type {StatusbarHealth}
+   */
   statusBarHealth = new StatusbarHealth();
+
+  /**
+   * The status bar for the salsa bottles collected by the character.
+   * @type {StatusbarBottle}
+   */
   statusBarBottle = new StatusbarBottle();
+
+  /**
+   * The status bar for the end boss's health.
+   * @type {StatusbarEndBoss}
+   */
   statusbarEndBoss = new StatusbarEndBoss();
+
+  /**
+   * The status bar for the coins collected by the character.
+   * @type {StatusbarCoins}
+   */
   statusbarCoins = new StatusbarCoins();
+
+  /**
+   * The background sound of the game.
+   * @type {Audio}
+   */
   background_Sound = new Audio("audio/background_music_party_V2.mp3");
+
+  /**
+   * The sound effect played when the player wins.
+   * @type {Audio}
+   */
   winning_Sound = new Audio("audio/winning_sound.mp3");
+
+  /**
+   * The sound effect played when the player loses.
+   * @type {Audio}
+   */
   losing_Sound = new Audio("audio/losing_sound.mp3");
+
+  /**
+   * An array of throwable objects (e.g., salsa bottles).
+   * @type {ThrowableObject[]}
+   */
   throwableObject = [];
+
+  /**
+   * An array of splash animations triggered by throwable objects.
+   * @type {ThrowableObject[]}
+   */
   splashAnimations = [];
+
+  /**
+   * The current level of the game.
+   * @type {Level}
+   */
   level = level1;
+
+  /**
+   * The current enemy being interacted with.
+   * @type {MovableObject|undefined}
+   */
   currentEnemy;
+
+  /**
+   * The canvas element used for rendering the game.
+   * @type {HTMLCanvasElement}
+   */
   canvas;
+
+  /**
+   * The rendering context for the canvas.
+   * @type {CanvasRenderingContext2D}
+   */
   ctx;
+
+  /**
+   * The keyboard input handler.
+   * @type {Keyboard}
+   */
   keyboard;
+
+  /**
+   * The x-coordinate for the camera offset.
+   * @type {number}
+   * @default 0
+   */
   camara_x = 0;
+
+  /**
+   * The ID of the animation frame for rendering.
+   * @type {number|null}
+   */
   animationId = null;
+
+  /**
+   * The ID of the interval for game logic updates.
+   * @type {number|null}
+   */
   intervalId = null;
 
+  /**
+   * Creates an instance of the `World` class.
+   * Initializes the game world, sets up audio, draws the canvas, and starts the game loop.
+   * @param {HTMLCanvasElement} canvas - The canvas element used for rendering the game.
+   * @param {Keyboard} keyboard - The keyboard input handler.
+   */
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -30,10 +135,16 @@ class World {
     this.run();
   }
 
+  /**
+   * Links the game world to the character for interactions.
+   */
   setWorld() {
     this.character.world = this;
   }
 
+  /**
+   * Sets up the background audio with volume and looping configurations.
+   */
   setupAudio() {
     this.background_Sound.volume = 0.7;
     this.background_Sound.loop = true;
@@ -46,6 +157,9 @@ class World {
     });
   }
 
+  /**
+   * Starts the game loop, checking for collisions and throwable objects.
+   */
   run() {
     this.intervalId = setInterval(() => {
       this.checkCollision();
@@ -53,6 +167,9 @@ class World {
     }, 100);
   }
 
+  /**
+   * Resets the game state, clearing animations and arrays.
+   */
   resetGameState() {
     this.isGameOver = false;
     this.animationId = null;
@@ -60,6 +177,9 @@ class World {
     this.splashAnimations = [];
   }
 
+  /**
+   * Checks all types of collisions in the game world.
+   */
   checkCollision() {
     this.checkCharacter();
     this.checkSalsa();
@@ -67,9 +187,12 @@ class World {
     this.checkBottle();
   }
 
+  /**
+   * Checks collisions between the character and enemies.
+   */
   checkCharacter() {
     this.level.enemies.forEach((enemy) => {
-      if (enemy.name == "EndBoss") {
+      if (enemy.name === "EndBoss") {
         this.endBossChicken = enemy;
       }
       if (this.character.isColliding(enemy)) {
@@ -89,12 +212,19 @@ class World {
     });
   }
 
+  /**
+   * Checks collisions between the character and the end boss.
+   * @param {MovableObject} enemy - The end boss enemy.
+   */
   checkCollisionWithEndBoss(enemy) {
-    if (enemy.name == "EndBoss") {
+    if (enemy.name === "EndBoss") {
       this.endBossChicken.setPlayerCloseRange(1);
     }
   }
 
+  /**
+   * Checks collisions between the character and salsa bottles.
+   */
   checkSalsa() {
     this.level.salsa = this.level.salsa.filter((salsa) => {
       if (
@@ -108,11 +238,14 @@ class World {
     });
   }
 
+  /**
+   * Checks collisions between the character and coins.
+   */
   checkCoins() {
-    this.level.coins = this.level.coins.filter((coins) => {
-      if (this.character.isColliding(coins)) {
+    this.level.coins = this.level.coins.filter((coin) => {
+      if (this.character.isColliding(coin)) {
         this.statusbarCoins.setPercentage(20);
-        if (this.statusbarCoins.percentage == 120) {
+        if (this.statusbarCoins.percentage === 120) {
           this.statusBarHealth.setPercentage(100);
           this.statusbarCoins.setPercentage(-120);
         }
@@ -122,6 +255,9 @@ class World {
     });
   }
 
+  /**
+   * Checks collisions between throwable objects and enemies.
+   */
   checkBottle() {
     this.level.enemies.forEach((enemy) => {
       this.throwableObject = this.throwableObject.filter((bottle) => {
@@ -133,9 +269,15 @@ class World {
     });
   }
 
+  /**
+   * Handles the splash animation and damage when a throwable object hits an enemy.
+   * @param {MovableObject} enemy - The enemy hit by the throwable object.
+   * @param {ThrowableObject} bottle - The throwable object that hit the enemy.
+   * @returns {boolean} Whether the throwable object should be kept in the array.
+   */
   splashAction(enemy, bottle) {
     enemy.hit(20);
-    if (enemy.name == "EndBoss") {
+    if (enemy.name === "EndBoss") {
       this.checkHitEndboss(enemy);
     }
     bottle.animateSplash();
@@ -148,32 +290,19 @@ class World {
     return false;
   }
 
+  /**
+   * Checks if the end boss was hit and updates its health.
+   * @param {MovableObject} enemy - The end boss enemy.
+   */
   checkHitEndboss(enemy) {
     this.statusbarEndBoss.setPercentage(-20);
     enemy.setCurrentHit(1);
     this.checkGameOver();
   }
 
-  checkApproachEndBoss() {
-    if (this.endBossChicken.position_x - this.character.position_x <= 350) {
-      this.endBossChicken.setPlayerNearby(1);
-      setTimeout(() => {
-        this.endBossChicken.setPlayerNearby(0);
-      }, 3000);
-    }
-  }
-
-  checkThrowableObject() {
-    if (this.keyboard.G && this.statusBarBottle.percentage >= 20) {
-      let bottle = new ThrowableObject(
-        this.character.position_x + 100,
-        this.character.position_y + 100
-      );
-      this.throwableObject.push(bottle);
-      this.statusBarBottle.setPercentage(-20);
-    }
-  }
-
+  /**
+   * Checks if the player or the end boss has won and ends the game accordingly.
+   */
   checkGameOver() {
     if (this.character.energy <= 0) {
       this.isGameOver = true;
@@ -184,6 +313,9 @@ class World {
     }
   }
 
+  /**
+   * Stops the game and displays the victory screen if the player wins.
+   */
   stopGamePlayerWin() {
     if (this.isGameOver) {
       setTimeout(() => {
@@ -197,6 +329,9 @@ class World {
     }
   }
 
+  /**
+   * Displays the victory screen for the player.
+   */
   showPlayerEndScreenWin() {
     document.getElementById("endScreen").classList.remove("hidden");
     document.getElementById("startDiv").classList.add("hidden");
@@ -205,6 +340,9 @@ class World {
     this.winning_Sound.play();
   }
 
+  /**
+   * Stops the game and displays the loss screen if the player loses.
+   */
   stopGameEnemyWin() {
     if (this.isGameOver) {
       setTimeout(() => {
@@ -218,6 +356,9 @@ class World {
     }
   }
 
+  /**
+   * Displays the loss screen for the player.
+   */
   showPlayerEndScreenLost() {
     document.getElementById("endScreen").classList.remove("hidden");
     document.getElementById("startDiv").classList.add("hidden");
@@ -226,6 +367,9 @@ class World {
     this.losing_Sound.play();
   }
 
+  /**
+   * Draws all elements of the game world on the canvas.
+   */
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -239,7 +383,7 @@ class World {
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.clouds);
 
-    // ------- Space for fixed obkects -------
+    // Fixed UI elements
     this.ctx.translate(-this.camara_x, 0);
     this.addToMap(this.statusBarHealth);
     this.addToMap(this.statusBarBottle);
@@ -255,25 +399,36 @@ class World {
     });
   }
 
+  /**
+   * Adds an array of objects to the canvas.
+   * @param {DrawableObject[]} object - The array of drawable objects to add to the canvas.
+   */
   addObjectsToMap(object) {
     object.forEach((o) => {
       this.addToMap(o);
     });
   }
 
+  /**
+   * Adds a single drawable object to the canvas, handling its direction.
+   * @param {DrawableObject} mo - The drawable object to add to the canvas.
+   */
   addToMap(mo) {
     if (mo.otherDirection) {
       this.spinImage(mo);
     }
 
     mo.draw(this.ctx);
-    // mo.drwaFrame(this.ctx);
 
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
   }
 
+  /**
+   * Flips the object image horizontally for a mirrored effect.
+   * @param {DrawableObject} mo - The object to flip.
+   */
   spinImage(mo) {
     this.ctx.save();
     this.ctx.translate(mo.width, 0);
@@ -281,6 +436,10 @@ class World {
     mo.position_x = mo.position_x * -1;
   }
 
+  /**
+   * Restores the image to its original orientation after being flipped.
+   * @param {DrawableObject} mo - The object to restore.
+   */
   flipImageBack(mo) {
     mo.position_x = mo.position_x * -1;
     this.ctx.restore();

@@ -1,13 +1,40 @@
+/**
+ * The main canvas element for rendering the game.
+ * @type {HTMLCanvasElement}
+ */
 let canvas;
+
+/**
+ * The game world instance.
+ * @type {World}
+ */
 let world;
+
+/**
+ * The keyboard input handler.
+ * @type {Keyboard}
+ */
 let keyboard = new Keyboard();
+
+/**
+ * Flag indicating whether the device is a mobile device.
+ * @type {boolean}
+ * @default false
+ */
 let isMobileDevice = false;
 
+/**
+ * Initializes the game setup, including canvas and device detection.
+ */
 function init() {
   canvas = document.getElementById("canvas");
   isTouchDevice();
 }
 
+/**
+ * Detects whether the current device is a touch device.
+ * @returns {boolean} True if the device supports touch input, false otherwise.
+ */
 function isTouchDevice() {
   return window.matchMedia("(pointer: coarse)").matches;
 }
@@ -19,6 +46,10 @@ if (isTouchDevice()) {
   isMobileDevice = false;
 }
 
+/**
+ * Initializes the game level and creates a new `World` instance.
+ * Hides the start screen and displays the game canvas.
+ */
 function initLevel() {
   initLevel1();
   world = new World(canvas, keyboard);
@@ -28,6 +59,9 @@ function initLevel() {
   document.getElementById("belowControlAudio").classList.remove("hidden");
 }
 
+/**
+ * Checks if the game is running on a mobile device and displays the appropriate controls.
+ */
 function checkMobileDevice() {
   if (!isMobileDevice) {
     document.getElementById("belowControl").classList.remove("hidden");
@@ -36,6 +70,9 @@ function checkMobileDevice() {
   }
 }
 
+/**
+ * Toggles the sound effects in the game based on the state of the checkbox.
+ */
 function muteSoundeffectsBelow() {
   let audioSoundBelowCheckBox = document.getElementById(
     "audioSoundBelowCheckBox"
@@ -48,6 +85,9 @@ function muteSoundeffectsBelow() {
   }
 }
 
+/**
+ * Toggles the background music in the game based on the state of the checkbox.
+ */
 function muteMusicBelow() {
   let audioMusicBelowCheckBox = document.getElementById(
     "audioMusicBelowCheckBox"
@@ -60,6 +100,9 @@ function muteMusicBelow() {
   }
 }
 
+/**
+ * Mutes all sound effects in the game.
+ */
 function setSoundeffectsVolumeOff() {
   world.character.snoring_sound.volume = 0.0;
   world.character.player_Hit_Sound.volume = 0.0;
@@ -71,12 +114,18 @@ function setSoundeffectsVolumeOff() {
   muteAllMinionEnemies();
 }
 
+/**
+ * Mutes the sound effects for all minion enemies in the game.
+ */
 function muteAllMinionEnemies() {
-  world.level.enemies.forEach((enemies) => {
-    enemies.hit_Sound.volume = 0.0;
+  world.level.enemies.forEach((enemy) => {
+    enemy.hit_Sound.volume = 0.0;
   });
 }
 
+/**
+ * Enables all sound effects in the game.
+ */
 function setSoundeffectsVolumeOn() {
   world.character.snoring_sound.volume = 1.0;
   world.character.player_Hit_Sound.volume = 1.0;
@@ -88,18 +137,27 @@ function setSoundeffectsVolumeOn() {
   entmuteAllMinionEnemies();
 }
 
+/**
+ * Enables the sound effects for all minion enemies in the game.
+ */
 function entmuteAllMinionEnemies() {
-  world.level.enemies.forEach((enemies) => {
-    enemies.hit_Sound.volume = 1.0;
+  world.level.enemies.forEach((enemy) => {
+    enemy.hit_Sound.volume = 1.0;
   });
 }
 
+/**
+ * Returns to the main menu, reloading the index page.
+ */
 function returnToMainMenu() {
   window.open("index.html", "_self");
   document.getElementById("endScreen").classList.add("hidden");
   document.getElementById("startDiv").classList.remove("hidden");
 }
 
+/**
+ * Restarts the game by resetting the game state and reinitializing the level.
+ */
 function restartGame() {
   if (world) {
     cancelAnimationFrame(world.animationId);
