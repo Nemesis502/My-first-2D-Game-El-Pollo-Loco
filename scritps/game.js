@@ -107,7 +107,6 @@ function setSoundeffectsVolumeOff() {
   world.character.snoring_sound.volume = 0.0;
   world.character.player_Hit_Sound.volume = 0.0;
   world.character.jump_Sound.volume = 0.0;
-  world.character.waiting_Sound.volume = 0.0;
   world.character.walking_Sound.volume = 0.0;
   world.endBossChicken.attack_Sound.volume = 0.0;
   world.endBossChicken.alert_Sound.volume = 0.0;
@@ -130,7 +129,6 @@ function setSoundeffectsVolumeOn() {
   world.character.snoring_sound.volume = 1.0;
   world.character.player_Hit_Sound.volume = 1.0;
   world.character.jump_Sound.volume = 1.0;
-  world.character.waiting_Sound.volume = 1.0;
   world.character.walking_Sound.volume = 1.0;
   world.endBossChicken.attack_Sound.volume = 1.0;
   world.endBossChicken.alert_Sound.volume = 1.0;
@@ -169,5 +167,8 @@ function restartGame() {
   document
     .getElementById("endScreen")
     .classList.remove("end-div-win", "end-div-lost");
+  document.getElementById("audioSoundBelowCheckBox").checked = false;
+  document.getElementById("audioMusicBelowCheckBox").checked = false;
+
   initLevel();
 }
