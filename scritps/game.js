@@ -169,6 +169,5 @@ function restartGame() {
     .classList.remove("end-div-win", "end-div-lost");
   document.getElementById("audioSoundBelowCheckBox").checked = false;
   document.getElementById("audioMusicBelowCheckBox").checked = false;
-
   initLevel();
 }
