@@ -49,26 +49,22 @@
   padding-top: 18px;
 }
 
-.bigger-button {
-  height: 55px;
-}
-
 .mobile-buttons-container {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  position: absolute;
-  top: 92%;
+  /* position: absolute; */
+  top: 100%;
   left: 50%;
-  transform: translate(-50%, -150%);
-  z-index: 2;
+  /* transform: translate(-50%, -150%);
+  z-index: 2; */
 }
 
 .mobile-buttons {
   background-color: #ffd400;
   color: black !important;
-  height: 44px;
-  width: 110px;
+  height: 28px;
+  width: 78px;
   font-size: 20px;
   border-style: none;
   border-radius: 20px;
@@ -85,12 +81,12 @@
 }
 
 .mobile-buttons-right img {
-  height: 40px;
+  height: 28px;
   width: 60px;
 }
 
 .dimensions-mobile-buttons {
-  width: 720px;
+  width: 560px;
 }
 
 .mobile-buttons-right,
@@ -98,4 +94,16 @@
   display: flex;
   align-items: center;
   gap: 40px;
+}
+
+.button-end-screen {
+  font-family: "myCostumFont", serif;
+  background-color: #ffd400;
+  color: black !important;
+  height: 45px;
+  width: 180px;
+  font-size: 17px;
+  border-style: none;
+  border-radius: 20px;
+  transition-duration: 0.4s;
 }

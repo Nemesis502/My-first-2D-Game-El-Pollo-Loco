@@ -1,6 +1,6 @@
 @media screen and (max-width: 720px) {
   canvas {
-    width: 100%;
+    width: 70%;
   }
   .dimensions {
     width: 100% !important;
@@ -9,12 +9,12 @@
     width: 100% !important;
   }
   .below-control {
-    display: none !important;
+    width: 470px;
   }
-  .below-control-audio{
+  .below-control-audio {
     width: 100% !important;
   }
-  .dimensions-mobile-buttons{
+  .dimensions-mobile-buttons {
     width: 100% !important;
   }
   .story-container {
@@ -24,6 +24,7 @@
   }
   .story p {
     width: 90% !important;
+    font-size: 15px
   }
   .legal-notice p {
     width: 90% !important;
@@ -52,11 +53,57 @@
   }
 }
 
-@media screen and (max-height: 480px) {
-  canvas {
-    height: 100vh;
+@media screen and (min-height: 1023px) {
+  .top-audio-container {
+    top: 40% !important;
   }
+  .mobile-buttons-container {
+    top: 80% !important;
+  }
+}
 
+@media screen and (min-height: 820px) {
+  .top-audio-container {
+    top: 38%;
+  }
+  .mobile-buttons-container {
+    top: 88%;
+  }
+}
+
+@media screen and (min-height: 480px) {
+  .top-audio-container {
+    top: 36%;
+  }
+  .mobile-buttons-container {
+    top: 88%;
+  }
+}
+
+@media screen and (max-height: 690px) {
+  canvas {
+    height: 70vh;
+  }
+}
+
+@media screen and (max-height: 740px) {
+  .headline {
+    display: none !important;
+  }
+}
+
+@media screen and (max-height: 500px) {
+  .below-control p {
+    margin: 0;
+    font-size: 15px;
+  }
+  .below-control-audio p {
+    margin: 0;
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-height: 480px) {
   .dimensions {
     height: 100vh !important;
   }
@@ -69,14 +116,10 @@
     font-size: 9px !important;
   }
 
-  .button {
-    height: 28px;
+  .button, .disabled-button {
+    height: 30px;
     width: 150px;
     font-size: 16px;
-  }
-
-  .below-control {
-    display: none !important;
   }
 
   .headline {

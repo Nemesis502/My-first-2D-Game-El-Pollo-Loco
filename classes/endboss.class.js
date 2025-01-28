@@ -188,11 +188,11 @@ class Endboss extends MovableObject {
    */
   animate() {
     let i = 0;
-    setInterval(() => {
-      if (i > 10) {
-        this.moveLeft();
-      }
-    }, 1000 / 60);
+    // setInterval(() => {
+    //   if (i > 10) {
+    //     this.moveLeft();
+    //   }
+    // }, 1000 / 60);
 
     setInterval(() => {
       if (world.character.position_x < 1450 && !this.firstContact) {

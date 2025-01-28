@@ -46,17 +46,32 @@ if (isTouchDevice()) {
   isMobileDevice = false;
 }
 
+function checkAudioTouchDevice() {
+  if (!isMobileDevice) {
+    document.getElementById("belowControlAudio").classList.remove("hidden");
+  } else if (isMobileDevice) {
+    document.getElementById("topAudioContainer").classList.remove("hidden");
+  }
+}
+
 /**
  * Initializes the game level and creates a new `World` instance.
  * Hides the start screen and displays the game canvas.
  */
 function initLevel() {
   initLevel1();
-  world = new World(canvas, keyboard);
-  document.getElementById("startDiv").classList.add("hidden");
-  document.getElementById("canvas").classList.remove("hidden");
+  setWorld();
+
   checkMobileDevice();
-  document.getElementById("belowControlAudio").classList.remove("hidden");
+  checkAudioTouchDevice();
+  document.getElementById("startDiv").classList.add("hidden");
+  document.getElementById("canvasContainer").classList.remove("hidden");
+  // restoreImageState();
+  // restoreCheckboxState();
+}
+
+function setWorld() {
+  world = new World(canvas, keyboard);
 }
 
 /**
@@ -67,37 +82,101 @@ function checkMobileDevice() {
     document.getElementById("belowControl").classList.remove("hidden");
   } else if (isMobileDevice) {
     document.getElementById("mobileButtons").classList.remove("hidden");
+    checkMusicStorage();
+    checkSoundStorage();
+  }
+}
+
+function checkMusicStorage() {
+  let musicLocalStorage = JSON.parse(localStorage.getItem("topMusicImg"));
+  if (musicLocalStorage == null) {
+    return;
+  } else {
+    restoreImageState(musicLocalStorage, "topMusicImg");
+    checkmuteMusicTop("topMusicImg");
+  }
+}
+
+function checkmuteMusicTop(imageId) {
+  let topMusicImg = document.getElementById(imageId);
+  if (topMusicImg && topMusicImg.src.includes("music_mute.png")) {
+    world.background_Sound.volume = 0.0;
+  } else if (topMusicImg && topMusicImg.src.includes("music_on.png")) {
+    world.background_Sound.volume = 0.7;
+  }
+}
+
+function checkSoundStorage() {
+  let soundLocalStorage = JSON.parse(localStorage.getItem("topSoundeffctImg"));
+  console.log(soundLocalStorage);
+
+  if (soundLocalStorage == null) {
+    return;
+  } else {
+    restoreImageState(soundLocalStorage, "topSoundeffctImg");
+    checkmuteEffectsTop("topSoundeffctImg");
+  }
+}
+
+function checkmuteEffectsTop(imageId) {
+  let soundEffctImg = document.getElementById(imageId);
+  if (soundEffctImg && soundEffctImg.src.includes("effects_mute.png")) {
+    setSoundeffectsVolumeOff();
+  } else if (soundEffctImg && soundEffctImg.src.includes("effects_on.png")) {
+    setSoundeffectsVolumeOn();
   }
 }
 
 /**
  * Toggles the sound effects in the game based on the state of the checkbox.
  */
-function muteSoundeffectsBelow() {
-  let audioSoundBelowCheckBox = document.getElementById(
-    "audioSoundBelowCheckBox"
-  );
+function muteSoundeffectsBelow(checkboxId) {
+  let audioSoundBelowCheckBox = document.getElementById(checkboxId);
 
   if (audioSoundBelowCheckBox.checked) {
     setSoundeffectsVolumeOff();
   } else if (!audioSoundBelowCheckBox.checked) {
     setSoundeffectsVolumeOn();
   }
+  saveCheckboxState(checkboxId);
+}
+
+function muteSoundEffectsTop(imageId) {
+  console.log(imageId);
+  let soundEffctImg = document.getElementById(imageId);
+  if (soundEffctImg && soundEffctImg.src.includes("effects_on.png")) {
+    soundEffctImg.src = "adds/img/10_other/effects_mute.png";
+    setSoundeffectsVolumeOff();
+  } else if (soundEffctImg && soundEffctImg.src.includes("effects_mute.png")) {
+    soundEffctImg.src = "adds/img/10_other/effects_on.png";
+    setSoundeffectsVolumeOn();
+  }
+  saveImageState(imageId);
 }
 
 /**
  * Toggles the background music in the game based on the state of the checkbox.
  */
-function muteMusicBelow() {
-  let audioMusicBelowCheckBox = document.getElementById(
-    "audioMusicBelowCheckBox"
-  );
-
+function muteMusicBelow(checkboxId) {
+  let audioMusicBelowCheckBox = document.getElementById(checkboxId);
   if (audioMusicBelowCheckBox.checked) {
     world.background_Sound.volume = 0.0;
   } else if (!audioMusicBelowCheckBox.checked) {
     world.background_Sound.volume = 0.7;
   }
+  saveCheckboxState(checkboxId);
+}
+
+function muteMusicTop(imageId) {
+  let topMusicImg = document.getElementById(imageId);
+  if (topMusicImg && topMusicImg.src.includes("music_on.png")) {
+    topMusicImg.src = "adds/img/10_other/music_mute.png";
+    world.background_Sound.volume = 0.0;
+  } else if (topMusicImg && topMusicImg.src.includes("music_mute.png")) {
+    topMusicImg.src = "adds/img/10_other/music_on.png";
+    world.background_Sound.volume = 0.7;
+  }
+  saveImageState(imageId);
 }
 
 /**
@@ -142,6 +221,42 @@ function entmuteAllMinionEnemies() {
   world.level.enemies.forEach((enemy) => {
     enemy.hit_Sound.volume = 1.0;
   });
+}
+
+function saveCheckboxState(checkboxId) {
+  let checkbox = document.getElementById(checkboxId);
+  localStorage.setItem(checkboxId, JSON.stringify(checkbox.checked));
+  // console.log(localStorage);
+}
+
+function saveImageState(imageId) {
+  let imageElement = document.getElementById(imageId);
+  if (imageElement) {
+    console.log(imageElement);
+    localStorage.setItem(imageId, JSON.stringify(imageElement.src));
+  }
+  // console.log(localStorage);
+}
+
+function restoreImageState(localStorage, id) {
+  let images = document.getElementById(id);
+  // console.log(images);
+  let savedSrc = localStorage;
+  // console.log(savedSrc);
+  images.src = savedSrc;
+  // console.log(images.src);
+}
+
+function restoreCheckboxState() {
+  let checkboxes = document.querySelectorAll("input[type='checkbox']");
+  checkboxes.forEach((checkbox) => {
+    let savedState = localStorage.getItem(checkbox.id);
+    if (savedState !== null) {
+      checkbox.checked = savedState === "true";
+    }
+  });
+  muteMusicBelow("audioMusicBelowCheckBox");
+  muteSoundeffectsBelow("audioSoundBelowCheckBox");
 }
 
 /**

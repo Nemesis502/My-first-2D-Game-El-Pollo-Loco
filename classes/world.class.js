@@ -11,7 +11,7 @@ class World {
 
   /**
    * The end boss enemy in the game.
-   * @type {EndBoss|undefined}
+   * @type {Endboss}
    */
   endBossChicken;
 
@@ -130,6 +130,7 @@ class World {
     this.keyboard = keyboard;
     this.resetGameState();
     this.setupAudio();
+    this.setendBossChicken() 
     this.draw();
     this.setWorld();
     this.run();
@@ -140,6 +141,14 @@ class World {
    */
   setWorld() {
     this.character.world = this;
+  }
+
+  setendBossChicken() {
+    this.level.enemies.forEach((enemy) => {
+      if (enemy.name === "EndBoss") {
+        this.endBossChicken = enemy;
+      }
+    });
   }
 
   /**
@@ -192,9 +201,9 @@ class World {
    */
   checkCharacter() {
     this.level.enemies.forEach((enemy) => {
-      if (enemy.name === "EndBoss") {
-        this.endBossChicken = enemy;
-      }
+      // if (enemy.name === "EndBoss") {
+      //   this.endBossChicken = enemy;
+      // }
       if (this.character.isColliding(enemy)) {
         if (!enemy.currentHit && !this.character.isAboveGround()) {
           this.character.hit(3);
@@ -243,12 +252,11 @@ class World {
    */
   checkCoins() {
     this.level.coins = this.level.coins.filter((coin) => {
-      if (this.character.isColliding(coin)) {
+      if (
+        this.character.isColliding(coin) &&
+        this.statusbarCoins.percentage < 100
+      ) {
         this.statusbarCoins.setPercentage(20);
-        if (this.statusbarCoins.percentage === 120) {
-          this.statusBarHealth.setPercentage(100);
-          this.statusbarCoins.setPercentage(-120);
-        }
         return false;
       }
       return true;
@@ -300,30 +308,30 @@ class World {
     this.checkGameOver();
   }
 
-/**
- * Checks if the player has pressed the "G" key and has enough bottles available to throw.
- * If the conditions are met, a new throwable object (salsa bottle) is created and added to the game.
- * The status bar for bottles is updated accordingly.
- */
-checkThrowableObject() {
-  if (this.keyboard.G && this.statusBarBottle.percentage >= 20) {
-    /**
-     * Creates a new throwable object (salsa bottle) at the character's position.
-     * The horizontal position is offset by 100 pixels, and the vertical position is offset by 100 pixels.
-     * @type {ThrowableObject}
-     */
-    let bottle = new ThrowableObject(
-      this.character.position_x + 100,
-      this.character.position_y + 100
-    );
+  /**
+   * Checks if the player has pressed the "G" key and has enough bottles available to throw.
+   * If the conditions are met, a new throwable object (salsa bottle) is created and added to the game.
+   * The status bar for bottles is updated accordingly.
+   */
+  checkThrowableObject() {
+    if (this.keyboard.G && this.statusBarBottle.percentage >= 20) {
+      /**
+       * Creates a new throwable object (salsa bottle) at the character's position.
+       * The horizontal position is offset by 100 pixels, and the vertical position is offset by 100 pixels.
+       * @type {ThrowableObject}
+       */
+      let bottle = new ThrowableObject(
+        this.character.position_x + 100,
+        this.character.position_y + 100
+      );
 
-    // Adds the created throwable object to the game's throwable object array.
-    this.throwableObject.push(bottle);
+      // Adds the created throwable object to the game's throwable object array.
+      this.throwableObject.push(bottle);
 
-    // Reduces the bottle percentage in the status bar by 20% after throwing.
-    this.statusBarBottle.setPercentage(-20);
+      // Reduces the bottle percentage in the status bar by 20% after throwing.
+      this.statusBarBottle.setPercentage(-20);
+    }
   }
-}
 
   /**
    * Checks if the player or the end boss has won and ends the game accordingly.
@@ -360,7 +368,7 @@ checkThrowableObject() {
   showPlayerEndScreenWin() {
     document.getElementById("endScreen").classList.remove("hidden");
     document.getElementById("startDiv").classList.add("hidden");
-    document.getElementById("canvas").classList.add("hidden");
+    document.getElementById("canvasContainer").classList.add("hidden");
     document.getElementById("endScreen").classList.add("end-div-win");
     this.winning_Sound.play();
   }
@@ -387,7 +395,7 @@ checkThrowableObject() {
   showPlayerEndScreenLost() {
     document.getElementById("endScreen").classList.remove("hidden");
     document.getElementById("startDiv").classList.add("hidden");
-    document.getElementById("canvas").classList.add("hidden");
+    document.getElementById("canvasContainer").classList.add("hidden");
     document.getElementById("endScreen").classList.add("end-div-lost");
     this.losing_Sound.play();
   }

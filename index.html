@@ -197,14 +197,14 @@
         <button
           id="returnButtonEnd"
           onclick="returnToMainMenu()"
-          class="button bigger-button"
+          class="button-end-screen bigger-button"
         >
           Return to Main Menu
         </button>
         <button
           id="newStartButtonEnd"
           onclick="restartGame()"
-          class="button bigger-button"
+          class="button-end-screen bigger-button"
         >
           Restart
         </button>
@@ -215,57 +215,80 @@
       <span>Please rotate your device to play!</span>
       <img src="adds/img/10_other/icons8-rotate-phone-100_white.png" alt="" />
     </section>
-
-    <canvas class="hidden" id="canvas" width="720px" height="480px"></canvas>
-    <section id="mobileButtons" class="mobile-buttons-container dimensions-mobile-buttons hidden">
-      <div class="mobile-buttons-left">
-        <button id="buttonLeft" class="mobile-buttons">&larr;</button>
-        <button id="buttonRight" class="mobile-buttons">&rarr;</button>
-      </div>
-      <div class="mobile-buttons-right">
-        <button id="buttonUp" class="mobile-buttons">&uarr;</button>
-        <button id="buttonThrow" class="mobile-buttons">
+    <div id="canvasContainer" class="canvas-container hidden">
+      <div id="topAudioContainer" class="top-audio-container hidden">
+        <div class="top-audio">
           <img
-            src="adds/img/6_salsa_bottle/1_salsa_bottle_on_ground.png"
+            onclick="muteSoundEffectsTop('topSoundeffctImg')"
+            class="top-audio-img"
+            id="topSoundeffctImg"
+            src="adds/img/10_other/effects_on.png"
             alt=""
           />
-        </button>
+          <img
+            onclick="muteMusicTop('topMusicImg')"
+            class="top-audio-img"
+            id="topMusicImg"
+            src="adds/img/10_other/music_on.png"
+            alt=""
+          />
+        </div>
       </div>
-    </section>
-
-    <div id="belowControl" class="below-control keyboard-controll hidden">
-      <p id="moveRight-below">Move Right: D</p>
-      <p id="moveLeft-below">Move Left: A</p>
-      <p id="jump-below">Jump: Space</p>
-      <p id="throw-below">Throw Bottle: G</p>
-    </div>
-    <div id="belowControlAudio" class="below-control-audio hidden">
-      <div class="settingKinds">
-        <p id="audioSoundBelow">Mute Soundeffects:</p>
-        <input
-          class="checkbox-audio"
-          onclick="muteSoundeffectsBelow()"
-          type="checkbox"
-          name=""
-          id="audioSoundBelowCheckBox"
-        />
+      <canvas id="canvas" width="720px" height="480px"></canvas>
+      <section
+        id="mobileButtons"
+        class="mobile-buttons-container dimensions-mobile-buttons hidden"
+      >
+        <div class="mobile-buttons-left">
+          <button id="buttonLeft" class="mobile-buttons">&larr;</button>
+          <button id="buttonRight" class="mobile-buttons">&rarr;</button>
+        </div>
+        <div class="mobile-buttons-right">
+          <button id="buttonUp" class="mobile-buttons">&uarr;</button>
+          <button id="buttonThrow" class="mobile-buttons">
+            <img
+              src="adds/img/6_salsa_bottle/1_salsa_bottle_on_ground.png"
+              alt=""
+            />
+          </button>
+        </div>
+      </section>
+      <div id="belowControl" class="below-control hidden">
+        <p id="moveRight-below">Move Right: D</p>
+        <p id="moveLeft-below">Move Left: A</p>
+        <p id="jump-below">Jump: Space</p>
+        <p id="throw-below">Throw Bottle: G</p>
       </div>
-      <div class="settingKinds">
-        <p id="audioMusicBelow">Mute Music:</p>
-        <input
-          class="checkbox-audio"
-          onclick="muteMusicBelow()"
-          type="checkbox"
-          name=""
-          id="audioMusicBelowCheckBox"
-        />
+      <div id="belowControlAudio" class="below-control-audio hidden">
+        <div class="settingKinds">
+          <p id="audioSoundBelow">Mute Soundeffects:</p>
+          <input
+            class="checkbox-audio"
+            onclick="muteSoundeffectsBelow('audioSoundBelowCheckBox')"
+            onkeydown="if(event.code === 'Space') event.preventDefault()"
+            type="checkbox"
+            name=""
+            id="audioSoundBelowCheckBox"
+          />
+        </div>
+        <div class="settingKinds">
+          <p id="audioMusicBelow">Mute Music:</p>
+          <input
+            class="checkbox-audio"
+            onclick="muteMusicBelow('audioMusicBelowCheckBox')"
+            onkeydown="if(event.code === 'Space') event.preventDefault()"
+            type="checkbox"
+            name=""
+            id="audioMusicBelowCheckBox"
+          />
+        </div>
       </div>
     </div>
   </body>
 
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="./styles/responsive.css" />
   <link rel="stylesheet" href="./styles/adds.css" />
+  <link rel="stylesheet" href="./styles/responsive.css" />
   <script src="./classes/drawableObject.class.js"></script>
   <script src="./classes/statusbarHealth.class.js"></script>
   <script src="./classes/statusbarBottle.class.js"></script>
