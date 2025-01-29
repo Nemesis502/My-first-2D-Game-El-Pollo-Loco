@@ -77,7 +77,7 @@ class Chicken extends MovableObject {
    */
   offset = {
     top: 0,
-    bottom: 10,
+    bottom: 100,
     left: 0,
     right: 0,
   };
@@ -111,19 +111,26 @@ class Chicken extends MovableObject {
    * Handles movement, animation updates, and hit detection.
    */
   animate() {
-    // Handles movement to the left
+    this.movementLeft();
+    this.diffrentAnimation();
+    this.hitAnimation();
+  }
+
+  movementLeft() {
+
     this.movementInterval = setInterval(() => {
       if (!this.currentHit) {
         this.moveLeft();
       }
     }, 1000 / 60);
+  }
 
-    // Handles animation updates for walking or dead states
+  diffrentAnimation() {
+
     this.animationInterval = setInterval(() => {
       if (this.currentHit) {
         this.loadImage(this.images_Dead[0]);
         this.speed = 0;
-
         if (!this.hitSoundPlayed) {
           this.hit_Sound.play();
           this.hitSoundPlayed = true;
@@ -132,8 +139,9 @@ class Chicken extends MovableObject {
         this.playAnimation(this.images_Walking);
       }
     }, 1000 / 12);
+  }
 
-    // Checks if the chicken has been hurt and updates its state
+  hitAnimation() {
     this.checkHitInterval = setInterval(() => {
       if (this.isHurt() && !this.currentHit) {
         this.currentHit = true;

@@ -159,6 +159,7 @@ class Endboss extends MovableObject {
     left: 20,
     right: 50,
   };
+  i = 0;
 
   /**
    * Creates an instance of the Endboss class.
@@ -187,41 +188,47 @@ class Endboss extends MovableObject {
    * Handles movement, animations, and player interactions.
    */
   animate() {
-    let i = 0;
-    // setInterval(() => {
-    //   if (i > 10) {
-    //     this.moveLeft();
-    //   }
-    // }, 1000 / 60);
-
+    this.playWalk();
     setInterval(() => {
-      if (world.character.position_x < 1450 && !this.firstContact) {
-        i = 0;
-      } else if (world.character.position_x > 1450 && !this.firstContact) {
-        this.firstContact = true;
-        this.alert_Sound.play();
-        setTimeout(() => {
-          this.alert_Sound.pause();
-        }, 2000);
-      }
-
+      this.playalert();
       if (this.isDead()) {
         this.playAnimation(this.images_Dead);
         this.speed = 0;
       } else if (this.currentHit) {
-        this.playEndBossHurt();
-        setTimeout(() => {
-          this.playEndBossAttack();
-        }, 2000);
+        this.playHurtAnimation();
       } else if (this.playerAttackRange) {
         this.playAttackRange();
-      } else if (i < 10) {
+      } else if (this.i < 10) {
         this.playAnimation(this.images_Alert);
       } else {
         this.playAnimation(this.images_Walking);
       }
-      i++;
+      this.i++;
     }, 200);
+  }
+
+  /**
+   * Plays the walking animation and moves the end boss to the left.
+   * @param {number} i - Frame index for animation.
+   */
+  playWalk() {
+    setInterval(() => {
+      if (this.i > 10) {
+        this.moveLeft();
+      }
+    }, 1000 / 60);
+  }
+
+  playalert() {
+    if (world.character.position_x < 1450 && !this.firstContact) {
+      this.i = 0;
+    } else if (world.character.position_x > 1450 && !this.firstContact) {
+      this.firstContact = true;
+      this.alert_Sound.play();
+      setTimeout(() => {
+        this.alert_Sound.pause();
+      }, 2000);
+    }
   }
 
   /**
@@ -232,6 +239,13 @@ class Endboss extends MovableObject {
       this.playAnimation(this.images_Dead);
       this.speed = 0;
     }, 1000 / 7);
+  }
+
+  playHurtAnimation() {
+    this.playEndBossHurt();
+    setTimeout(() => {
+      this.playEndBossAttack();
+    }, 2000);
   }
 
   /**
@@ -262,7 +276,7 @@ class Endboss extends MovableObject {
     if (this.isAttackActive) return;
     this.isAttackActive = true;
     let attackInterval = setInterval(() => {
-      this.speed = 1.5;
+      this.speed = 4.5;
       this.attack_Sound.play();
       this.playAnimation(this.images_Attack);
     }, 1000 / 3);
@@ -298,18 +312,6 @@ class Endboss extends MovableObject {
       this.playersNearby = false;
       this.firstContact = false;
     }, 1500);
-  }
-
-  /**
-   * Plays the walking animation and moves the end boss to the left.
-   * @param {number} i - Frame index for animation.
-   */
-  playWalk(i) {
-    setInterval(() => {
-      if (i > 10) {
-        this.moveLeft();
-      }
-    }, 1000 / 5);
   }
 
   /**

@@ -117,6 +117,7 @@ class World {
    * @type {number|null}
    */
   intervalId = null;
+  i = 20;
 
   /**
    * Creates an instance of the `World` class.
@@ -130,7 +131,7 @@ class World {
     this.keyboard = keyboard;
     this.resetGameState();
     this.setupAudio();
-    this.setendBossChicken() 
+    this.setendBossChicken();
     this.draw();
     this.setWorld();
     this.run();
@@ -173,6 +174,7 @@ class World {
     this.intervalId = setInterval(() => {
       this.checkCollision();
       this.checkThrowableObject();
+      this.i++
     }, 100);
   }
 
@@ -201,9 +203,6 @@ class World {
    */
   checkCharacter() {
     this.level.enemies.forEach((enemy) => {
-      // if (enemy.name === "EndBoss") {
-      //   this.endBossChicken = enemy;
-      // }
       if (this.character.isColliding(enemy)) {
         if (!enemy.currentHit && !this.character.isAboveGround()) {
           this.character.hit(3);
@@ -211,8 +210,7 @@ class World {
           this.checkCollisionWithEndBoss(enemy);
           this.checkGameOver();
         } else if (
-          this.character.speedY < 0 &&
-          enemy.isColliding(this.character) &&
+          enemy.isColliding(this.character) && 
           this.character.isAboveGround()
         ) {
           enemy.hit(20);
@@ -269,7 +267,7 @@ class World {
   checkBottle() {
     this.level.enemies.forEach((enemy) => {
       this.throwableObject = this.throwableObject.filter((bottle) => {
-        if (enemy.isColliding(bottle)) {
+        if (enemy.isColliding(bottle) && !enemy.currentHit) {
           return this.splashAction(enemy, bottle);
         }
         return true;
@@ -314,7 +312,7 @@ class World {
    * The status bar for bottles is updated accordingly.
    */
   checkThrowableObject() {
-    if (this.keyboard.G && this.statusBarBottle.percentage >= 20) {
+    if (this.keyboard.G && this.statusBarBottle.percentage > 0 && this.i > 20) {
       /**
        * Creates a new throwable object (salsa bottle) at the character's position.
        * The horizontal position is offset by 100 pixels, and the vertical position is offset by 100 pixels.
@@ -324,12 +322,11 @@ class World {
         this.character.position_x + 100,
         this.character.position_y + 100
       );
-
       // Adds the created throwable object to the game's throwable object array.
       this.throwableObject.push(bottle);
-
       // Reduces the bottle percentage in the status bar by 20% after throwing.
       this.statusBarBottle.setPercentage(-20);
+      this.i = 0;
     }
   }
 
@@ -405,7 +402,15 @@ class World {
    */
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.nonFixUI();
+    this.fixUI();
+    let self = this;
+    this.animationId = requestAnimationFrame(function () {
+      self.draw();
+    });
+  }
 
+  nonFixUI() {
     this.ctx.translate(this.camara_x, 0);
     this.addObjectsToMap(this.level.background);
     this.addObjectsToMap(this.level.enemies);
@@ -415,8 +420,9 @@ class World {
     this.addObjectsToMap(this.splashAnimations);
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.clouds);
+  }
 
-    // Fixed UI elements
+  fixUI() {
     this.ctx.translate(-this.camara_x, 0);
     this.addToMap(this.statusBarHealth);
     this.addToMap(this.statusBarBottle);
@@ -425,11 +431,6 @@ class World {
     this.ctx.translate(this.camara_x, 0);
 
     this.ctx.translate(-this.camara_x, 0);
-
-    let self = this;
-    this.animationId = requestAnimationFrame(function () {
-      self.draw();
-    });
   }
 
   /**
@@ -452,7 +453,7 @@ class World {
     }
 
     mo.draw(this.ctx);
-
+    // mo.drFrame(this.ctx);
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }

@@ -139,9 +139,9 @@ class Character extends MovableObject {
    */
   offset = {
     top: 100,
-    bottom: 20,
-    left: 50,
-    right: 40,
+    bottom: 0,
+    left: 60,
+    right: 50,
   };
 
   /**
@@ -190,6 +190,11 @@ class Character extends MovableObject {
    * Handles movement, jumping, and animation switching.
    */
   animate() {
+    this.movementCharacter();
+    this.differentAnimation();
+  }
+
+  movementCharacter() {
     setInterval(() => {
       if (
         this.world.keyboard.RIGHT &&
@@ -211,7 +216,9 @@ class Character extends MovableObject {
       }
       this.world.camara_x = -this.position_x + 100;
     }, 1000 / 60);
+  }
 
+  differentAnimation() {
     setInterval(() => {
       if (this.isLongIdle) {
         this.playLongIdle();

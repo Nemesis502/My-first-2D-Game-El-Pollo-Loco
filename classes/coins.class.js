@@ -29,6 +29,12 @@ class Coins extends MovableObject {
    * @type {string[]}
    */
   imagesCoins = ["adds/img/8_coin/coin_2.png"];
+  offset = {
+    top: 30,
+    bottom: 30,
+    left: 30,
+    right: 30,
+  };
 
   /**
    * Creates an instance of the Coins class.

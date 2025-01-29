@@ -78,15 +78,14 @@ class DrawableObject {
    * Adds a blue frame for certain object types and a red frame for collision boundaries.
    * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
    */
-  drwaFrame(ctx) {
+  drawFrame(ctx) {
     // Blue frame for specific object types
     if (
-      this instanceof BackgroundObject ||
       this instanceof ThrowableObject ||
       this instanceof Chicken ||
       this instanceof Character ||
       this instanceof MiniChicken ||
-      this instanceof Endboss
+      this instanceof Endboss 
     ) {
       ctx.beginPath();
       ctx.lineWidth = "5";

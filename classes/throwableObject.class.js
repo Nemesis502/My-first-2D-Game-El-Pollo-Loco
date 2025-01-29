@@ -75,7 +75,6 @@ class ThrowableObject extends MovableObject {
   trow() {
     this.speedY = 30;
     this.applyGravity();
-
     /**
      * Moves the object forward continuously.
      * @type {number}

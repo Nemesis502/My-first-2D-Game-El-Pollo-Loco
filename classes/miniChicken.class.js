@@ -77,7 +77,7 @@ class MiniChicken extends MovableObject {
    */
   offset = {
     top: 0,
-    bottom: 10,
+    bottom: 0,
     left: 0,
     right: 0,
   };
@@ -101,7 +101,7 @@ class MiniChicken extends MovableObject {
      * The movement speed of the mini chicken, randomized within a range.
      * @type {number}
      */
-    this.speed = 0.30 + Math.random() * 0.25;
+    this.speed = 0.3 + Math.random() * 0.25;
 
     this.animate();
   }
@@ -111,14 +111,20 @@ class MiniChicken extends MovableObject {
    * Handles movement, animations, and hit detection.
    */
   animate() {
-    // Handles movement to the left
+    this.movementLeftMini();
+    this.diffrentAnimationMini();
+    this.hitAnimationMini();
+  }
+
+  movementLeftMini() {
     this.movementInterval = setInterval(() => {
       if (!this.currentHit) {
         this.moveLeft();
       }
     }, 1000 / 60);
+  }
 
-    // Handles animation updates for walking or dead states
+  diffrentAnimationMini() {
     this.animationInterval = setInterval(() => {
       if (this.currentHit) {
         this.loadImage(this.images_Dead[0]);
@@ -132,8 +138,9 @@ class MiniChicken extends MovableObject {
         this.playAnimation(this.images_Walking);
       }
     }, 1000 / 12);
+  }
 
-    // Checks if the mini chicken has been hurt and updates its state
+  hitAnimationMini() {
     this.checkHitInterval = setInterval(() => {
       if (this.isHurt() && !this.currentHit) {
         this.currentHit = true;
