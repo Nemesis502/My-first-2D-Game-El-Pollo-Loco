@@ -93,13 +93,15 @@ function restartGame() {
     cancelAnimationFrame(world.animationId);
     clearInterval(world.intervalId);
   }
+  world.winning_Sound.pause();
+  world.winning_Sound = 0;
+  world.losing_Sound.pause();
+  world.losing_Sound = 0;
   world = null;
   level1 = null;
   document.getElementById("endScreen").classList.add("hidden");
   document
     .getElementById("endScreen")
     .classList.remove("end-div-win", "end-div-lost");
-  document.getElementById("audioSoundBelowCheckBox").checked = false;
-  document.getElementById("audioMusicBelowCheckBox").checked = false;
   initLevel();
 }

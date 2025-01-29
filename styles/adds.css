@@ -107,3 +107,12 @@
   border-radius: 20px;
   transition-duration: 0.4s;
 }
+
+.button-end-screen {
+  cursor: pointer;
+  background-color: #ddbb15;
+  box-shadow: 0.5px 2px 2.2px rgba(0, 0, 0, 0.02),
+    1px 4.3px 5.3px rgba(0, 0, 0, 0.028), 1.8px 7.8px 10px rgba(0, 0, 0, 0.035),
+    3.3px 14px 17.9px rgba(0, 0, 0, 0.042),
+    6.3px 27px 33.4px rgba(0, 0, 0, 0.05), 13px 56px 80px rgba(0, 0, 0, 0.07);
+}

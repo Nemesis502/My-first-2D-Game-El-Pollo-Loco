@@ -36,43 +36,52 @@ class DrawableObject {
    * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
    */
   drawFrame(ctx) {
-    if (
-      this instanceof ThrowableObject ||
-      this instanceof Chicken ||
-      this instanceof Character ||
-      this instanceof MiniChicken ||
-      this instanceof Endboss 
-    ) {
+    if (this.checkInstances()) {
       ctx.beginPath();
       ctx.lineWidth = "5";
       ctx.strokeStyle = "blue";
       ctx.rect(this.position_x, this.position_y, this.width, this.height);
       ctx.stroke();
     }
-    if (
+    if (this.checkInstances()) {
+      this.drawHitBoxWithOffsett(ctx);
+    }
+  }
+  /**
+   * Checks if the current object is an instance of a specific game-related class.
+   * Determines if the object belongs to one of the predefined entity types.
+   *
+   * @returns {boolean} True if the object is an instance of ThrowableObject, Chicken, Character, MiniChicken, or Endboss.
+   */
+  checkInstances() {
+    return (
+      this instanceof ThrowableObject ||
       this instanceof Chicken ||
       this instanceof Character ||
       this instanceof MiniChicken ||
       this instanceof Endboss
-    ) {
-      let offsetX = this.offset.left || 0;
-      let offsetY = this.offset.top || 0;
-      let offsetWidth =
-        this.width - (this.offset.left + this.offset.right || 0);
-      let offsetHeight =
-        this.height - (this.offset.top + this.offset.bottom || 0);
-
-      ctx.beginPath();
-      ctx.lineWidth = "2";
-      ctx.strokeStyle = "red";
-      ctx.rect(
-        this.position_x + offsetX,
-        this.position_y + offsetY,
-        offsetWidth,
-        offsetHeight
-      );
-      ctx.stroke();
-    }
+    );
+  }
+  /**
+   * Draws a hitbox around the object with an offset to visualize collision boundaries.
+   * The offset values are used to adjust the hitbox size and position.
+   */
+  drawHitBoxWithOffsett(ctx) {
+    let offsetX = this.offset.left || 0;
+    let offsetY = this.offset.top || 0;
+    let offsetWidth = this.width - (this.offset.left + this.offset.right || 0);
+    let offsetHeight =
+      this.height - (this.offset.top + this.offset.bottom || 0);
+    ctx.beginPath();
+    ctx.lineWidth = "2";
+    ctx.strokeStyle = "red";
+    ctx.rect(
+      this.position_x + offsetX,
+      this.position_y + offsetY,
+      offsetWidth,
+      offsetHeight
+    );
+    ctx.stroke();
   }
 
   /**

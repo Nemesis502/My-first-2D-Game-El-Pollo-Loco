@@ -63,7 +63,7 @@ class MiniChicken extends MovableObject {
       if (this.currentHit) {
         this.loadImage(this.images_Dead[0]);
         this.speed = 0;
-
+        clearInterval(this.animationInterval);
         if (!this.hitSoundPlayed) {
           this.hit_Sound.play();
           this.hitSoundPlayed = true;

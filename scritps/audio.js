@@ -1,11 +1,11 @@
 function checkmuteMusicTop(imageId) {
-    let topMusicImg = document.getElementById(imageId);
-    if (topMusicImg && topMusicImg.src.includes("music_mute.png")) {
-      world.background_Sound.volume = 0.0;
-    } else if (topMusicImg && topMusicImg.src.includes("music_on.png")) {
-      world.background_Sound.volume = 0.7;
-    }
+  let topMusicImg = document.getElementById(imageId);
+  if (topMusicImg && topMusicImg.src.includes("music_mute.png")) {
+    world.background_Sound.volume = 0.0;
+  } else if (topMusicImg && topMusicImg.src.includes("music_on.png")) {
+    world.background_Sound.volume = 0.7;
   }
+}
 
 function checkmuteEffectsTop(imageId) {
   let soundEffctImg = document.getElementById(imageId);
@@ -49,8 +49,12 @@ function muteMusicBelow(checkboxId) {
   let audioMusicBelowCheckBox = document.getElementById(checkboxId);
   if (audioMusicBelowCheckBox.checked) {
     world.background_Sound.volume = 0.0;
+    world.winning_Sound.volume = 0.0;
+    world.losing_Sound.volume = 0.0;
   } else if (!audioMusicBelowCheckBox.checked) {
     world.background_Sound.volume = 0.7;
+    world.winning_Sound.volume = 1.0;
+    world.losing_Sound.volume = 1.0;
   }
   saveCheckboxState(checkboxId);
 }
@@ -60,9 +64,13 @@ function muteMusicTop(imageId) {
   if (topMusicImg && topMusicImg.src.includes("music_on.png")) {
     topMusicImg.src = "adds/img/10_other/music_mute.png";
     world.background_Sound.volume = 0.0;
+    world.winning_Sound.volume = 0.0;
+    world.losing_Sound.volume = 0.0;
   } else if (topMusicImg && topMusicImg.src.includes("music_mute.png")) {
     topMusicImg.src = "adds/img/10_other/music_on.png";
     world.background_Sound.volume = 0.7;
+    world.winning_Sound.volume = 1.0;
+    world.losing_Sound.volume = 1.0;
   }
   saveImageState(imageId);
 }

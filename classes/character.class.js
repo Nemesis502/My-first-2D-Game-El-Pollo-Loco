@@ -121,7 +121,7 @@ class Character extends MovableObject {
         this.jump();
       }
       this.world.camara_x = -this.position_x + 100;
-    }, 1000 / 60);
+    }, 1000 / 45);
   }
   /**
    * Determines and plays the appropriate animation for the character.
@@ -142,7 +142,7 @@ class Character extends MovableObject {
       if (!this.isLongIdle) {
         this.resetSnoring();
       }
-    }, 200);
+    }, 150);
   }
 
   /**
@@ -212,11 +212,11 @@ class Character extends MovableObject {
         this.isLongIdle = false;
       } else {
         this.idleTimer += 0.2;
-        if (this.idleTimer >= 6) {
+        if (this.idleTimer >= 10) {
           this.isLongIdle = true;
         }
       }
-    }, 200);
+    }, 50);
   }
 
   /**

@@ -45,6 +45,9 @@ class World {
     this.character.world = this;
   }
 
+  /**
+   * Identifies and sets the EndBoss character in the game.
+   */
   setendBossChicken() {
     this.level.enemies.forEach((enemy) => {
       if (enemy.name === "EndBoss") {
@@ -242,14 +245,12 @@ class World {
    */
   stopGamePlayerWin() {
     if (this.isGameOver) {
-      setTimeout(() => {
-        cancelAnimationFrame(this.animationId);
-        clearInterval(this.intervalId);
-        this.background_Sound.pause();
-        this.endBossChicken.stopAllSounds();
-        this.character.stopAllSounds();
-        this.showPlayerEndScreenWin();
-      }, 1000);
+      cancelAnimationFrame(this.animationId);
+      clearInterval(this.intervalId);
+      this.background_Sound.pause();
+      this.endBossChicken.stopAllSounds();
+      this.character.stopAllSounds();
+      this.showPlayerEndScreenWin();
     }
   }
 
@@ -257,11 +258,11 @@ class World {
    * Displays the victory screen for the player.
    */
   showPlayerEndScreenWin() {
+    this.winning_Sound.play();
     document.getElementById("endScreen").classList.remove("hidden");
     document.getElementById("startDiv").classList.add("hidden");
     document.getElementById("canvasContainer").classList.add("hidden");
     document.getElementById("endScreen").classList.add("end-div-win");
-    this.winning_Sound.play();
   }
 
   /**
@@ -269,14 +270,12 @@ class World {
    */
   stopGameEnemyWin() {
     if (this.isGameOver) {
-      setTimeout(() => {
-        cancelAnimationFrame(this.animationId);
-        clearInterval(this.intervalId);
-        this.background_Sound.pause();
-        this.endBossChicken.stopAllSounds();
-        this.character.stopAllSounds();
-        this.showPlayerEndScreenLost();
-      }, 1000);
+      cancelAnimationFrame(this.animationId);
+      clearInterval(this.intervalId);
+      this.background_Sound.pause();
+      this.endBossChicken.stopAllSounds();
+      this.character.stopAllSounds();
+      this.showPlayerEndScreenLost();
     }
   }
 
@@ -284,11 +283,11 @@ class World {
    * Displays the loss screen for the player.
    */
   showPlayerEndScreenLost() {
+    this.losing_Sound.play();
     document.getElementById("endScreen").classList.remove("hidden");
     document.getElementById("startDiv").classList.add("hidden");
     document.getElementById("canvasContainer").classList.add("hidden");
     document.getElementById("endScreen").classList.add("end-div-lost");
-    this.losing_Sound.play();
   }
 
   /**
@@ -344,14 +343,14 @@ class World {
   /**
    * Adds a single drawable object to the canvas, handling its direction.
    * @param {DrawableObject} mo - The drawable object to add to the canvas.
+   * If a frame is needed for collision checking,
+   * then add the function: mo.drawFrame(this.ctx) after mo.draw.
    */
   addToMap(mo) {
     if (mo.otherDirection) {
       this.spinImage(mo);
     }
-
     mo.draw(this.ctx);
-    // mo.drFrame(this.ctx);
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
