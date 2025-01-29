@@ -1,23 +1,10 @@
-/**
- * Represents a throwable object in the game, such as a salsa bottle.
- * Extends the `MovableObject` class to include animations, gravity effects, and interactions.
- */
 class ThrowableObject extends MovableObject {
-  /**
-   * Array of file paths for the bottle rotation animation images.
-   * @type {string[]}
-   */
   imagesBottle_Rotation = [
     "adds/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",
     "adds/img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png",
     "adds/img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png",
     "adds/img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png",
   ];
-
-  /**
-   * Array of file paths for the bottle splash animation images.
-   * @type {string[]}
-   */
   imagesBottle_Splash = [
     "adds/img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png",
     "adds/img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png",
@@ -38,31 +25,9 @@ class ThrowableObject extends MovableObject {
     this.loadImage("adds/img/6_salsa_bottle/salsa_bottle.png");
     this.loadImages(this.imagesBottle_Rotation);
     this.loadImages(this.imagesBottle_Splash);
-
-    /**
-     * The vertical position of the object on the canvas.
-     * @type {number}
-     */
     this.position_y = y;
-
-    /**
-     * The horizontal position of the object on the canvas.
-     * @type {number}
-     */
     this.position_x = x;
-
-    /**
-     * The width of the throwable object in pixels.
-     * @type {number}
-     * @default 100
-     */
     this.width = 100;
-
-    /**
-     * The height of the throwable object in pixels.
-     * @type {number}
-     * @default 100
-     */
     this.height = 100;
 
     this.trow();
@@ -75,10 +40,6 @@ class ThrowableObject extends MovableObject {
   trow() {
     this.speedY = 30;
     this.applyGravity();
-    /**
-     * Moves the object forward continuously.
-     * @type {number}
-     */
     this.movmentForward = setInterval(() => {
       this.position_x += 10;
     }, 25);
@@ -90,10 +51,6 @@ class ThrowableObject extends MovableObject {
    * Animates the rotation of the throwable object during flight.
    */
   animate() {
-    /**
-     * Handles the rotation animation of the object.
-     * @type {number}
-     */
     this.rotaionIntervall = setInterval(() => {
       this.playAnimation(this.imagesBottle_Rotation);
     }, 200);

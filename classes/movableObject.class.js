@@ -1,65 +1,11 @@
-/**
- * Represents an object in the game that can move and interact with other objects.
- * Extends the `DrawableObject` class to include movement, gravity, collision detection, and animations.
- */
 class MovableObject extends DrawableObject {
-  /**
-   * The horizontal movement speed of the object.
-   * @type {number}
-   * @default 0.15
-   */
   speed = 0.15;
-
-  /**
-   * Flag indicating whether the object is facing the opposite direction.
-   * @type {boolean}
-   * @default false
-   */
   otherDirection = false;
-
-  /**
-   * The vertical speed of the object (used for jumping and falling).
-   * @type {number}
-   * @default 0
-   */
   speedY = 0;
-
-  /**
-   * Flag indicating whether the object is currently jumping.
-   * @type {boolean}
-   * @default false
-   */
   curentJump = false;
-
-  /**
-   * The acceleration due to gravity applied to the object.
-   * @type {number}
-   * @default 2.0
-   */
   acceleration = 2.0;
-
-  /**
-   * The energy level of the object, used to determine health or life.
-   * @type {number}
-   * @default 100
-   */
   energy = 100;
-
-  /**
-   * Timestamp of the last time the object was hit.
-   * @type {number}
-   * @default 0
-   */
   lastHit = 0;
-
-  /**
-   * Offset values for collision boundaries of the object.
-   * @type {Object}
-   * @property {number} top - Offset from the top boundary.
-   * @property {number} bottom - Offset from the bottom boundary.
-   * @property {number} left - Offset from the left boundary.
-   * @property {number} right - Offset from the right boundary.
-   */
   offset = {
     top: 0,
     bottom: 0,

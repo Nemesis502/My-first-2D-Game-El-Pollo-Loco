@@ -1,25 +1,6 @@
-/**
- * The starting screen element.
- * @type {HTMLElement}
- */
 let startDiv = document.getElementById("startDiv");
-
-/**
- * The settings screen element.
- * @type {HTMLElement}
- */
 let settingDiv = document.getElementById("settingDiv");
-
-/**
- * The legal notice screen element.
- * @type {HTMLElement}
- */
 let legalNotice = document.getElementById("legalNotice");
-
-/**
- * The flag element used to switch languages.
- * @type {HTMLElement}
- */
 let flag = document.getElementById("flag");
 
 /**

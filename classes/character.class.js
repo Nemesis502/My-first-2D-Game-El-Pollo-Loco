@@ -1,52 +1,10 @@
-/**
- * Represents a game character controlled by the player.
- * Extends the `MovableObject` class to include animations, sounds, and interactions.
- */
 class Character extends MovableObject {
-  /**
-   * Reference to the game world object.
-   * @type {Object}
-   */
   world;
-
-  /**
-   * The movement speed of the character in pixels per frame.
-   * @type {number}
-   * @default 10
-   */
   speed = 10;
-
-  /**
-   * The initial vertical position of the character.
-   * @type {number}
-   * @default 160
-   */
   position_y = 160;
-
-  /**
-   * Timer to track idle state.
-   * @type {number}
-   * @default 0
-   */
   idleTimer = 0;
-
-  /**
-   * Flag to indicate whether the character is in a long idle state.
-   * @type {boolean}
-   * @default false
-   */
   isLongIdle = false;
-
-  /**
-   * Interval for idle animations.
-   * @type {number|null}
-   */
   idleInterval = null;
-
-  /**
-   * Array of file paths for idle animation images.
-   * @type {string[]}
-   */
   images_Idle = [
     "adds/img/2_character_pepe/1_idle/idle/I-1.png",
     "adds/img/2_character_pepe/1_idle/idle/I-2.png",
@@ -58,11 +16,6 @@ class Character extends MovableObject {
     "adds/img/2_character_pepe/1_idle/idle/I-9.png",
     "adds/img/2_character_pepe/1_idle/idle/I-10.png",
   ];
-
-  /**
-   * Array of file paths for long idle animation images.
-   * @type {string[]}
-   */
   images_LongIdle = [
     "adds/img/2_character_pepe/1_idle/long_idle/I-11.png",
     "adds/img/2_character_pepe/1_idle/long_idle/I-12.png",
@@ -75,11 +28,6 @@ class Character extends MovableObject {
     "adds/img/2_character_pepe/1_idle/long_idle/I-19.png",
     "adds/img/2_character_pepe/1_idle/long_idle/I-20.png",
   ];
-
-  /**
-   * Array of file paths for walking animation images.
-   * @type {string[]}
-   */
   images_Walking = [
     "adds/img/2_character_pepe/2_walk/W-26.png",
     "adds/img/2_character_pepe/2_walk/W-22.png",
@@ -88,11 +36,6 @@ class Character extends MovableObject {
     "adds/img/2_character_pepe/2_walk/W-25.png",
     "adds/img/2_character_pepe/2_walk/W-26.png",
   ];
-
-  /**
-   * Array of file paths for jumping animation images.
-   * @type {string[]}
-   */
   images_Jumping = [
     "adds/img/2_character_pepe/3_jump/J-31.png",
     "adds/img/2_character_pepe/3_jump/J-32.png",
@@ -104,21 +47,11 @@ class Character extends MovableObject {
     "adds/img/2_character_pepe/3_jump/J-38.png",
     "adds/img/2_character_pepe/3_jump/J-39.png",
   ];
-
-  /**
-   * Array of file paths for hurt animation images.
-   * @type {string[]}
-   */
   images_Hurt = [
     "adds/img/2_character_pepe/4_hurt/H-41.png",
     "adds/img/2_character_pepe/4_hurt/H-42.png",
     "adds/img/2_character_pepe/4_hurt/H-43.png",
   ];
-
-  /**
-   * Array of file paths for dead animation images.
-   * @type {string[]}
-   */
   images_Dead = [
     "adds/img/2_character_pepe/5_dead/D-51.png",
     "adds/img/2_character_pepe/5_dead/D-52.png",
@@ -128,44 +61,15 @@ class Character extends MovableObject {
     "adds/img/2_character_pepe/5_dead/D-56.png",
     "adds/img/2_character_pepe/5_dead/D-57.png",
   ];
-
-  /**
-   * Offset values for collision boundaries of the character.
-   * @type {Object}
-   * @property {number} top - Offset from the top boundary.
-   * @property {number} bottom - Offset from the bottom boundary.
-   * @property {number} left - Offset from the left boundary.
-   * @property {number} right - Offset from the right boundary.
-   */
   offset = {
     top: 100,
     bottom: 0,
     left: 60,
     right: 50,
   };
-
-  /**
-   * Audio file for walking sound.
-   * @type {Audio}
-   */
   walking_Sound = new Audio("audio/walking_sound.mp3");
-
-  /**
-   * Audio file for jumping sound.
-   * @type {Audio}
-   */
   jump_Sound = new Audio("audio/jumping_sound.mp3");
-
-  /**
-   * Audio file for player hit sound.
-   * @type {Audio}
-   */
   player_Hit_Sound = new Audio("audio/character_hit_not_loud.mp3");
-
-  /**
-   * Audio file for snoring sound during long idle.
-   * @type {Audio}
-   */
   snoring_sound = new Audio("audio/snoring.mp3");
 
   /**
@@ -193,7 +97,9 @@ class Character extends MovableObject {
     this.movementCharacter();
     this.differentAnimation();
   }
-
+  /**
+   * Moves the character based on keyboard input.
+   */
   movementCharacter() {
     setInterval(() => {
       if (
@@ -217,7 +123,9 @@ class Character extends MovableObject {
       this.world.camara_x = -this.position_x + 100;
     }, 1000 / 60);
   }
-
+  /**
+   * Determines and plays the appropriate animation for the character.
+   */
   differentAnimation() {
     setInterval(() => {
       if (this.isLongIdle) {

@@ -1,26 +1,6 @@
-/**
- * The main canvas element for rendering the game.
- * @type {HTMLCanvasElement}
- */
 let canvas;
-
-/**
- * The game world instance.
- * @type {World}
- */
 let world;
-
-/**
- * The keyboard input handler.
- * @type {Keyboard}
- */
 let keyboard = new Keyboard();
-
-/**
- * Flag indicating whether the device is a mobile device.
- * @type {boolean}
- * @default false
- */
 let isMobileDevice = false;
 
 /**
@@ -39,6 +19,10 @@ function isTouchDevice() {
   return window.matchMedia("(pointer: coarse)").matches;
 }
 
+/**
+ * Determines if the current device is a touch device and updates the `isMobileDevice` flag.
+ * Also adjusts UI elements based on the device type.
+ */
 if (isTouchDevice()) {
   isMobileDevice = true;
   document.getElementById("keyboardSetting").classList.add("hidden");
@@ -46,6 +30,9 @@ if (isTouchDevice()) {
   isMobileDevice = false;
 }
 
+/**
+ * Checks the current device type and adjusts audio control visibility accordingly.
+ */
 function checkAudioTouchDevice() {
   if (!isMobileDevice) {
     document.getElementById("belowControlAudio").classList.remove("hidden");
@@ -67,6 +54,9 @@ function initLevel() {
   document.getElementById("canvasContainer").classList.remove("hidden");
 }
 
+/**
+ * Sets up the game world by creating a new instance of `World`.
+ */
 function setWorld() {
   world = new World(canvas, keyboard);
 }

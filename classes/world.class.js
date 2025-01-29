@@ -1,121 +1,22 @@
-/**
- * Represents the game world.
- * Manages all game elements such as the character, enemies, level objects, status bars, and interactions.
- */
 class World {
-  /**
-   * The main character in the game.
-   * @type {Character}
-   */
   character = new Character();
-
-  /**
-   * The end boss enemy in the game.
-   * @type {Endboss}
-   */
   endBossChicken;
-
-  /**
-   * The status bar for the character's health.
-   * @type {StatusbarHealth}
-   */
   statusBarHealth = new StatusbarHealth();
-
-  /**
-   * The status bar for the salsa bottles collected by the character.
-   * @type {StatusbarBottle}
-   */
   statusBarBottle = new StatusbarBottle();
-
-  /**
-   * The status bar for the end boss's health.
-   * @type {StatusbarEndBoss}
-   */
   statusbarEndBoss = new StatusbarEndBoss();
-
-  /**
-   * The status bar for the coins collected by the character.
-   * @type {StatusbarCoins}
-   */
   statusbarCoins = new StatusbarCoins();
-
-  /**
-   * The background sound of the game.
-   * @type {Audio}
-   */
   background_Sound = new Audio("audio/background_music_party_V2.mp3");
-
-  /**
-   * The sound effect played when the player wins.
-   * @type {Audio}
-   */
   winning_Sound = new Audio("audio/winning_sound.mp3");
-
-  /**
-   * The sound effect played when the player loses.
-   * @type {Audio}
-   */
   losing_Sound = new Audio("audio/losing_sound.mp3");
-
-  /**
-   * An array of throwable objects (e.g., salsa bottles).
-   * @type {ThrowableObject[]}
-   */
   throwableObject = [];
-
-  /**
-   * An array of splash animations triggered by throwable objects.
-   * @type {ThrowableObject[]}
-   */
   splashAnimations = [];
-
-  /**
-   * The current level of the game.
-   * @type {Level}
-   */
   level = level1;
-
-  /**
-   * The current enemy being interacted with.
-   * @type {MovableObject|undefined}
-   */
   currentEnemy;
-
-  /**
-   * The canvas element used for rendering the game.
-   * @type {HTMLCanvasElement}
-   */
   canvas;
-
-  /**
-   * The rendering context for the canvas.
-   * @type {CanvasRenderingContext2D}
-   */
   ctx;
-
-  /**
-   * The keyboard input handler.
-   * @type {Keyboard}
-   */
   keyboard;
-
-  /**
-   * The x-coordinate for the camera offset.
-   * @type {number}
-   * @default 0
-   */
   camara_x = 0;
-
-  /**
-   * The ID of the animation frame for rendering.
-   * @type {number|null}
-   */
   animationId = null;
-
-  /**
-   * The ID of the interval for game logic updates.
-   * @type {number|null}
-   */
   intervalId = null;
   i = 20;
 
@@ -174,7 +75,7 @@ class World {
     this.intervalId = setInterval(() => {
       this.checkCollision();
       this.checkThrowableObject();
-      this.i++
+      this.i++;
     }, 100);
   }
 
@@ -210,7 +111,7 @@ class World {
           this.checkCollisionWithEndBoss(enemy);
           this.checkGameOver();
         } else if (
-          enemy.isColliding(this.character) && 
+          enemy.isColliding(this.character) &&
           this.character.isAboveGround()
         ) {
           enemy.hit(20);
@@ -313,18 +214,11 @@ class World {
    */
   checkThrowableObject() {
     if (this.keyboard.G && this.statusBarBottle.percentage > 0 && this.i > 20) {
-      /**
-       * Creates a new throwable object (salsa bottle) at the character's position.
-       * The horizontal position is offset by 100 pixels, and the vertical position is offset by 100 pixels.
-       * @type {ThrowableObject}
-       */
       let bottle = new ThrowableObject(
         this.character.position_x + 100,
         this.character.position_y + 100
       );
-      // Adds the created throwable object to the game's throwable object array.
       this.throwableObject.push(bottle);
-      // Reduces the bottle percentage in the status bar by 20% after throwing.
       this.statusBarBottle.setPercentage(-20);
       this.i = 0;
     }
@@ -409,7 +303,9 @@ class World {
       self.draw();
     });
   }
-
+  /**
+   * Draws non-fixed UI elements in the game world.
+   */
   nonFixUI() {
     this.ctx.translate(this.camara_x, 0);
     this.addObjectsToMap(this.level.background);
@@ -421,7 +317,9 @@ class World {
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.clouds);
   }
-
+  /**
+   * Draws fixed UI elements in the game world.
+   */
   fixUI() {
     this.ctx.translate(-this.camara_x, 0);
     this.addToMap(this.statusBarHealth);

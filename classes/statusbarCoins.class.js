@@ -1,19 +1,5 @@
-/**
- * Represents the status bar for coins in the game.
- * Extends the `DrawableObject` class to include percentage-based updates and dynamic image rendering.
- */
 class StatusbarCoins extends DrawableObject {
-  /**
-   * The percentage value representing the coin collection progress in the status bar.
-   * @type {number}
-   * @default 0
-   */
   percentage = 0;
-
-  /**
-   * Array of file paths for the status bar images based on percentage levels.
-   * @type {string[]}
-   */
   imagesCoins = [
     "adds/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png",
     "adds/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/20.png",
@@ -31,33 +17,9 @@ class StatusbarCoins extends DrawableObject {
     super();
     this.loadImages(this.imagesCoins);
     this.setPercentage(0);
-
-    /**
-     * The vertical position of the status bar on the canvas.
-     * @type {number}
-     * @default 65
-     */
     this.position_y = 65;
-
-    /**
-     * The horizontal position of the status bar on the canvas.
-     * @type {number}
-     * @default 450
-     */
     this.position_x = 450;
-
-    /**
-     * The height of the status bar in pixels.
-     * @type {number}
-     * @default 75
-     */
     this.height = 75;
-
-    /**
-     * The width of the status bar in pixels.
-     * @type {number}
-     * @default 250
-     */
     this.width = 250;
   }
 

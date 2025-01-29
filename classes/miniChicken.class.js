@@ -1,80 +1,17 @@
-/**
- * Represents a smaller variant of the chicken enemy in the game.
- * Extends the `MovableObject` class to include animations, sounds, and interactions.
- */
 class MiniChicken extends MovableObject {
-  /**
-   * The vertical position of the mini chicken on the canvas.
-   * @type {number}
-   * @default 370
-   */
   position_y = 370;
-
-  /**
-   * The height of the mini chicken in pixels.
-   * @type {number}
-   * @default 60
-   */
   height = 60;
-
-  /**
-   * The width of the mini chicken in pixels.
-   * @type {number}
-   * @default 60
-   */
   width = 60;
-
-  /**
-   * Flag indicating whether the mini chicken is currently hit.
-   * @type {boolean}
-   * @default false
-   */
   currentHit = false;
-
-  /**
-   * Flag indicating whether the hit sound has already been played.
-   * @type {boolean}
-   * @default false
-   */
   hitSoundPlayed = false;
-
-  /**
-   * The name of the mini chicken.
-   * @type {string}
-   * @default "MiniChicken"
-   */
   name = "MiniChicken";
-
-  /**
-   * Array of file paths for walking animation images.
-   * @type {string[]}
-   */
   images_Walking = [
     "adds/img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
     "adds/img/3_enemies_chicken/chicken_small/1_walk/2_w.png",
     "adds/img/3_enemies_chicken/chicken_small/1_walk/3_w.png",
   ];
-
-  /**
-   * Array of file paths for dead animation images.
-   * @type {string[]}
-   */
   images_Dead = ["adds/img/3_enemies_chicken/chicken_small/2_dead/dead.png"];
-
-  /**
-   * Audio file for the hit sound effect.
-   * @type {Audio}
-   */
   hit_Sound = new Audio("audio/chicken_hit.mp3");
-
-  /**
-   * Offset values for collision boundaries of the mini chicken.
-   * @type {Object}
-   * @property {number} top - Offset from the top boundary.
-   * @property {number} bottom - Offset from the bottom boundary.
-   * @property {number} left - Offset from the left boundary.
-   * @property {number} right - Offset from the right boundary.
-   */
   offset = {
     top: 0,
     bottom: 0,
@@ -90,17 +27,7 @@ class MiniChicken extends MovableObject {
     super().loadImage(this.images_Walking[0]);
     this.loadImages(this.images_Walking);
     this.loadImages(this.images_Dead);
-
-    /**
-     * The horizontal position of the mini chicken, randomized within a range.
-     * @type {number}
-     */
     this.position_x = 300 + Math.random() * 900;
-
-    /**
-     * The movement speed of the mini chicken, randomized within a range.
-     * @type {number}
-     */
     this.speed = 0.3 + Math.random() * 0.25;
 
     this.animate();
@@ -115,7 +42,9 @@ class MiniChicken extends MovableObject {
     this.diffrentAnimationMini();
     this.hitAnimationMini();
   }
-
+  /**
+   * Moves the mini chicken to the left unless it has been hit.
+   */
   movementLeftMini() {
     this.movementInterval = setInterval(() => {
       if (!this.currentHit) {
@@ -124,6 +53,11 @@ class MiniChicken extends MovableObject {
     }, 1000 / 60);
   }
 
+  /**
+   * Updates the mini chicken's animation based on its current state.
+   * If hit, it switches to the dead image and stops movement.
+   * Otherwise, it plays the walking animation.
+   */
   diffrentAnimationMini() {
     this.animationInterval = setInterval(() => {
       if (this.currentHit) {
@@ -139,7 +73,9 @@ class MiniChicken extends MovableObject {
       }
     }, 1000 / 12);
   }
-
+  /**
+   * Checks if the mini chicken has been hit and updates its state accordingly.
+   */
   hitAnimationMini() {
     this.checkHitInterval = setInterval(() => {
       if (this.isHurt() && !this.currentHit) {

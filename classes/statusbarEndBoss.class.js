@@ -1,19 +1,5 @@
-/**
- * Represents the status bar for the end boss in the game.
- * Extends the `DrawableObject` class to display the health of the end boss dynamically.
- */
 class StatusbarEndBoss extends DrawableObject {
-  /**
-   * The percentage value representing the health of the end boss.
-   * @type {number}
-   * @default 100
-   */
   percentage = 100;
-
-  /**
-   * Array of file paths for the end boss status bar images based on health levels.
-   * @type {string[]}
-   */
   imagesEndBoss = [
     "adds/img/7_statusbars/2_statusbar_endboss/orange/orange100.png",
     "adds/img/7_statusbars/2_statusbar_endboss/orange/orange80.png",
@@ -31,33 +17,9 @@ class StatusbarEndBoss extends DrawableObject {
     super();
     this.loadImages(this.imagesEndBoss);
     this.setPercentage(100);
-
-    /**
-     * The vertical position of the status bar on the canvas.
-     * @type {number}
-     * @default 10
-     */
     this.position_y = 10;
-
-    /**
-     * The horizontal position of the status bar on the canvas.
-     * @type {number}
-     * @default 450
-     */
     this.position_x = 450;
-
-    /**
-     * The height of the status bar in pixels.
-     * @type {number}
-     * @default 75
-     */
     this.height = 75;
-
-    /**
-     * The width of the status bar in pixels.
-     * @type {number}
-     * @default 250
-     */
     this.width = 250;
   }
 

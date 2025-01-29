@@ -1,48 +1,9 @@
-/**
- * Represents the keyboard input handler for the game.
- * Tracks the state of keyboard keys and touch buttons to enable player controls.
- */
 class Keyboard {
-  /**
-   * Flag indicating whether the left movement key or button is pressed.
-   * @type {boolean}
-   * @default false
-   */
   LEFT = false;
-
-  /**
-   * Flag indicating whether the right movement key or button is pressed.
-   * @type {boolean}
-   * @default false
-   */
   RIGHT = false;
-
-  /**
-   * Flag indicating whether the up movement key or button is pressed.
-   * @type {boolean}
-   * @default false
-   */
   UP = false;
-
-  /**
-   * Flag indicating whether the down movement key or button is pressed.
-   * @type {boolean}
-   * @default false
-   */
   DOWN = false;
-
-  /**
-   * Flag indicating whether the spacebar (jump) key or button is pressed.
-   * @type {boolean}
-   * @default false
-   */
   SPACE = false;
-
-  /**
-   * Flag indicating whether the throw (G) key or button is pressed.
-   * @type {boolean}
-   * @default false
-   */
   G = false;
 
   /**
@@ -75,12 +36,10 @@ class Keyboard {
         e.preventDefault();
         this.RIGHT = true;
       });
-    document
-      .getElementById("buttonRight")
-      .addEventListener("touchend", (e) => {
-        e.preventDefault();
-        this.RIGHT = false;
-      });
+    document.getElementById("buttonRight").addEventListener("touchend", (e) => {
+      e.preventDefault();
+      this.RIGHT = false;
+    });
 
     document.getElementById("buttonUp").addEventListener("touchstart", (e) => {
       e.preventDefault();
@@ -97,12 +56,10 @@ class Keyboard {
         e.preventDefault();
         this.G = true;
       });
-    document
-      .getElementById("buttonThrow")
-      .addEventListener("touchend", (e) => {
-        e.preventDefault();
-        this.G = false;
-      });
+    document.getElementById("buttonThrow").addEventListener("touchend", (e) => {
+      e.preventDefault();
+      this.G = false;
+    });
   }
 }
 

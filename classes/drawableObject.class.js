@@ -1,53 +1,10 @@
-/**
- * Represents a drawable object in the game.
- * Provides functionality for loading images, drawing them on a canvas, and managing animations.
- */
 class DrawableObject {
-  /**
-   * The main image of the object.
-   * @type {HTMLImageElement}
-   */
   img;
-
-  /**
-   * Cache for storing multiple images for animations or other purposes.
-   * @type {Object<string, HTMLImageElement>}
-   */
   imageCache = [];
-
-  /**
-   * Index of the currently active image in the animation.
-   * @type {number}
-   * @default 0
-   */
   currentImage = 0;
-
-  /**
-   * The horizontal position of the object on the canvas.
-   * @type {number}
-   * @default 20
-   */
   position_x = 20;
-
-  /**
-   * The vertical position of the object on the canvas.
-   * @type {number}
-   * @default 20
-   */
   position_y = 20;
-
-  /**
-   * The height of the object in pixels.
-   * @type {number}
-   * @default 280
-   */
   height = 280;
-
-  /**
-   * The width of the object in pixels.
-   * @type {number}
-   * @default 150
-   */
   width = 150;
 
   /**
@@ -79,7 +36,6 @@ class DrawableObject {
    * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
    */
   drawFrame(ctx) {
-    // Blue frame for specific object types
     if (
       this instanceof ThrowableObject ||
       this instanceof Chicken ||
@@ -93,8 +49,6 @@ class DrawableObject {
       ctx.rect(this.position_x, this.position_y, this.width, this.height);
       ctx.stroke();
     }
-
-    // Red frame for collision boundaries
     if (
       this instanceof Chicken ||
       this instanceof Character ||

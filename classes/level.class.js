@@ -1,43 +1,9 @@
-/**
- * Represents a level in the game.
- * Contains information about the background, enemies, collectibles, and other elements within the level.
- */
 class Level {
-  /**
-   * The background elements of the level.
-   * @type {BackgroundObject[]}
-   */
   background;
-
-  /**
-   * The enemies present in the level.
-   * @type {MovableObject[]}
-   */
   enemies;
-
-  /**
-   * The salsa obstacles present in the level.
-   * @type {MovableObject[]}
-   */
   salsa;
-
-  /**
-   * The coin collectibles present in the level.
-   * @type {Coins[]}
-   */
   coins;
-
-  /**
-   * The cloud elements present in the level.
-   * @type {Cloud[]}
-   */
   clouds;
-
-  /**
-   * The x-coordinate where the level ends.
-   * @type {number}
-   * @default 2200
-   */
   level_end_x = 2200;
 
   /**

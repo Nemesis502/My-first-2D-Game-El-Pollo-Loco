@@ -1,16 +1,11 @@
-/**
- * Represents the first level of the game.
- * Initializes all elements in the level, such as the background, enemies, objects, and clouds.
- */
 let level1;
-
 /**
  * Initializes the first level of the game (`level1`).
  * Sets up the background layers, enemies, salsa bottles, coins, and clouds for the level.
  */
 function initLevel1() {
   level1 = new Level(
-    // Background objects
+
     [
       new BackgroundObject("adds/img/5_background/layers/air.png", -719),
       new BackgroundObject(
@@ -82,8 +77,6 @@ function initLevel1() {
         719 * 3
       ),
     ],
-
-    // Enemies
     [
       new Chicken(),
       new Chicken(),
@@ -95,8 +88,6 @@ function initLevel1() {
       new MiniChicken(),
       new Endboss(),
     ],
-
-    // Salsa bottles
     [
       new Salsa(),
       new Salsa(),
@@ -109,8 +100,6 @@ function initLevel1() {
       new Salsa(),
       new Salsa(),
     ],
-
-    // Coins
     [
       new Coins(),
       new Coins(),
@@ -121,8 +110,6 @@ function initLevel1() {
       new Coins(),
       new Coins(),
     ],
-
-    // Clouds
     [
       new Cloud(),
       new Cloud(),

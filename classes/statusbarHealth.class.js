@@ -1,19 +1,5 @@
-/**
- * Represents the status bar for health in the game.
- * Extends the `DrawableObject` class to display the player's health dynamically.
- */
 class StatusbarHealth extends DrawableObject {
-  /**
-   * The percentage value representing the player's health.
-   * @type {number}
-   * @default 100
-   */
   percentage = 100;
-
-  /**
-   * Array of file paths for the health status bar images based on health levels.
-   * @type {string[]}
-   */
   imagesHealth = [
     "adds/img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png",
     "adds/img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png",
@@ -31,33 +17,9 @@ class StatusbarHealth extends DrawableObject {
     super();
     this.loadImages(this.imagesHealth);
     this.setPercentage(100);
-
-    /**
-     * The vertical position of the status bar on the canvas.
-     * @type {number}
-     * @default 0
-     */
     this.position_y = 0;
-
-    /**
-     * The horizontal position of the status bar on the canvas.
-     * @type {number}
-     * @default 40
-     */
     this.position_x = 40;
-
-    /**
-     * The height of the status bar in pixels.
-     * @type {number}
-     * @default 75
-     */
     this.height = 75;
-
-    /**
-     * The width of the status bar in pixels.
-     * @type {number}
-     * @default 250
-     */
     this.width = 250;
   }
 
