@@ -109,18 +109,30 @@ class World {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         if (!enemy.currentHit && !this.character.isAboveGround()) {
-          this.character.hit(3);
-          this.statusBarHealth.setPercentage(this.character.energy);
-          this.checkCollisionWithEndBoss(enemy);
-          this.checkGameOver();
+          this.setCharacterDamge(enemy);
         } else if (
           enemy.isColliding(this.character) &&
-          this.character.isAboveGround()
+          this.character.isAboveGround() &&
+          this.character.speedY < 0
         ) {
           enemy.hit(20);
         }
       }
     });
+  }
+  
+  /**
+   * Applies damage to the character when colliding with an enemy.
+   * Reduces the character's health, updates the health bar,
+   * checks for collision with the end boss, and verifies if the game is over.
+   *
+   * @param {Object} enemy - The enemy object that caused the damage.
+   */
+  setCharacterDamge(enemy) {
+    this.character.hit(3);
+    this.statusBarHealth.setPercentage(this.character.energy);
+    this.checkCollisionWithEndBoss(enemy);
+    this.checkGameOver();
   }
 
   /**
