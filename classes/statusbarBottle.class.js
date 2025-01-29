@@ -8,7 +8,7 @@ class StatusbarBottle extends DrawableObject {
    * @type {number}
    * @default 0
    */
-  percentage = 100;
+  percentage = 0;
 
   /**
    * Array of file paths for the status bar images based on percentage levels.
