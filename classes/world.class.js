@@ -228,8 +228,6 @@ class World {
    * The status bar for bottles is updated accordingly.
    */
   checkThrowableObject() {
-    console.log(this.character.otherDirection);
-    
     if (this.keyboard.G && !this.character.otherDirection && this.statusBarBottle.percentage > 0 && this.i > 20) {
       let bottle = new ThrowableObject(
         this.character.position_x + 100,
